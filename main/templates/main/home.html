@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<h1> This is the home page for now </h1>
+
+{% load static %}
+<img src="{% static 'main/into_the_storm.png' %}">
+
+{% for file in context %}
+    {% with 'images/'|file as image_static %}
+        <img src="{% static image_static %}" alt="">
+    {% endwith %}
+{% endfor %}
+
+{% endblock %}
