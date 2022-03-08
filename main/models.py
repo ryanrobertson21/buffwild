@@ -1,6 +1,7 @@
 from django.db import models
 
 class Images(models.Model):
+    title = models.CharField(null=True, blank=True, max_length=200)
 
     img_photo = models.ImageField(upload_to='unlocked_buffs/',null=True, blank=True)
 
