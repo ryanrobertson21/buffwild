@@ -13,6 +13,10 @@
         -moz-user-select: none;
         user-select: none;
       }
+      .centerTest {
+        width:100%;
+        text-align:center;
+      }
 
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
@@ -29,12 +33,12 @@
 <div class="col-lg-8 mx-auto p-3 py-md-5">
   <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
     <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+
     <h1>About</h1>
     </a>
   </header>
 
   <main>
-
     <span class="fs-4">Welcome to the Buff Wild Collective</span>
     <br>
     <br>
@@ -74,7 +78,8 @@
 
   <section class="py-5 text-center container">
     <img class="img-fluid" src="{% static 'main/into_the_storm.png' %}" height=200, width=500>
-</section>
+  </section>
+  </main>
 </div>
 
 {% endblock %}
