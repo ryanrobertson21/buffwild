@@ -1,16 +1,71 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+  <head>
+    <link rel="canonical" href="#">
 
-<h1> This is the home page for now </h1>
+    <!-- Bootstrap core CSS -->
+<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
-{% load static %}
-<img src="{% static 'main/into_the_storm.png' %}">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
 
-{% for file in context %}
-    {% with 'images/'|file as image_static %}
-        <img src="{% static image_static %}" alt="">
-    {% endwith %}
-{% endfor %}
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .img-responsive {
+          width: auto;
+          height: 350px;
+      }
+    </style>
+
+
+  </head>
+  <body>
+
+<main>
+
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Buff Wild Collective</h1>
+        <p class="lead text-muted">Gaze upon our rare priceless nfts and become beholden to them</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+        {% if images|length > 0 %}
+        {% for image in images %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <img class="img-responsive" src={{image.img_photo.url}}>
+          </div>
+        </div>
+      {% endfor %}
+      {% else %}
+      <h2>No buffs unlocked yet</h2>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+
+</main>
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  </body>
 
 {% endblock %}
