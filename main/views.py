@@ -14,3 +14,13 @@ def about(request):
 
 def instructions(request):
     return render(request, 'main/instructions.html')
+
+def walletLookup(request):
+    images=None
+    if request.GET.get('search'):
+        search = request.GET.get('search')
+        images = Image.objects.filter(ownerWallet=search)
+
+    return render(request, 'main/walletLookup.html',{
+        'images': images,
+    })

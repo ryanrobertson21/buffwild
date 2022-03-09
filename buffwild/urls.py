@@ -24,6 +24,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path('instructions/', views.instructions, name='instructions'),
+    path('walletlookup/', views.walletLookup, name='walletLookup'),
 ]
 
 if settings.DEBUG:

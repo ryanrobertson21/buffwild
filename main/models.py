@@ -4,17 +4,20 @@ from django.utils import timezone
 from uuid import uuid4
 from django.urls import reverse
 
+class Queries(models.Model):
+    ownerWallet=models.CharField(max_length=200)
+
 class Image(models.Model):
-    title = models.CharField(null=True, blank=True, max_length=200)
-    ownerWallet = models.CharField(default='Locked', max_length=200)
+    title=models.CharField(null=True, blank=True, max_length=200)
+    ownerWallet=models.CharField(default='Locked', max_length=200)
 
     #Utility Variables
-    uniqueId = models.CharField(null=True, blank=True, max_length=100)
-    slug = models.SlugField(max_length=500, unique=True, blank=True, null=True)
-    date_created = models.DateTimeField(blank=True, null=True)
-    last_updated = models.DateTimeField(blank=True, null=True)
+    uniqueId=models.CharField(null=True, blank=True, max_length=100)
+    slug=models.SlugField(max_length=500, unique=True, blank=True, null=True)
+    date_created=models.DateTimeField(blank=True, null=True)
+    last_updated=models.DateTimeField(blank=True, null=True)
 
-    img_photo = models.ImageField(upload_to='unlocked_buffs/', null=True, blank=True)
+    img_photo=models.ImageField(upload_to='unlocked_buffs/', null=True, blank=True)
 
     def __str__(self):
         return '{}'.format(self.uniqueId)
