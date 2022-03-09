@@ -21,6 +21,10 @@
           font-size: 3.5rem;
         }
       }
+      .img-responsive {
+          width: auto;
+          height: 350px;
+      }
     </style>
 
 
@@ -34,10 +38,6 @@
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Buff Wild Collective</h1>
         <p class="lead text-muted">Gaze upon our rare priceless nfts and become beholden to them</p>
-        <p>
-          <a href="#" class="btn btn-primary my-2">Main call to action</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
-        </p>
       </div>
     </div>
   </section>
@@ -50,26 +50,13 @@
         {% for image in images %}
         <div class="col">
           <div class="card shadow-sm">
-            <img src={{image.get_image}}>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-muted">9 mins</small>
-              </div>
-            </div>
+            <img class="img-responsive" src={{image.img_photo.url}}>
           </div>
         </div>
       {% endfor %}
       {% else %}
       <h2>No buffs unlocked yet</h2>
       {% endif %}
-
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -80,6 +67,5 @@
 
 
   </body>
-</html>
 
 {% endblock %}

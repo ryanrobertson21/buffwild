@@ -4,7 +4,7 @@ from . models import *
 
 
 def home(request):
-    images = Images.objects.all()
+    images = Image.objects.all()
     context = {}
     context['images'] = images
     return render(request, 'main/home.html', context)

@@ -4,48 +4,75 @@
 
 {% load static %}
 
-<section class="py-5 text-center container">
-  <div class="row py-lg-5">
-    <div class="col-lg-6 col-md-8 mx-auto">
-      <h1 class="fw-light">Welcome to the Buff Wild Collective</h1>
-      <br>
-      <img src="{% static 'main/into_the_storm.png' %}">
-    </div>
-  </div>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
+  <body>
+
+<div class="col-lg-8 mx-auto p-3 py-md-5">
+  <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+    <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+      <span class="fs-4">Welcome to the Buff Wild Collective</span>
+    </a>
+  </header>
+
+  <main>
+    <h1>About</h1>
+    <br>
+    <p>We are extremely excited that you are here with us to get your Buff on! The Buff Wild Collective was created
+       to provide a space for driven individuals that want to better their lives by joining a mastermind community
+       that believes in our core values for freedom of thought, integrity, determination, creativity, persistence,
+       and grit. Once a Buff always a Buff. Life is difficult and you are going to always have several ups and downs.
+       However, if you are ever feeling down you just have to Remember the Buffalo and Run Towards the Storm.
+       There was a time in my life where I was beaten, downtrodden, and felt like I was out. Luckily, I had an amazing
+       professor at university to help me through it. He told me: "Thomas, you are down but never out. All you have to do
+       is Remember the Buffalo, and you will come back from this."</p>
+    <br>
+    <p><b>Remember the Buffalo.</b></p>
+    <br>
+    <p>In the North American plains, the Buffalo once roamed the land free, and their herds were over 30 million strong.
+       Due to the American settlers migrating west, the Buffalo were hunted, shot down, killed for fun, and run down to
+       near extinction.  It is estimated that in 1884 the American Buffalo, Bison, numbers living in the wild were down
+       to a staggering 325. Most experts at the time believed the Bison would become extinct in the wild. However, due to
+       the governmental intervention and conservation efforts the bison began to recover their numbers. Today the Buffalo’s
+       numbers exceed 500,000 living in the wild roaming the plains and their numbers continue to grow.</p>
+    <br>
+      <p><b>Remember the Buffalo.</b></p>
+    <br>
+    <p>A buffalo may sometimes be down but is never out, and all buffalo that believe they will come back, will come back.
+       Remember the Buffalo. This story has stuck with me for over a decade, and I remind myself of it frequently. It gave
+       me the strength to succeed in life. It took me from the pits of despair and contemplating the reasons for living to
+       thriving and loving life.</p>
+    <br>
+    <p><b>Remember the Buffalo.</b></p>
+    <br>
+       The Buff Wild Collective embodies these ideals. Every BWC member, no matter how hurt, no matter how down, no matter
+       how shattered, broken, or lost, will always have the support of our community. You can always come back from your
+       lows you are never out of the game. All you must do to come back from this is simple.</p>
+    <br>
+    <p><b>Remember the Buffalo.</b></p>
+
+
+  <section class="py-5 text-center container">
+    <img class="img-fluid" src="{% static 'main/into_the_storm.png' %}" height=200, width=500>
 </section>
-
-<br>
-<p>We are extremely excited that you are here with us to get your Buff on! The Buff Wild Collective was created
-   to provide a space for driven individuals that want to better their lives by joining a mastermind community
-   that believes in our core values for freedom of thought, integrity, determination, creativity, persistence,
-   and grit. Once a Buff always a Buff. Life is difficult and you are going to always have several ups and downs.
-   However, if you are ever feeling down you just have to Remember the Buffalo and Run Towards the Storm.
-   There was a time in my life where I was beaten, downtrodden, and felt like I was out. Luckily, I had an amazing
-   professor at university to help me through it. He told me: "Thomas, you are down but never out. All you have to do
-   is Remember the Buffalo, and you will come back from this."
-<br>
-<br>
-   Remember the Buffalo.
-<br>
-<br>
-   In the North American plains, the Buffalo once roamed the land free, and their herds were over 30 million strong.
-   Due to the American settlers migrating west, the Buffalo were hunted, shot down, killed for fun, and run down to
-   near extinction.  It is estimated that in 1884 the American Buffalo, Bison, numbers living in the wild were down
-   to a staggering 325. Most experts at the time believed the Bison would become extinct in the wild. However, due to
-   the governmental intervention and conservation efforts the bison began to recover their numbers. Today the Buffalo’s
-   numbers exceed 500,000 living in the wild roaming the plains and their numbers continue to grow.
-<br>
-<br>
-   Remember the Buffalo.
-<br>
-<br>
-   A buffalo may sometimes be down but is never out, and all buffalo that believe they will come back, will come back.
-   Remember the Buffalo. This story has stuck with me for over a decade, and I remind myself of it frequently. It gave
-   me the strength to succeed in life. It took me from the pits of despair and contemplating the reasons for living to
-   thriving and loving life. Remember the Buffalo.
-
-   The Buff Wild Collective embodies these ideals. Every BWC member, no matter how hurt, no matter how down, no matter
-   how shattered, broken, or lost, will always have the support of our community. You can always come back from your
-   lows you are never out of the game. All you must do to come back from this is simple. Remember the Buffalo.</p>
+</div>
 
 {% endblock %}
