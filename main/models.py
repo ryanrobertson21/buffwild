@@ -4,8 +4,6 @@ from django.utils import timezone
 from uuid import uuid4
 from django.urls import reverse
 
-class Queries(models.Model):
-    ownerWallet=models.CharField(max_length=200)
 
 class Image(models.Model):
     title=models.CharField(null=True, blank=True, max_length=200)
