@@ -11,6 +11,10 @@ class Image(models.Model):
     #price=
     #buyCode=
     #sellCode=
+    #cancelCode
+    #For sale? or should include this in price? initially it has a price, then after first sale that price is set to
+    #not for sale. then if they want to sell and it and perform the necessary transaction then update the price.
+    # all codes should be the same except buy code prefaced with a B, sell code with an S, and cancel with an X
 
     #Utility Variables
     uniqueId=models.CharField(null=True, blank=True, max_length=100)
