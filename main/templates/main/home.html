@@ -1,6 +1,8 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+
+{% load static %}
   <head>
     <link rel="canonical" href="#">
 
@@ -47,18 +49,17 @@
     <div class="container">
 
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
-        {% if images|length > 0 %}
         {% for image in images %}
         <div class="col">
           <div class="card shadow-sm">
+        {% if image.ownerWallet != "Locked" %}
             <img class="img-responsive" src={{image.img_photo.url}}>
-            {{image.id}}
+        {% else %}
+            <img class="img-responsive" src="{% static 'main/locked_image.jpg' %}">
+        {% endif %}
           </div>
         </div>
       {% endfor %}
-      {% else %}
-      <h2>No buffs unlocked yet</h2>
-      {% endif %}
       </div>
     </div>
   </div>
