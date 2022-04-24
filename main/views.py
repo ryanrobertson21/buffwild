@@ -9,6 +9,9 @@ def home(request):
     context['images'] = images
     return render(request, 'main/home.html', context)
 
+def cover(request):
+    return render(request, 'main/cover.html')
+
 def about(request):
     return render(request, 'main/about.html')
 
