@@ -17,52 +17,17 @@
 
     <link rel="icon" type="image/png" href="{% static "main/placeholder_Logo.png" %}">
 
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!-- Social Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+
   </head>
     <body>
-      <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container-fluid">
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'about' %}">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'instructions' %}">Instructions</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'walletLookup' %}">Wallet Lookup</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://twitter.com/buffwild_radix" target="_blank">Twitter</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://t.me/BuffWildCollective" target="_blank">Telegram</a>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-  </nav>
-
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
   {% block content %}{% endblock %}
-
-  <footer class="text-muted py-5">
-    <div class="container">
-      <p class="float-end mb-1">
-        <a href="#">Back to top</a>
-      </p>
-      <p class="mb-1">Thank you for viewing our NFTs. If you would like to buy please visit our <a href="{% url 'instructions' %}">Instructions</a> page.</p>
-      <p class="mb-0">Questions? Please reach out to us on <a href="https://t.me/BuffWildCollective">Telegram</a> or <a href="https://twitter.com/buffwild_radix">Twitter</a>.</p>
-    </div>
-  </footer>
 
 
     <!-- Optional JavaScript; choose one of the two! -->

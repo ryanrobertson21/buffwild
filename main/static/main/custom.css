@@ -6,15 +6,26 @@
     color: rgba(0,0,0,.5) !important;
 }
 
-
-body {
-    font-family: 'Fredoka', sans-serif;
-
-    background-color: #00FFFF !important;
-}
-
 #blogtitle {
     font-size: 6rem;
+}
+
+.pt-3 {
+  padding-top: ($spacer * 1) !important;
+}
+
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+
+body {
+  background-color: #000000 !important;
+  font-family: 'Soria';
+}
+
+.social-icons {
+    color: #000000;
+    background-color: #FFFFFF;
 }
 
 @media (min-width: 992px) {
