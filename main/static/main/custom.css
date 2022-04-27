@@ -10,14 +10,6 @@
     font-size: 6rem;
 }
 
-.pt-3 {
-  padding-top: ($spacer * 1) !important;
-}
-
-.pb-0 {
-  padding-bottom: 0 !important;
-}
-
 body {
   background-color: #000000 !important;
   font-family: 'Soria';
@@ -25,7 +17,41 @@ body {
 
 .social-icons {
     color: #000000;
-    background-color: #FFFFFF;
+}
+
+.telegram-icon {
+  color: #FFFFFF;
+  background-color: #000000;
+}
+
+.social-div {
+  margin-top: 20px !important;
+  margin-left:auto !important;
+  margin-right: 200px !important;
+  margin-bottom: 5px !important;
+}
+
+.fa-stack:hover .fa-circle{
+   color: #E1DA22 !important;
+}
+
+.cover-container1 .cover-container {
+  margin-bottom: 0;
+}
+
+#img_container {
+    position:relative;
+    display:inline-block;
+    text-align:center;
+}
+
+.button {
+    position:absolute;
+    bottom:30px;
+    right:100px;
+    width:100px;
+    height:50px;
+
 }
 
 @media (min-width: 992px) {

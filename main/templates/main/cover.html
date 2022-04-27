@@ -4,48 +4,100 @@
 
 {% load static %}
 
+<head>
+  <!-- Font Awesome -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  rel="stylesheet"/>
+
+<!-- MDB -->
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css"
+  rel="stylesheet"/>
+</head>
+
 <style>
-  img {
-    border: 6px solid #E1DA22
-  }
+  /* Container needed to position the button. Adjust the width as needed */
+.container {
+  position: relative;
+  width: 75%;
+}
+
+/* Make the image responsive */
+.container img {
+  width: 100%;
+  height: auto;
+  top: 5%;
+}
+
+/* Style the button and place it in the middle of the container/image */
+.container .btn {
+  position: absolute;
+  top: 92%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-size: 4.5em;
+
+  outline: none !important;
+  box-shadow: none;
+
+  cursor: pointer;
+  border:6px solid #E1DA22;
+  color:White;
+  font-family:Soria;
+  text-align: center;
+  width: 16%;
+  height: 10%;
+  text-align: center;
+  padding-bottom: 0;
+  padding-top: 0; !important;
+  vertical-align: middle !important;
+}
+.btn-centertext {
+
+
+}
+
 </style>
 
   <body class="text-center">
-    <div class="cover-container d-flex h-100 p-3 mt-2 mb-0 mx-auto flex-column">
-        <div class="pt-1">
-        <div class="pb-1">
-              <a href="#" class="social-icons" title="Discord"><i class="fa fa-discord"></i></a>
-              <a href="#" class="social-icons" title="Telegram"><i class="fa fa-linkedin"></i></a>
-              <a href="#" class="social-icons" title="Instagram"><i class="fa fa-google-plus"></i></a>
-              <a href="#" class="social-icons" title="Twitter"><i class="fa fa-twitter social-icon pr-lg-0"></i></a>
-            </div>
-        </div>
+    <div class="cover-container d-inline-flex h-100 p-3 mt-2 mb-0 mx-auto flex-column">
+      <div class="social-div">
+          <span class="fa-stack fa-1x">
+            <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
+            <a href="#" title="Discord"><i class="fab fa-discord fa-stack-1x fa-1x social-icons"></i></a>
+          </span>
+          <span class="fa-stack fa-1x">
+            <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
+            <a href="#" title="Telegram"><i class="fa-circle fab fa-telegram fa-stack-1x fa-2x telegram-icon"></i></a>
+          </span>
+          <span class="fa-stack fa-1x">
+            <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
+            <a href="#" title="Instagram"><i class="fab fa-instagram fa-stack-1x fa-lg social-icons"></i></a>
+          </span>
+          <span class="fa-stack fa-1x">
+            <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
+            <a href="#" title="Twitter"><i class="fab fa-twitter fa-stack-1x fa-lg social-icons"></i></a>
+          </span>
       </div>
+
       <main role="main" class="inner cover">
-        <img src="{% static 'main/Buff Barn.png' %}" height=670, width=1100>
-        <p class="lead">
-          <p>
-          <p>
-
-          <a href="#" class="btn-flip" data-back="Back" data-front="Front"></a>
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-        </p>
+        <div class="img_container">
+          <div class="container">
+            <img src="{% static 'main/Buff Barn.png' %}" style="border: 6px solid #E1DA22" height=670, width=1100>
+          <div class="container-btn d-flex w-100">
+            <a href="{% url 'home' %}"><button type="button" class="btn waves-effect button btn-centertext"><i aria-hidden="true" style="vertical-align: text-top;"></i>ENTER</button>
+          </div>
+          </div>
+        </div>
       </main>
 
-    </div>
-
+  <!-- MDB -->
+  <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"
+  ></script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
