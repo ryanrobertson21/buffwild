@@ -1,37 +1,78 @@
 {% extends 'main/base.html' %}
-
+{% block links %} {% endblock links %}
 {% block content %}
 
 {% load static %}
 
-  <body class="text-center">
-
-    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-      <header class="masthead mb-auto">
-        <div class="inner">
-        </div>
-      </header>
-
-      <main role="main" class="inner cover">
-        <img src="{% static 'main/Asset 2.svg' %}" height=816, width=1232>
-        <p class="lead">
-          <a href="{% url 'home' %}" class="btn btn-lg btn-primary">Enter</a>
+<head>
 
 
-        </p>
-      </main>
+<style>
+  /* Container needed to position the button. Adjust the width as needed */
+.container {
+  position: relative;
+  width: 75%;
+}
 
-    </div>
+.containerc {
+  padding-top: 10px !important;
+}
+
+div {
+  text-align: center;
+}
+
+/* Make the image responsive */
+.container img {
+  width: 100%;
+  height: auto;
+  top: 3%;
+
+}
+
+/* Style the button and place it in the middle of the container/image */
+.container .btn {
+  position: absolute;
+  top: 92%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-size: 2.6vw;
+  box-shadow: none;
+
+  cursor: pointer;
+  border:6px solid #E1DA22;
+  /* outline: 6px solid #E1DA22; CAN MESS AROUND WITH USING THIS INSTEAD OF BORDER, LOOKS MORE ROUNDED BUT THINK CAN CHANGE LOOK OF EITHER. THIS SEEMS TO HANDLE RESIZING A LITTLE BETTER, JUST NEED TO GET RID OF BLUE OUTLINE WHEN YOU CLICK THE BUTTON. */
+  outline: none !important;
+
+  color:White;
+  font-family:Soria-Bold;
+  text-align: center;
+  width: 12%;
+  height: 5%;
+  text-align: center;
+  padding-bottom: 4.5%;
+  padding-left: 1.2%;
+  padding-right: 1%; !important;
+  padding-top: 0%; !important;
+  vertical-align: middle !important;
+}
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
+</style>
+
+  <body>
+
+          <div class="container containerc">
+            <img src="{% static 'main/Buff Barn.png' %}" style="border: 6px solid #E1DA22">
+          <div class="container-btn d-flex w-100">
+            <a href="{% url 'home' %}"><button type="button" class="btn waves-effect button btn-centertext">ENTER<i aria-hidden="true" style="vertical-align: text-top;"></i></button>
+          </div>
+
+          </div>
+
+
   </body>
-</html>
+
 
 {% endblock %}
