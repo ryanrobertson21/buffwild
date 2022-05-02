@@ -13,7 +13,8 @@
   position: relative;
   width: 75%;
 }
-
+/* Container needed to position image correctly on cover page, wasn't working from custom css as it needs
+to take precedence over the above .container */
 .containerc {
   padding-top: 10px !important;
 }
@@ -41,7 +42,7 @@ div {
   box-shadow: none;
 
   cursor: pointer;
-  border:6px solid #E1DA22;
+  border: .5vw solid #E1DA22;
   /* outline: 6px solid #E1DA22; CAN MESS AROUND WITH USING THIS INSTEAD OF BORDER, LOOKS MORE ROUNDED BUT THINK CAN CHANGE LOOK OF EITHER. THIS SEEMS TO HANDLE RESIZING A LITTLE BETTER, JUST NEED TO GET RID OF BLUE OUTLINE WHEN YOU CLICK THE BUTTON. */
   outline: none !important;
 
@@ -64,7 +65,7 @@ div {
   <body>
 
           <div class="container containerc">
-            <img src="{% static 'main/Buff Barn.png' %}" style="border: 6px solid #E1DA22">
+            <img src="{% static 'main/Buff Barn.png' %}" style="border: .25vw solid #E1DA22">
           <div class="container-btn d-flex w-100">
             <a href="{% url 'home' %}"><button type="button" class="btn waves-effect button btn-centertext">ENTER<i aria-hidden="true" style="vertical-align: text-top;"></i></button>
           </div>
