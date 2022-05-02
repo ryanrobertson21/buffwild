@@ -1,9 +1,26 @@
+/* this loads in the Soria font for use */
+@font-face {
+  font-family: "Soria-Bold";
+  src: url("fonts/Soria-Bold.woff") format("woff"),
+       url("fonts/Soria-Bold.otf") format("opentype");
+}
+
+html {
+  /* this keeps elements from shifting on pages that do not have a vertical scroll bar (don't have enough content to need to scroll down). This was mainly affecting my header icons */
+  overflow-y: scroll;
+  /* this eliminates the horizontal overflow (horizontal scroll bar appearing when it should not be necessary)*/
+  overflow-x:hidden
+}
+
+
 .navbar-nav .nav-link {
-    color: rgba(0,0,0,1) !important;
+    color: #FFFFFF !important;
+    padding-top: 10px;
 }
 
 .navbar-nav .nav-link:hover {
-    color: rgba(0,0,0,.5) !important;
+    color: #E1DA22 !important;
+    text-decoration: none;
 }
 
 #blogtitle {
@@ -12,7 +29,7 @@
 
 body {
   background-color: #000000 !important;
-  font-family: 'Soria';
+  font-family: 'Soria-Bold' !important;
 }
 
 .social-icons {
@@ -24,19 +41,60 @@ body {
   background-color: #000000;
 }
 
+.link-nav {
+  margin-top: 0% !important;
+  margin-left: 26% !important;
+  margin-right:auto !important;
+  margin-bottom: 2px !important;
+  white-space: nowrap;
+}
+
 .social-div {
   margin-top: 20px !important;
-  margin-left:auto !important;
-  margin-right: 200px !important;
-  margin-bottom: 5px !important;
+  margin-left: 20% !important;
+  margin-right:auto !important;
+  padding-top: 3px !important;
+  text-align: center !important;
+}
+
+.nav-item {
+  height: 20px;
+  font-family: "Soria-Bold";
+  font-size: 2.3rem;
+  margin-right: 5px;
+  text-align: center !important;
+}
+
+.navbar-nav>li>a {
+  color: #E1DA22 !important;
 }
 
 .fa-stack:hover .fa-circle{
    color: #E1DA22 !important;
 }
 
+.container-btn:hover .button{
+   color: white !important;
+   background-color: #E1DA22;
+}
+
 .cover-container1 .cover-container {
   margin-bottom: 0;
+}
+
+.container1 {
+  height: 35px;
+  width: 100%;
+  max-width:100% !important;
+}
+
+.row {
+  height: 35px;
+
+}
+
+.col {
+  height: 35px;
 }
 
 #img_container {
@@ -51,7 +109,6 @@ body {
     right:100px;
     width:100px;
     height:50px;
-
 }
 
 @media (min-width: 992px) {

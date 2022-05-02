@@ -1,5 +1,6 @@
 <!doctype html>
 {% load static %}
+{% load custom_tags %}
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -20,12 +21,84 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <!-- Font Awesome -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"/>
+
+  <!-- MDB -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css"
+    rel="stylesheet"/>
+
     <!-- Social Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+    <!-- Font Awesome Kit-->
+        <script src="https://kit.fontawesome.com/4b8d5a5c98.js" crossorigin="anonymous"></script>
+
+<div class="container1">
+ <div class="row">
+  <div class="col">
+    {% block links %}
+   <nav class="navbar navbar-expand-sm py-0">
+    <div class="link-nav">
+     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+     </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+       <a class="nav-link" href="{% anchor 'home' 'season 1' %}">SEASON 1</a>
+      </li>
+     <li class="nav-item">
+      <a class="nav-link" href="{% anchor 'home' 'dao' %}">DAO</a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="{% anchor 'home' 'roadmap' %}">ROADMAP</a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="{% anchor 'home' 'team' %}">TEAM</a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="{% url 'collection' %}">COLLECTION</a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="{% url 'test' %}">WHITEPAPER</a>
+     </li>
+    </ul>
+   </div>
+  </div>
+ </nav>
+ {% endblock links %}
+</div>
+
+
+  <div class="col">
+    <div class="social-div">
+        <span class="fa-stack fa-1x">
+          <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
+          <a href="#" title="Discord" target="_blank"><i class="fab fa-discord fa-stack-1x fa-1x social-icons"></i></a>
+        </span>
+        <span class="fa-stack fa-1x">
+          <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
+          <a href="https://t.me/BuffWildCollective" title="Telegram" target="_blank"><i class="fa-circle fab fa-telegram fa-stack-1x fa-2x telegram-icon"></i></a>
+        </span>
+        <span class="fa-stack fa-1x">
+          <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
+          <a href="#" title="Instagram" target="_blank"><i class="fab fa-instagram fa-stack-1x fa-lg social-icons"></i></a>
+        </span>
+        <span class="fa-stack fa-1x">
+          <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
+          <a href="https://twitter.com/buffwild_radix" title="Twitter" target="_blank"><i class="fab fa-twitter fa-stack-1x fa-lg social-icons"></i></a>
+        </span>
+    </div>
+    </div>
+    </div>
+    </div>
 
   </head>
     <body>
-      <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
   {% block content %}{% endblock %}
 

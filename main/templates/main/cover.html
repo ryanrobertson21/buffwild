@@ -1,20 +1,11 @@
 {% extends 'main/base.html' %}
-
+{% block links %} {% endblock links %}
 {% block content %}
 
 {% load static %}
 
 <head>
-  <!-- Font Awesome -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-  rel="stylesheet"/>
 
-<!-- MDB -->
-<link
-  href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css"
-  rel="stylesheet"/>
-</head>
 
 <style>
   /* Container needed to position the button. Adjust the width as needed */
@@ -23,11 +14,20 @@
   width: 75%;
 }
 
+.containerc {
+  padding-top: 10px !important;
+}
+
+div {
+  text-align: center;
+}
+
 /* Make the image responsive */
 .container img {
   width: 100%;
   height: auto;
-  top: 5%;
+  top: 3%;
+
 }
 
 /* Style the button and place it in the middle of the container/image */
@@ -37,76 +37,42 @@
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  font-size: 4.5em;
-
-  outline: none !important;
+  font-size: 2.6vw;
   box-shadow: none;
 
   cursor: pointer;
   border:6px solid #E1DA22;
+  /* outline: 6px solid #E1DA22; CAN MESS AROUND WITH USING THIS INSTEAD OF BORDER, LOOKS MORE ROUNDED BUT THINK CAN CHANGE LOOK OF EITHER. THIS SEEMS TO HANDLE RESIZING A LITTLE BETTER, JUST NEED TO GET RID OF BLUE OUTLINE WHEN YOU CLICK THE BUTTON. */
+  outline: none !important;
+
   color:White;
-  font-family:Soria;
+  font-family:Soria-Bold;
   text-align: center;
-  width: 16%;
-  height: 10%;
+  width: 12%;
+  height: 5%;
   text-align: center;
-  padding-bottom: 0;
-  padding-top: 0; !important;
+  padding-bottom: 4.5%;
+  padding-left: 1.2%;
+  padding-right: 1%; !important;
+  padding-top: 0%; !important;
   vertical-align: middle !important;
 }
-.btn-centertext {
 
-
-}
 
 </style>
 
-  <body class="text-center">
-    <div class="cover-container d-inline-flex h-100 p-3 mt-2 mb-0 mx-auto flex-column">
-      <div class="social-div">
-          <span class="fa-stack fa-1x">
-            <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
-            <a href="#" title="Discord"><i class="fab fa-discord fa-stack-1x fa-1x social-icons"></i></a>
-          </span>
-          <span class="fa-stack fa-1x">
-            <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
-            <a href="#" title="Telegram"><i class="fa-circle fab fa-telegram fa-stack-1x fa-2x telegram-icon"></i></a>
-          </span>
-          <span class="fa-stack fa-1x">
-            <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
-            <a href="#" title="Instagram"><i class="fab fa-instagram fa-stack-1x fa-lg social-icons"></i></a>
-          </span>
-          <span class="fa-stack fa-1x">
-            <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
-            <a href="#" title="Twitter"><i class="fab fa-twitter fa-stack-1x fa-lg social-icons"></i></a>
-          </span>
-      </div>
+  <body>
 
-      <main role="main" class="inner cover">
-        <div class="img_container">
-          <div class="container">
-            <img src="{% static 'main/Buff Barn.png' %}" style="border: 6px solid #E1DA22" height=670, width=1100>
+          <div class="container containerc">
+            <img src="{% static 'main/Buff Barn.png' %}" style="border: 6px solid #E1DA22">
           <div class="container-btn d-flex w-100">
-            <a href="{% url 'home' %}"><button type="button" class="btn waves-effect button btn-centertext"><i aria-hidden="true" style="vertical-align: text-top;"></i>ENTER</button>
+            <a href="{% url 'home' %}"><button type="button" class="btn waves-effect button btn-centertext">ENTER<i aria-hidden="true" style="vertical-align: text-top;"></i></button>
           </div>
+
           </div>
-        </div>
-      </main>
 
-  <!-- MDB -->
-  <script
-    type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.js"
-  ></script>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
   </body>
-</html>
+
 
 {% endblock %}

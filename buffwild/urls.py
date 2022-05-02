@@ -23,9 +23,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.cover, name='cover'),
     path('home/', views.home, name='home'),
+    path('collection/', views.collection, name='collection'),
     path('about/', views.about, name='about'),
     path('instructions/', views.instructions, name='instructions'),
-    path('walletlookup/', views.walletLookup, name='walletLookup'),
+    path('test/', views.test, name='test'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
