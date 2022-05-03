@@ -107,14 +107,6 @@ body {
     height:50px;
 }
 
-@media (min-width: 992px) {
-    #hometext {
-        font-size: 4rem;
-    }
-    #blogdetailtitle {
-        font-size: 5rem;
-    }
-}
   /* position dropdown over image on home?*/
 .navburg {
     position: absolute;
