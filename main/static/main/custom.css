@@ -23,8 +23,8 @@ html {
     text-decoration: none;
 }
 
-#blogtitle {
-    font-size: 6rem;
+.bg-custom {
+  background-color: #004d99;
 }
 
 body {
