@@ -115,10 +115,14 @@ body {
         font-size: 5rem;
     }
 }
-
+  /* position dropdown over image on home?*/
 .navburg {
     position: absolute;
     width: 100%;
+}
+  /* */
+.navbar-collapse.in {
+    display: block !important;
 }
 
 .mouse-wrap{
