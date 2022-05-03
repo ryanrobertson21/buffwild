@@ -46,11 +46,12 @@
     {% block links %}
    <nav class="navbar navbar-expand-sm navbar-dark">
      <div class="container-fluid">
+    <div class="link-nav">
      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="fas fa-bars"></i>
      </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+     <ul class="navbar-nav navburg me-auto mb-2 mb-lg-0">
       <li class="nav-item">
        <a class="nav-link" href="{% anchor 'home' 'season 1' %}">SEASON 1</a>
       </li>
@@ -71,6 +72,7 @@
      </li>
     </ul>
    </div>
+  </div>
 </div>
  </nav>
  {% endblock links %}
