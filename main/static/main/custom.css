@@ -23,10 +23,6 @@ html {
     text-decoration: none;
 }
 
-.bg-custom {
-  background-color: #004d99;
-}
-
 body {
   background-color: #000000 !important;
   font-family: 'Soria-Bold' !important;
@@ -118,6 +114,11 @@ body {
     #blogdetailtitle {
         font-size: 5rem;
     }
+}
+
+.navburg {
+    position: absolute;
+    width: 100%;
 }
 
 .mouse-wrap{
