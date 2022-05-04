@@ -56,7 +56,8 @@ body {
   padding-top: 2px !important;
   text-align: center !important;
   font-size: .65rem;
-  white-space: nowrap;
+  white-space: nowrap !important;
+  position: absolute !important;
 }
 
 
@@ -114,9 +115,11 @@ body {
     height:50px;
 }
 
-.navbar {
+.navbar-toggler {
+    right: 15px;
     position: absolute;
 }
+
 
   /* position dropdown over image on home?*/
 .navburg {
