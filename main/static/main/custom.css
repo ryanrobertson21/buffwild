@@ -47,10 +47,9 @@ body {
 
 .show > ul > li > a {
   font-family: "Soria-Bold";
-  font-size: 1rem;
-  margin-top: 5px;
+  font-size: 1rem !important;
+  margin-top: 20px !important;
   text-align: left !important;
-  color: #E1DA22 !important;
 
 }
 
@@ -125,8 +124,9 @@ body {
 }
 
 .navbar-toggler {
-    left: 0px !important;
+    left: 10px !important;
     position: absolute;
+
 }
 
 .navbar {
