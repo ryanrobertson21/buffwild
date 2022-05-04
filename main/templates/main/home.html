@@ -9,26 +9,33 @@
 <style>
   /* Container needed to position the button. Adjust the width as needed */
 .container {
-  position: relative;
-  width: 75%;
+  width: 100%;
+  margin: auto !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  /* This prevents text from getting pushed down due to image resize on mobile (where screen size is reduced) */
+  display: flex !important;
+  justify-content: center !important;
+
 }
+
+.containerc {
+  padding-top: 10px !important;
+}
+
 
 /* Make the image responsive */
 .container img {
-  width: 100%;
+  width: 82%;
   height: auto;
   top: 0%;
-}
-
-.cover-container {
-  padding-top: 10px !important;
-  margin-top: 0 !important;
 }
 
 .content {
   text-align:left !important;
   margin-left: 14% !important;
   margin-right: 15%;
+  margin-top: 0 !important;
 }
 
 body{
@@ -47,325 +54,10 @@ h1 {
   padding-top: 2%;
 }
 
-.mouse-wrap{
-  display:inline-block;
-  position:absolute;
-  left:96%;
-  top:89%;
-  transform:translate(-50%,-50%);
+@media only screen and (max-width: 480px) {
+img {
+width: 100% !important;
 }
-
-.mouse {
-  top:0;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2vw;
-  animation: nudgeMouse 5.5s ease-out infinite;
-}
-
-.mouse:after {
-  content: '';
-  background-color: #ffffff;
-  width: .498vw;
-  height: .498vw;
-  border-radius: 100%;
-  animation: trackBallSlide 5.5s linear infinite;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  transform:translateY(1.423vw);
-}
-
-.mouse .frame {
-  width: 100%;
-  position: absolute;
-  z-index: 1;
-}
-
-.mouse .frame path {
-  fill: none;
-  stroke: #ffffff;
-  stroke-width: 3;
-  opacity:0.5;
-}
-
-.mouse .mouse-left,
-.mouse .mouse-right {
-  width: 50%;
-  position: absolute;
-  z-index: 2;
-}
-
-.mouse .mouse-right {
-  right: 0;
-}
-
-.mouse .Animate-Draw {
-  fill: none;
-  stroke: #FFFFFF;
-  stroke-width: 3;
-  fill-opacity: 1;
-}
-
-.mouse .mouse-left .Animate-Draw {
-  animation: DrawLine 5.5s ease-out infinite;
-}
-
-.mouse .mouse-right .Animate-Draw {
-  animation: DrawLineBack 5.5s ease-out infinite;
-}
-
-
-/*Keyframes*/
-
-@keyframes DrawLine {
-  0% {
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  22% {
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  38%{
-    stroke-dashOffset: 125;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  38.1%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:0;
-  }
-  48%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  64%{
-    stroke-dashOffset: 125;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  64.1%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:0;
-  }
-  74%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  90%{
-    stroke-opacity:1;
-    stroke-dashOffset: 125;
-    stroke-dasharray: 120;
-  }
-  90.1%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:0;
-  }
-}
-
-@keyframes DrawLineBack {
-  0% {
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  22% {
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  38%{
-    stroke-dashOffset: -114;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  38.1%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:0;
-  }
-  48%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  64%{
-    stroke-dashOffset: -114;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  64.1%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:0;
-  }
-  74%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  90%{
-    stroke-opacity:1;
-    stroke-dashOffset: -114;
-    stroke-dasharray: 120;
-  }
-  90.1%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:0;
-  }
-}
-
-@keyframes nudgeMouse {
-  0% {
-    transform: translateY(0) translateX(-50%);
-  }
-  22% {
-    transform: translateY(0px) translateX(-50%);
-  }
-  38%{
-    transform: translateY(0.641vw) translateX(-50%);
-  }
-  48%{
-    transform: translateY(0px) translateX(-50%);
-  }
-  64%{
-    transform: translateY(0.641vw) translateX(-50%);
-  }
-  74%{
-    transform: translateY(0px) translateX(-50%);
-  }
-  90%{
-    transform: translateY(0.641vw) translateX(-50%);
-  }
-}
-
-
-/*Text*/
-
-@keyframes nudgeText {
-  0% {
-    transform: translateY(0) translateX(-50%) scaleY(1);
-    opacity:1;
-  }
-  22% {
-    transform: translateY(0px) translateX(-50%)  scaleY(1);
-    opacity:1;
-  }
-  38%{
-    transform: translateY(0.356vw) translateX(-50%) scaleY(0.9);
-    opacity:0.5;
-  }
-  48%{
-    transform: translateY(0px) translateX(-50%) scaleY(1);
-    opacity:1;
-  }
-  64%{
-    transform: translateY(0.356vw) translateX(-50%) scaleY(0.9);
-    opacity:0.5;
-  }
-  74%{
-    transform: translateY(0px) translateX(-50%) scaleY(1);
-    opacity:1;
-  }
-  90%{
-    transform: translateY(0.356vw) translateX(-50%) scaleY(0.9);
-    opacity:0.5;
-  }
-}
-
-
-
-
-/*Mouse wheel*/
-@keyframes trackBallSlide {
-  0% {
-    transform:translateY(1.423vw)
-      scale(1);
-    opacity:1;
-  }
-  22% {
-    transform:translateY(1.423vw)
-      scale(1);
-    opacity:1;
-  }
-  26%{
-    transform:translateY(2.135vw)
-      scale(0.9);
-    opacity:1;
-  }
-  34%{
-    transform:translateY(3.915vw)
-      scale(0.1);
-    opacity:0;
-  }
-  41%{
-    transform:translateY(2.135vw)
-      scale(0);
-    opacity:0.3;
-  }
-  48%{
-    transform:translateY(1.423vw)
-      scale(1);
-    opacity:1;
-  }
-  52%{
-    transform:translateY(2.135vw)
-      scale(0.9);
-    opacity:1;
-  }
-  60%{
-    transform:translateY(3.915vw)
-      scale(0.1);
-    opacity:0;
-  }
-  67%{
-    transform:translateY(2.135vw)
-      scale(0);
-    opacity:0.3;
-  }
-  74%{
-    transform:translateY(1.423vw)
-      scale(1);
-    opacity:1;
-  }
-  78%{
-    transform:translateY(2.135vw)
-      scale(0.9);
-    opacity:1;
-  }
-  86%{
-    transform:translateY(3.915vw)
-      scale(0.1);
-    opacity:0;
-  }
-  93%{
-    transform:translateY(2.135vw)
-      scale(0);
-    opacity:0.3;
-  }
-  100%{
-    transform:translateY(1.423vw)
-      scale(1);
-    opacity:1;
-  }
-}
-
-@media (min-width: 1200px)
-.container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1140px;
 }
 
 
@@ -373,11 +65,7 @@ h1 {
 </head>
 
   <body>
-    <div class="cover-container h-100 p-3 mt-2 mb-0 mx-auto flex-column containerc">
-
-      <main role="main" class="inner cover">
-        <div class="img_container">
-          <div class="container">
+    <div class="container containerc">
             <img src="{% static 'main/Inside Buff Bar.png' %}" style="border: .427vw solid #E1DA22">
             <div class="mouse-wrap">
 <div class="mouse">
@@ -410,10 +98,9 @@ c13.2,0,23.9-10.7,23.9-23.9v-36C51.4,14.3,40.7,3.6,27.4,3.6z"/>
 </svg>
   </div>
 </div>
-</div>
           </div>
-        </div>
-      </main>
+          </div>
+
 
 
   <div class="content">
@@ -486,7 +173,6 @@ c13.2,0,23.9-10.7,23.9-23.9v-36C51.4,14.3,40.7,3.6,27.4,3.6z"/>
        </p>
        </section>
    </div>
-
 </body>
 
 

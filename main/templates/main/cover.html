@@ -11,7 +11,8 @@
   /* Container needed to position the button. Adjust the width as needed */
 .container {
   position: relative;
-  width: 75%;
+  width: 100%;
+  margin: auto;
 }
 /* Container needed to position image correctly on cover page, wasn't working from custom css as it needs
 to take precedence over the above .container */
@@ -25,7 +26,7 @@ div {
 
 /* Make the image responsive */
 .container img {
-  width: 100%;
+  width: 85%;
   height: auto;
   top: 3%;
 
@@ -59,9 +60,11 @@ div {
   vertical-align: middle !important;
 }
 
-@media (min-width: 1200px)
-.container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1140px;
+
+@media only screen and (max-width: 480px) {
+img {
+width: 100% !important;
+}
 }
 
 </style>

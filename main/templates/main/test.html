@@ -1,488 +1,275 @@
-{% extends 'main/base.html' %}
-
-{% block content %}
-
+<!doctype html>
 {% load static %}
+{% load custom_tags %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Ryan Robertson">
+    <title>Buff Wild Crew</title>
 
-<head>
-
-<style>
-  /* Container needed to position the button. Adjust the width as needed */
-.container {
-  position: relative;
-  width: 75%;
-}
-
-/* Make the image responsive */
-.container img {
-  width: 100%;
-  height: auto;
-  top: 0%;
-}
-
-.cover-container {
-  padding-top: 10px !important;
-  margin-top: 0 !important;
-}
-
-.content {
-  text-align:left !important;
-  margin-left: 14% !important;
-  margin-right: 15%;
-}
-
-body{
-  font-family: "Soria-Bold";
-}
-
-p {
-  color: #E1DA22;
-  font-size: 1.6rem;
-  margin-top: 2%;
-}
-
-h1 {
-  color: #FFFFFF;
-  font-size: 3.5rem;
-  padding-top: 2%;
-}
-
-.mouse-wrap{
-  display:inline-block;
-  position:absolute;
-  left:96%;
-  top:89%;
-  transform:translate(-50%,-50%);
-}
-
-.mouse {
-  top:0;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 32px;
-  animation: nudgeMouse 5.5s ease-out infinite;
-}
-
-.mouse:after {
-  content: '';
-  background-color: #ffffff;
-  width: 7px;
-  height: 7px;
-  border-radius: 100%;
-  animation: trackBallSlide 5.5s linear infinite;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
-  transform:translateY(20px);
-}
-
-.mouse .frame {
-  width: 100%;
-  position: absolute;
-  z-index: 1;
-}
-
-.mouse .frame path {
-  fill: none;
-  stroke: #ffffff;
-  stroke-width: 3;
-  opacity:0.5;
-}
-
-.mouse .mouse-left,
-.mouse .mouse-right {
-  width: 50%;
-  position: absolute;
-  z-index: 2;
-}
-
-.mouse .mouse-right {
-  right: 0;
-}
-
-.mouse .Animate-Draw {
-  fill: none;
-  stroke: #FFFFFF;
-  stroke-width: 3;
-  fill-opacity: 1;
-}
-
-.mouse .mouse-left .Animate-Draw {
-  animation: DrawLine 5.5s ease-out infinite;
-}
-
-.mouse .mouse-right .Animate-Draw {
-  animation: DrawLineBack 5.5s ease-out infinite;
-}
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static "main/custom.css" %}">
+    <!-- Website Icon -->
+    <link rel="icon" type="image/png" href="{% static "main/placeholder_Logo.png" %}">
 
 
-/*Keyframes*/
-
-@keyframes DrawLine {
-  0% {
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  22% {
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  38%{
-    stroke-dashOffset: 125;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  38.1%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:0;
-  }
-  48%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  64%{
-    stroke-dashOffset: 125;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  64.1%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:0;
-  }
-  74%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  90%{
-    stroke-opacity:1;
-    stroke-dashOffset: 125;
-    stroke-dasharray: 120;
-  }
-  90.1%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:0;
-  }
-}
-
-@keyframes DrawLineBack {
-  0% {
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  22% {
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  38%{
-    stroke-dashOffset: -114;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  38.1%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:0;
-  }
-  48%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  64%{
-    stroke-dashOffset: -114;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  64.1%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:0;
-  }
-  74%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:1;
-  }
-  90%{
-    stroke-opacity:1;
-    stroke-dashOffset: -114;
-    stroke-dasharray: 120;
-  }
-  90.1%{
-    stroke-dashOffset: 0;
-    stroke-dasharray: 120;
-    stroke-opacity:0;
-  }
-}
-
-@keyframes nudgeMouse {
-  0% {
-    transform: translateY(0) translateX(-50%);
-  }
-  22% {
-    transform: translateY(0px) translateX(-50%);
-  }
-  38%{
-    transform: translateY(9px) translateX(-50%);
-  }
-  48%{
-    transform: translateY(0px) translateX(-50%);
-  }
-  64%{
-    transform: translateY(9px) translateX(-50%);
-  }
-  74%{
-    transform: translateY(0px) translateX(-50%);
-  }
-  90%{
-    transform: translateY(9px) translateX(-50%);
-  }
-}
+<!-- I don't think this is getting used at all obv since that file doesn't even exist, look it up -->
+    <link rel="stylesheet" href="stylesheet.css" type="text/css" charset="utf-8" />
 
 
-/*Text*/
+    <!-- Font Awesome -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"/>
 
-@keyframes nudgeText {
-  0% {
-    transform: translateY(0) translateX(-50%) scaleY(1);
-    opacity:1;
-  }
-  22% {
-    transform: translateY(0px) translateX(-50%)  scaleY(1);
-    opacity:1;
-  }
-  38%{
-    transform: translateY(5px) translateX(-50%) scaleY(0.9);
-    opacity:0.5;
-  }
-  48%{
-    transform: translateY(0px) translateX(-50%) scaleY(1);
-    opacity:1;
-  }
-  64%{
-    transform: translateY(5px) translateX(-50%) scaleY(0.9);
-    opacity:0.5;
-  }
-  74%{
-    transform: translateY(0px) translateX(-50%) scaleY(1);
-    opacity:1;
-  }
-  90%{
-    transform: translateY(5px) translateX(-50%) scaleY(0.9);
-    opacity:0.5;
-  }
-}
+  <!-- MDB -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css"
+    rel="stylesheet"/>
 
+    <!-- Social Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+    <!-- Font Awesome Kit-->
+        <script src="https://kit.fontawesome.com/4b8d5a5c98.js" crossorigin="anonymous"></script>
 
+        <div class="container1">
+         <div class="row">
+          <div class="col">
 
-
-/*Mouse wheel*/
-@keyframes trackBallSlide {
-  0% {
-    transform:translateY(20px)
-      scale(1);
-    opacity:1;
-  }
-  22% {
-    transform:translateY(20px)
-      scale(1);
-    opacity:1;
-  }
-  26%{
-    transform:translateY(30px)
-      scale(0.9);
-    opacity:1;
-  }
-  34%{
-    transform:translateY(55px)
-      scale(0.1);
-    opacity:0;
-  }
-  41%{
-    transform:translateY(30px)
-      scale(0);
-    opacity:0.3;
-  }
-  48%{
-    transform:translateY(20px)
-      scale(1);
-    opacity:1;
-  }
-  52%{
-    transform:translateY(30px)
-      scale(0.9);
-    opacity:1;
-  }
-  60%{
-    transform:translateY(55px)
-      scale(0.1);
-    opacity:0;
-  }
-  67%{
-    transform:translateY(30px)
-      scale(0);
-    opacity:0.3;
-  }
-  74%{
-    transform:translateY(20px)
-      scale(1);
-    opacity:1;
-  }
-  78%{
-    transform:translateY(30px)
-      scale(0.9);
-    opacity:1;
-  }
-  86%{
-    transform:translateY(55px)
-      scale(0.1);
-    opacity:0;
-  }
-  93%{
-    transform:translateY(30px)
-      scale(0);
-    opacity:0.3;
-  }
-  100%{
-    transform:translateY(20px)
-      scale(1);
-    opacity:1;
-  }
-}
-
-
-</style>
-</head>
-
-  <body>
-    <div class="cover-container h-100 p-3 mt-2 mb-0 mx-auto flex-column containerc">
-
-      <main role="main" class="inner cover">
-        <div class="img_container">
-          <div class="container">
-            <img src="{% static 'main/Inside Buff Bar.png' %}" style="border: 6px solid #E1DA22">
-            <div class="mouse-wrap">
-<div class="mouse">
-  <div class="frame">
-    <svg version="1.1" id="mouse" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
- viewBox="0 0 54.9 91" style="enable-background:new 0 0 54.9 91;" xml:space="preserve">
-<path id="XMLID_173_" class="st0"
-    linejoin="round" stroke-linecap="round" stroke-miterlimit="10" d="M27.4,3.6L27.4,3.6C14.2,3.6,3.5,14.3,3.5,27.5v36c0,13.2,10.7,23.9,23.9,23.9h0
-c13.2,0,23.9-10.7,23.9-23.9v-36C51.4,14.3,40.7,3.6,27.4,3.6z"/>
-</svg>
-
-  </div>
-
-  <div class="mouse-left">
-    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
- viewBox="0 0 27.4 91" style="enable-background:new 0 0 27.4 91;" xml:space="preserve">
-<path
-    linejoin="round" stroke-linecap="round" stroke-miterlimit="10"
-    class="Draw-Frame Animate-Draw" d="M27.4,87.5L27.4,87.5c-13.2,0-23.9-10.7-23.9-23.9v-36c0-13.2,10.7-23.9,23.9-23.9h0"/>
-</svg>
-
-  </div>
-
-  <div class="mouse-right">
-    <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
- viewBox="0 0 27.4 91" style="enable-background:new 0 0 27.4 91;" xml:space="preserve">
-<path
-    linejoin="round" stroke-linecap="round" stroke-miterlimit="10"
-    class="Draw-Frame Animate-Draw" d="M0,3.6L0,3.6c13.2,0,23.9,10.7,23.9,23.9v36c0,13.2-10.7,23.9-23.9,23.9h0"/>
-</svg>
-  </div>
-</div>
-</div>
-          </div>
-        </div>
-      </main>
-
-
-  <div class="content">
-    <section id ="season 1">
-   <h1>WELCOME TO SEASON 1 OF THE BUFF WILD CREW (GENESIS)</h1>
-   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac molestie tortor. Donec ut suscipit turpis, sed commodo elit. Pellentesque non magna at mauris viverra blandit vel sed ex. Quisque nec auctor tellus. Aenean aliquam justo interdum, mollis est id, tristique ligula. Nam a eros ac felis maximus varius. Sed elit tellus, volutpat mattis pulvinar quis, blandit eget sem. Nullam id eleifend leo, vel eleifend purus. Vestibulum hendrerit turpis vel ullamcorper euismod. Nunc commodo pretium ipsum nec mollis. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-   </p>
-   <p>
-   Nulla facilisi. Etiam mollis mi ipsum, eu suscipit erat auctor vitae. Phasellus tempus nunc at erat iaculis, in iaculis turpis feugiat. Nulla sollicitudin, ante vitae imperdiet malesuada, sapien erat fermentum ipsum, at condimentum risus dolor non nulla. Quisque elementum at sapien at vulputate. Duis placerat augue cursus, pulvinar orci vel, varius purus. Morbi a dui pulvinar dolor venenatis mattis. Integer lobortis ac nunc auctor bibendum. Vestibulum interdum auctor nunc, eu varius tellus aliquet at. Praesent sed eros posuere tellus tempus tempus at ac turpis. Praesent aliquam dui nec massa hendrerit condimentum. Donec finibus non lorem nec volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-   </p>
-   <p>
-   Integer placerat, tortor eu maximus tincidunt, elit ex ultrices arcu, a eleifend turpis nibh in ligula. Suspendisse potenti. Phasellus pharetra, urna sed suscipit congue, mauris odio rutrum lectus, id dapibus enim nulla et augue. Nunc ut ultricies odio. Nam vitae sodales nunc, quis cursus elit. Curabitur tortor libero, iaculis id justo a, maximus auctor est. In hac habitasse platea dictumst. Integer imperdiet ipsum non ullamcorper ornare. Nam non turpis non nunc faucibus dapibus. Donec a justo ac dui viverra lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam nunc mauris, varius id interdum id, molestie in lorem.
-   </p>
-   <p>
-   Phasellus dignissim magna sit amet sollicitudin sagittis. Integer hendrerit lacus ut est accumsan, hendrerit pretium est aliquam. Ut eget enim in augue vulputate egestas. Donec id pretium mi. In scelerisque nibh odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Integer erat est, congue ac dapibus at, tincidunt at nisl. Suspendisse mollis augue in tortor aliquet, ut mattis odio ornare.
-   </p>
-   <p>
-   Proin ac sagittis lectus. Aliquam bibendum magna non mauris gravida, at rutrum lacus pulvinar. Etiam ac diam lacinia, fringilla lorem vitae, lobortis mauris. In vel suscipit lacus. Vestibulum dignissim libero ac varius vulputate. Nulla mauris ante, vestibulum id libero ac, semper egestas tellus. Sed at felis in nibh tincidunt tincidunt at id quam. Aenean consequat lorem eu mauris fringilla, quis vehicula urna commodo. Curabitur ullamcorper auctor diam id convallis.
-   </p>
-   </section>
-   <section id ="dao">
-     <h1>DAO</h1>
-     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac molestie tortor. Donec ut suscipit turpis, sed commodo elit. Pellentesque non magna at mauris viverra blandit vel sed ex. Quisque nec auctor tellus. Aenean aliquam justo interdum, mollis est id, tristique ligula. Nam a eros ac felis maximus varius. Sed elit tellus, volutpat mattis pulvinar quis, blandit eget sem. Nullam id eleifend leo, vel eleifend purus. Vestibulum hendrerit turpis vel ullamcorper euismod. Nunc commodo pretium ipsum nec mollis. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-     </p>
-     <p>
-     Nulla facilisi. Etiam mollis mi ipsum, eu suscipit erat auctor vitae. Phasellus tempus nunc at erat iaculis, in iaculis turpis feugiat. Nulla sollicitudin, ante vitae imperdiet malesuada, sapien erat fermentum ipsum, at condimentum risus dolor non nulla. Quisque elementum at sapien at vulputate. Duis placerat augue cursus, pulvinar orci vel, varius purus. Morbi a dui pulvinar dolor venenatis mattis. Integer lobortis ac nunc auctor bibendum. Vestibulum interdum auctor nunc, eu varius tellus aliquet at. Praesent sed eros posuere tellus tempus tempus at ac turpis. Praesent aliquam dui nec massa hendrerit condimentum. Donec finibus non lorem nec volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-     </p>
-     <p>
-     Integer placerat, tortor eu maximus tincidunt, elit ex ultrices arcu, a eleifend turpis nibh in ligula. Suspendisse potenti. Phasellus pharetra, urna sed suscipit congue, mauris odio rutrum lectus, id dapibus enim nulla et augue. Nunc ut ultricies odio. Nam vitae sodales nunc, quis cursus elit. Curabitur tortor libero, iaculis id justo a, maximus auctor est. In hac habitasse platea dictumst. Integer imperdiet ipsum non ullamcorper ornare. Nam non turpis non nunc faucibus dapibus. Donec a justo ac dui viverra lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam nunc mauris, varius id interdum id, molestie in lorem.
-     </p>
-     <p>
-     Phasellus dignissim magna sit amet sollicitudin sagittis. Integer hendrerit lacus ut est accumsan, hendrerit pretium est aliquam. Ut eget enim in augue vulputate egestas. Donec id pretium mi. In scelerisque nibh odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Integer erat est, congue ac dapibus at, tincidunt at nisl. Suspendisse mollis augue in tortor aliquet, ut mattis odio ornare.
-     </p>
-     <p>
-     Proin ac sagittis lectus. Aliquam bibendum magna non mauris gravida, at rutrum lacus pulvinar. Etiam ac diam lacinia, fringilla lorem vitae, lobortis mauris. In vel suscipit lacus. Vestibulum dignissim libero ac varius vulputate. Nulla mauris ante, vestibulum id libero ac, semper egestas tellus. Sed at felis in nibh tincidunt tincidunt at id quam. Aenean consequat lorem eu mauris fringilla, quis vehicula urna commodo. Curabitur ullamcorper auctor diam id convallis.
-     </p>
-     </section>
-   <section id ="roadmap">
-     <h1>ROADMAP</h1>
-     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac molestie tortor. Donec ut suscipit turpis, sed commodo elit. Pellentesque non magna at mauris viverra blandit vel sed ex. Quisque nec auctor tellus. Aenean aliquam justo interdum, mollis est id, tristique ligula. Nam a eros ac felis maximus varius. Sed elit tellus, volutpat mattis pulvinar quis, blandit eget sem. Nullam id eleifend leo, vel eleifend purus. Vestibulum hendrerit turpis vel ullamcorper euismod. Nunc commodo pretium ipsum nec mollis. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-     </p>
-     <p>
-     Nulla facilisi. Etiam mollis mi ipsum, eu suscipit erat auctor vitae. Phasellus tempus nunc at erat iaculis, in iaculis turpis feugiat. Nulla sollicitudin, ante vitae imperdiet malesuada, sapien erat fermentum ipsum, at condimentum risus dolor non nulla. Quisque elementum at sapien at vulputate. Duis placerat augue cursus, pulvinar orci vel, varius purus. Morbi a dui pulvinar dolor venenatis mattis. Integer lobortis ac nunc auctor bibendum. Vestibulum interdum auctor nunc, eu varius tellus aliquet at. Praesent sed eros posuere tellus tempus tempus at ac turpis. Praesent aliquam dui nec massa hendrerit condimentum. Donec finibus non lorem nec volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-     </p>
-     <p>
-     Integer placerat, tortor eu maximus tincidunt, elit ex ultrices arcu, a eleifend turpis nibh in ligula. Suspendisse potenti. Phasellus pharetra, urna sed suscipit congue, mauris odio rutrum lectus, id dapibus enim nulla et augue. Nunc ut ultricies odio. Nam vitae sodales nunc, quis cursus elit. Curabitur tortor libero, iaculis id justo a, maximus auctor est. In hac habitasse platea dictumst. Integer imperdiet ipsum non ullamcorper ornare. Nam non turpis non nunc faucibus dapibus. Donec a justo ac dui viverra lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam nunc mauris, varius id interdum id, molestie in lorem.
-     </p>
-     <p>
-     Phasellus dignissim magna sit amet sollicitudin sagittis. Integer hendrerit lacus ut est accumsan, hendrerit pretium est aliquam. Ut eget enim in augue vulputate egestas. Donec id pretium mi. In scelerisque nibh odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Integer erat est, congue ac dapibus at, tincidunt at nisl. Suspendisse mollis augue in tortor aliquet, ut mattis odio ornare.
-     </p>
-     <p>
-     Proin ac sagittis lectus. Aliquam bibendum magna non mauris gravida, at rutrum lacus pulvinar. Etiam ac diam lacinia, fringilla lorem vitae, lobortis mauris. In vel suscipit lacus. Vestibulum dignissim libero ac varius vulputate. Nulla mauris ante, vestibulum id libero ac, semper egestas tellus. Sed at felis in nibh tincidunt tincidunt at id quam. Aenean consequat lorem eu mauris fringilla, quis vehicula urna commodo. Curabitur ullamcorper auctor diam id convallis.
-     </p>
-     </section>
-     <section id ="team">
-       <h1>TEAM</h1>
-       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac molestie tortor. Donec ut suscipit turpis, sed commodo elit. Pellentesque non magna at mauris viverra blandit vel sed ex. Quisque nec auctor tellus. Aenean aliquam justo interdum, mollis est id, tristique ligula. Nam a eros ac felis maximus varius. Sed elit tellus, volutpat mattis pulvinar quis, blandit eget sem. Nullam id eleifend leo, vel eleifend purus. Vestibulum hendrerit turpis vel ullamcorper euismod. Nunc commodo pretium ipsum nec mollis. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-       </p>
-       <p>
-       Nulla facilisi. Etiam mollis mi ipsum, eu suscipit erat auctor vitae. Phasellus tempus nunc at erat iaculis, in iaculis turpis feugiat. Nulla sollicitudin, ante vitae imperdiet malesuada, sapien erat fermentum ipsum, at condimentum risus dolor non nulla. Quisque elementum at sapien at vulputate. Duis placerat augue cursus, pulvinar orci vel, varius purus. Morbi a dui pulvinar dolor venenatis mattis. Integer lobortis ac nunc auctor bibendum. Vestibulum interdum auctor nunc, eu varius tellus aliquet at. Praesent sed eros posuere tellus tempus tempus at ac turpis. Praesent aliquam dui nec massa hendrerit condimentum. Donec finibus non lorem nec volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-       </p>
-       <p>
-       Integer placerat, tortor eu maximus tincidunt, elit ex ultrices arcu, a eleifend turpis nibh in ligula. Suspendisse potenti. Phasellus pharetra, urna sed suscipit congue, mauris odio rutrum lectus, id dapibus enim nulla et augue. Nunc ut ultricies odio. Nam vitae sodales nunc, quis cursus elit. Curabitur tortor libero, iaculis id justo a, maximus auctor est. In hac habitasse platea dictumst. Integer imperdiet ipsum non ullamcorper ornare. Nam non turpis non nunc faucibus dapibus. Donec a justo ac dui viverra lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam nunc mauris, varius id interdum id, molestie in lorem.
-       </p>
-       <p>
-       Phasellus dignissim magna sit amet sollicitudin sagittis. Integer hendrerit lacus ut est accumsan, hendrerit pretium est aliquam. Ut eget enim in augue vulputate egestas. Donec id pretium mi. In scelerisque nibh odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Integer erat est, congue ac dapibus at, tincidunt at nisl. Suspendisse mollis augue in tortor aliquet, ut mattis odio ornare.
-       </p>
-       <p>
-       Proin ac sagittis lectus. Aliquam bibendum magna non mauris gravida, at rutrum lacus pulvinar. Etiam ac diam lacinia, fringilla lorem vitae, lobortis mauris. In vel suscipit lacus. Vestibulum dignissim libero ac varius vulputate. Nulla mauris ante, vestibulum id libero ac, semper egestas tellus. Sed at felis in nibh tincidunt tincidunt at id quam. Aenean consequat lorem eu mauris fringilla, quis vehicula urna commodo. Curabitur ullamcorper auctor diam id convallis.
-       </p>
-       </section>
+    <!-- expand-lg so that it collapses into hamburger at a bigger screen width, this way it collpases before links and icons clash and show on top of eachother-->
+   <nav class="navbar navbar-expand-sm navbar-dark">
+     <div class="container-fluid">
+       <div class="link-nav">
+     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+     </button>
+    <div class="collapse navbar-collapse top-nav" id="navbarSupportedContent">
+     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+       <a class="nav-link" href="{% anchor 'home' 'season 1' %}">SEASON 1</a>
+      </li>
+     <li class="nav-item">
+      <a class="nav-link" href="{% anchor 'home' 'dao' %}">DAO</a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="{% anchor 'home' 'roadmap' %}">ROADMAP</a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="{% anchor 'home' 'team' %}">TEAM</a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="{% url 'collection' %}">COLLECTION</a>
+     </li>
+     <li class="nav-item">
+      <a class="nav-link" href="{% url 'test' %}">WHITEPAPER</a>
+     </li>
+    </ul>
    </div>
+  </div>
+    </div>
+ </nav>
+</div>
+
+
+
+</div>
+</div>
+
+
+  </head>
+    <body>
+
+
+
+      <head>
+
+      <style>
+        /* Container needed to position the button. Adjust the width as needed */
+      .container {
+        width: 100%;
+        margin: auto !important;
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+        /* This prevents text from getting pushed down due to image resize on mobile (where screen size is reduced) */
+        display: flex !important;
+        justify-content: center !important;
+      }
+
+      .containerc {
+        padding-top: 10px !important;
+      }
+
+
+      /* Make the image responsive */
+      .container img {
+        width: 82%;
+        height: auto;
+        top: 0%;
+      }
+
+
+      .content {
+        text-align:left !important;
+        margin-left: 14% !important;
+        margin-right: 15%;
+        margin-top: 0 !important;
+
+      }
+
+      body{
+        font-family: "Soria-Bold";
+      }
+
+      p {
+        color: #E1DA22;
+        font-size: 1.6rem !important;
+        margin-top: 2%;
+      }
+
+      h1 {
+        color: #FFFFFF;
+        font-size: 3.5rem !important;
+        padding-top: 2%;
+      }
+
+      @media only screen and (max-width: 480px) {
+      img {
+      width: 100% !important;
+      }
+      }
+
+
+      </style>
+      </head>
+
+        <body>
+          <div class="container containerc">
+                  <img src="{% static 'main/Inside Buff Bar.png' %}" style="border: .427vw solid #E1DA22">
+                  <div class="mouse-wrap">
+      <div class="mouse">
+        <div class="frame">
+          <svg version="1.1" id="mouse" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+       viewBox="0 0 54.9 91" style="enable-background:new 0 0 54.9 91;" xml:space="preserve">
+      <path id="XMLID_173_" class="st0"
+          linejoin="round" stroke-linecap="round" stroke-miterlimit="10" d="M27.4,3.6L27.4,3.6C14.2,3.6,3.5,14.3,3.5,27.5v36c0,13.2,10.7,23.9,23.9,23.9h0
+      c13.2,0,23.9-10.7,23.9-23.9v-36C51.4,14.3,40.7,3.6,27.4,3.6z"/>
+      </svg>
+
+        </div>
+
+        <div class="mouse-left">
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+       viewBox="0 0 27.4 91" style="enable-background:new 0 0 27.4 91;" xml:space="preserve">
+      <path
+          linejoin="round" stroke-linecap="round" stroke-miterlimit="10"
+          class="Draw-Frame Animate-Draw" d="M27.4,87.5L27.4,87.5c-13.2,0-23.9-10.7-23.9-23.9v-36c0-13.2,10.7-23.9,23.9-23.9h0"/>
+      </svg>
+
+        </div>
+
+        <div class="mouse-right">
+          <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+       viewBox="0 0 27.4 91" style="enable-background:new 0 0 27.4 91;" xml:space="preserve">
+      <path
+          linejoin="round" stroke-linecap="round" stroke-miterlimit="10"
+          class="Draw-Frame Animate-Draw" d="M0,3.6L0,3.6c13.2,0,23.9,10.7,23.9,23.9v36c0,13.2-10.7,23.9-23.9,23.9h0"/>
+      </svg>
+        </div>
+      </div>
+                </div>
+                </div>
+
+
+
+        <div class="content">
+          <section id ="season 1">
+         <h1>WELCOME TO SEASON 1 OF THE BUFF WILD CREW (GENESIS)</h1>
+         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac molestie tortor. Donec ut suscipit turpis, sed commodo elit. Pellentesque non magna at mauris viverra blandit vel sed ex. Quisque nec auctor tellus. Aenean aliquam justo interdum, mollis est id, tristique ligula. Nam a eros ac felis maximus varius. Sed elit tellus, volutpat mattis pulvinar quis, blandit eget sem. Nullam id eleifend leo, vel eleifend purus. Vestibulum hendrerit turpis vel ullamcorper euismod. Nunc commodo pretium ipsum nec mollis. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+         </p>
+         <p>
+         Nulla facilisi. Etiam mollis mi ipsum, eu suscipit erat auctor vitae. Phasellus tempus nunc at erat iaculis, in iaculis turpis feugiat. Nulla sollicitudin, ante vitae imperdiet malesuada, sapien erat fermentum ipsum, at condimentum risus dolor non nulla. Quisque elementum at sapien at vulputate. Duis placerat augue cursus, pulvinar orci vel, varius purus. Morbi a dui pulvinar dolor venenatis mattis. Integer lobortis ac nunc auctor bibendum. Vestibulum interdum auctor nunc, eu varius tellus aliquet at. Praesent sed eros posuere tellus tempus tempus at ac turpis. Praesent aliquam dui nec massa hendrerit condimentum. Donec finibus non lorem nec volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+         </p>
+         <p>
+         Integer placerat, tortor eu maximus tincidunt, elit ex ultrices arcu, a eleifend turpis nibh in ligula. Suspendisse potenti. Phasellus pharetra, urna sed suscipit congue, mauris odio rutrum lectus, id dapibus enim nulla et augue. Nunc ut ultricies odio. Nam vitae sodales nunc, quis cursus elit. Curabitur tortor libero, iaculis id justo a, maximus auctor est. In hac habitasse platea dictumst. Integer imperdiet ipsum non ullamcorper ornare. Nam non turpis non nunc faucibus dapibus. Donec a justo ac dui viverra lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam nunc mauris, varius id interdum id, molestie in lorem.
+         </p>
+         <p>
+         Phasellus dignissim magna sit amet sollicitudin sagittis. Integer hendrerit lacus ut est accumsan, hendrerit pretium est aliquam. Ut eget enim in augue vulputate egestas. Donec id pretium mi. In scelerisque nibh odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Integer erat est, congue ac dapibus at, tincidunt at nisl. Suspendisse mollis augue in tortor aliquet, ut mattis odio ornare.
+         </p>
+         <p>
+         Proin ac sagittis lectus. Aliquam bibendum magna non mauris gravida, at rutrum lacus pulvinar. Etiam ac diam lacinia, fringilla lorem vitae, lobortis mauris. In vel suscipit lacus. Vestibulum dignissim libero ac varius vulputate. Nulla mauris ante, vestibulum id libero ac, semper egestas tellus. Sed at felis in nibh tincidunt tincidunt at id quam. Aenean consequat lorem eu mauris fringilla, quis vehicula urna commodo. Curabitur ullamcorper auctor diam id convallis.
+         </p>
+         </section>
+         <section id ="dao">
+           <h1>DAO</h1>
+           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac molestie tortor. Donec ut suscipit turpis, sed commodo elit. Pellentesque non magna at mauris viverra blandit vel sed ex. Quisque nec auctor tellus. Aenean aliquam justo interdum, mollis est id, tristique ligula. Nam a eros ac felis maximus varius. Sed elit tellus, volutpat mattis pulvinar quis, blandit eget sem. Nullam id eleifend leo, vel eleifend purus. Vestibulum hendrerit turpis vel ullamcorper euismod. Nunc commodo pretium ipsum nec mollis. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+           </p>
+           <p>
+           Nulla facilisi. Etiam mollis mi ipsum, eu suscipit erat auctor vitae. Phasellus tempus nunc at erat iaculis, in iaculis turpis feugiat. Nulla sollicitudin, ante vitae imperdiet malesuada, sapien erat fermentum ipsum, at condimentum risus dolor non nulla. Quisque elementum at sapien at vulputate. Duis placerat augue cursus, pulvinar orci vel, varius purus. Morbi a dui pulvinar dolor venenatis mattis. Integer lobortis ac nunc auctor bibendum. Vestibulum interdum auctor nunc, eu varius tellus aliquet at. Praesent sed eros posuere tellus tempus tempus at ac turpis. Praesent aliquam dui nec massa hendrerit condimentum. Donec finibus non lorem nec volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+           </p>
+           <p>
+           Integer placerat, tortor eu maximus tincidunt, elit ex ultrices arcu, a eleifend turpis nibh in ligula. Suspendisse potenti. Phasellus pharetra, urna sed suscipit congue, mauris odio rutrum lectus, id dapibus enim nulla et augue. Nunc ut ultricies odio. Nam vitae sodales nunc, quis cursus elit. Curabitur tortor libero, iaculis id justo a, maximus auctor est. In hac habitasse platea dictumst. Integer imperdiet ipsum non ullamcorper ornare. Nam non turpis non nunc faucibus dapibus. Donec a justo ac dui viverra lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam nunc mauris, varius id interdum id, molestie in lorem.
+           </p>
+           <p>
+           Phasellus dignissim magna sit amet sollicitudin sagittis. Integer hendrerit lacus ut est accumsan, hendrerit pretium est aliquam. Ut eget enim in augue vulputate egestas. Donec id pretium mi. In scelerisque nibh odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Integer erat est, congue ac dapibus at, tincidunt at nisl. Suspendisse mollis augue in tortor aliquet, ut mattis odio ornare.
+           </p>
+           <p>
+           Proin ac sagittis lectus. Aliquam bibendum magna non mauris gravida, at rutrum lacus pulvinar. Etiam ac diam lacinia, fringilla lorem vitae, lobortis mauris. In vel suscipit lacus. Vestibulum dignissim libero ac varius vulputate. Nulla mauris ante, vestibulum id libero ac, semper egestas tellus. Sed at felis in nibh tincidunt tincidunt at id quam. Aenean consequat lorem eu mauris fringilla, quis vehicula urna commodo. Curabitur ullamcorper auctor diam id convallis.
+           </p>
+           </section>
+         <section id ="roadmap">
+           <h1>ROADMAP</h1>
+           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac molestie tortor. Donec ut suscipit turpis, sed commodo elit. Pellentesque non magna at mauris viverra blandit vel sed ex. Quisque nec auctor tellus. Aenean aliquam justo interdum, mollis est id, tristique ligula. Nam a eros ac felis maximus varius. Sed elit tellus, volutpat mattis pulvinar quis, blandit eget sem. Nullam id eleifend leo, vel eleifend purus. Vestibulum hendrerit turpis vel ullamcorper euismod. Nunc commodo pretium ipsum nec mollis. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+           </p>
+           <p>
+           Nulla facilisi. Etiam mollis mi ipsum, eu suscipit erat auctor vitae. Phasellus tempus nunc at erat iaculis, in iaculis turpis feugiat. Nulla sollicitudin, ante vitae imperdiet malesuada, sapien erat fermentum ipsum, at condimentum risus dolor non nulla. Quisque elementum at sapien at vulputate. Duis placerat augue cursus, pulvinar orci vel, varius purus. Morbi a dui pulvinar dolor venenatis mattis. Integer lobortis ac nunc auctor bibendum. Vestibulum interdum auctor nunc, eu varius tellus aliquet at. Praesent sed eros posuere tellus tempus tempus at ac turpis. Praesent aliquam dui nec massa hendrerit condimentum. Donec finibus non lorem nec volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+           </p>
+           <p>
+           Integer placerat, tortor eu maximus tincidunt, elit ex ultrices arcu, a eleifend turpis nibh in ligula. Suspendisse potenti. Phasellus pharetra, urna sed suscipit congue, mauris odio rutrum lectus, id dapibus enim nulla et augue. Nunc ut ultricies odio. Nam vitae sodales nunc, quis cursus elit. Curabitur tortor libero, iaculis id justo a, maximus auctor est. In hac habitasse platea dictumst. Integer imperdiet ipsum non ullamcorper ornare. Nam non turpis non nunc faucibus dapibus. Donec a justo ac dui viverra lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam nunc mauris, varius id interdum id, molestie in lorem.
+           </p>
+           <p>
+           Phasellus dignissim magna sit amet sollicitudin sagittis. Integer hendrerit lacus ut est accumsan, hendrerit pretium est aliquam. Ut eget enim in augue vulputate egestas. Donec id pretium mi. In scelerisque nibh odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Integer erat est, congue ac dapibus at, tincidunt at nisl. Suspendisse mollis augue in tortor aliquet, ut mattis odio ornare.
+           </p>
+           <p>
+           Proin ac sagittis lectus. Aliquam bibendum magna non mauris gravida, at rutrum lacus pulvinar. Etiam ac diam lacinia, fringilla lorem vitae, lobortis mauris. In vel suscipit lacus. Vestibulum dignissim libero ac varius vulputate. Nulla mauris ante, vestibulum id libero ac, semper egestas tellus. Sed at felis in nibh tincidunt tincidunt at id quam. Aenean consequat lorem eu mauris fringilla, quis vehicula urna commodo. Curabitur ullamcorper auctor diam id convallis.
+           </p>
+           </section>
+           <section id ="team">
+             <h1>TEAM</h1>
+             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac molestie tortor. Donec ut suscipit turpis, sed commodo elit. Pellentesque non magna at mauris viverra blandit vel sed ex. Quisque nec auctor tellus. Aenean aliquam justo interdum, mollis est id, tristique ligula. Nam a eros ac felis maximus varius. Sed elit tellus, volutpat mattis pulvinar quis, blandit eget sem. Nullam id eleifend leo, vel eleifend purus. Vestibulum hendrerit turpis vel ullamcorper euismod. Nunc commodo pretium ipsum nec mollis. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+             </p>
+             <p>
+             Nulla facilisi. Etiam mollis mi ipsum, eu suscipit erat auctor vitae. Phasellus tempus nunc at erat iaculis, in iaculis turpis feugiat. Nulla sollicitudin, ante vitae imperdiet malesuada, sapien erat fermentum ipsum, at condimentum risus dolor non nulla. Quisque elementum at sapien at vulputate. Duis placerat augue cursus, pulvinar orci vel, varius purus. Morbi a dui pulvinar dolor venenatis mattis. Integer lobortis ac nunc auctor bibendum. Vestibulum interdum auctor nunc, eu varius tellus aliquet at. Praesent sed eros posuere tellus tempus tempus at ac turpis. Praesent aliquam dui nec massa hendrerit condimentum. Donec finibus non lorem nec volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+             </p>
+             <p>
+             Integer placerat, tortor eu maximus tincidunt, elit ex ultrices arcu, a eleifend turpis nibh in ligula. Suspendisse potenti. Phasellus pharetra, urna sed suscipit congue, mauris odio rutrum lectus, id dapibus enim nulla et augue. Nunc ut ultricies odio. Nam vitae sodales nunc, quis cursus elit. Curabitur tortor libero, iaculis id justo a, maximus auctor est. In hac habitasse platea dictumst. Integer imperdiet ipsum non ullamcorper ornare. Nam non turpis non nunc faucibus dapibus. Donec a justo ac dui viverra lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam nunc mauris, varius id interdum id, molestie in lorem.
+             </p>
+             <p>
+             Phasellus dignissim magna sit amet sollicitudin sagittis. Integer hendrerit lacus ut est accumsan, hendrerit pretium est aliquam. Ut eget enim in augue vulputate egestas. Donec id pretium mi. In scelerisque nibh odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Integer erat est, congue ac dapibus at, tincidunt at nisl. Suspendisse mollis augue in tortor aliquet, ut mattis odio ornare.
+             </p>
+             <p>
+             Proin ac sagittis lectus. Aliquam bibendum magna non mauris gravida, at rutrum lacus pulvinar. Etiam ac diam lacinia, fringilla lorem vitae, lobortis mauris. In vel suscipit lacus. Vestibulum dignissim libero ac varius vulputate. Nulla mauris ante, vestibulum id libero ac, semper egestas tellus. Sed at felis in nibh tincidunt tincidunt at id quam. Aenean consequat lorem eu mauris fringilla, quis vehicula urna commodo. Curabitur ullamcorper auctor diam id convallis.
+             </p>
+             </section>
+         </div>
+
+
+
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
 
   </body>
-
-
-{% endblock %}
+</html>
