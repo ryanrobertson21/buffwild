@@ -45,6 +45,14 @@ body {
   white-space: nowrap;
 }
 
+.show > ul > li > a {
+  font-family: "Soria-Bold";
+  font-size: 1rem;
+  margin-top: 5px;
+  text-align: left !important;
+
+}
+
 .collapse {
   top: 1.3rem;
 }
