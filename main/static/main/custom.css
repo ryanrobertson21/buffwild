@@ -120,6 +120,11 @@ body {
     position: absolute;
 }
 
+.navbar {
+    left: 0px !important;
+    position: relative !important;
+}
+
 
   /* position dropdown over image on home?*/
 .navburg {
