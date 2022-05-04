@@ -55,7 +55,7 @@ body {
   margin-right:auto !important;
   padding-top: 2px !important;
   text-align: center !important;
-  font-size: .65rem;
+  font-size: .75vw;
   white-space: nowrap !important;
   position: absolute !important;
 }
@@ -64,7 +64,7 @@ body {
 .nav-item {
   height: 20px;
   font-family: "Soria-Bold";
-  font-size: 1.6rem;
+  font-size: 1.8vw;
   margin-right: 5px;
   text-align: center !important;
 }
