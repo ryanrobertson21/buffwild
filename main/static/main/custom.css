@@ -116,7 +116,7 @@ body {
 }
 
 .navbar-toggler {
-    right: 5px !important;
+    left: 5px !important;
     position: absolute;
 }
 
