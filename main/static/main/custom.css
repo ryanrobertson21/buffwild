@@ -22,6 +22,10 @@ html {
     text-decoration: none;
 }
 
+.nav-link {
+  padding-top: 15px !important;
+}
+
 body {
   background-color: #000000 !important;
   font-family: 'Soria-Bold' !important;
@@ -51,9 +55,8 @@ body {
 
 .social-div {
   margin-top: 20px !important;
-  margin-left: auto !important;
-  margin-right: 5% !important;
   padding-top: 2px !important;
+  padding-right: 40px !important;
   text-align: center !important;
   font-size: .65rem;
   white-space: nowrap !important;
@@ -92,9 +95,9 @@ body {
   max-width:100% !important;
 }
 
-
-.col {
-  height: 35px;
+.col-4 {
+  display: flex;
+  justify-content: center;
 }
 
 #img_container {
