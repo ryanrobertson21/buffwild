@@ -15,7 +15,6 @@ html {
 
 .navbar-nav .nav-link {
     color: #FFFFFF !important;
-    padding-top: 14px;
 }
 
 .navbar-nav .nav-link:hover {
@@ -45,10 +44,6 @@ body {
   white-space: nowrap;
 }
 
-.show > ul > li > a {
-
-
-}
 
 .collapse {
   top: 1.3rem;
@@ -56,8 +51,8 @@ body {
 
 .social-div {
   margin-top: 20px !important;
-  margin-left: 25% !important;
-  margin-right:auto !important;
+  margin-left: auto !important;
+  margin-right: 5% !important;
   padding-top: 2px !important;
   text-align: center !important;
   font-size: .65rem;
@@ -122,7 +117,8 @@ body {
 
 
 .navbar-toggler {
-    margin-left: 10px !important;
+  /* This is for positioning the hamburger icon on mobile */
+    margin-left: 5px !important;
     position: absolute;
 }
 
@@ -136,6 +132,8 @@ body {
 .navburg {
     position: absolute;
     width: 100%;
+      /* This is for positioning header link text horizontally */
+    margin-left: 160px !important;
 }
   /* */
 .navbar-collapse.in {

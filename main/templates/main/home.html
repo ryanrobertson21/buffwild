@@ -61,16 +61,20 @@ width: 100% !important;
 }
 /* The below is to format the hamburger drop down text, will need to move this to custom.css */
 .nav-item {
-
 font-family: "Soria-Bold";
 font-size: 1rem !important;
 margin-top: 5px !important;
 text-align: left !important;
 }
 .navbar-collapse > ul {
+  /* This prevents a click to close hamburger menu from accidentally clicking one of the links */
   margin-top: 20px !important;
+  /* This is for preventing the expanded links from shifting right after hamburger menu opneed */
   position: absolute !important;
 }
+/* This prevents formatting from non mobile creating margin-left for this */
+.navburg {
+ margin-left: 0px !important;
 }
 
 
