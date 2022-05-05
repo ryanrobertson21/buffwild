@@ -120,9 +120,13 @@ body {
     height:50px;
 }
 
+
 .navbar-toggler {
     left: 10px !important;
     position: absolute;
+}
+
+.fa-bars {
 
 }
 
