@@ -35,8 +35,6 @@
   width: 85%;
   height: auto;
   justify-content: center !important;
-  /* Image needa a little padding on top on desktop to better align with text */
-  padding-top: 5px !important;
 }
 
 .content {
@@ -55,12 +53,14 @@ p {
   font-size: 1.5rem;
   margin-top: 2%;
   margin-right: .75%;
+  line-height: 1.25;
 }
 
 h1 {
   color: #FFFFFF;
   font-size: 2.3rem;
   padding-top: 2%;
+  line-height: 1;
 }
 
 h3 {
@@ -72,9 +72,11 @@ h3 {
 img {
 width: 100% !important;
 }
-/* Gave image some padding in desktop screen so it aligns more with text, not necessary on mobile so overriding */
+/* OLD/IRRELEVANT NOW BUT KEEPING FOR NOW-Gave image some padding in desktop screen so it aligns more with text, not necessary on mobile so overriding */
 .crew img {
   padding-top: 0px !important;
+  /* Do want some on the bottom though for mobile */
+  padding-bottom: 5px !important;
 }
 /* The below is to format the hamburger drop down text, will need to move this to custom.css */
 .nav-item {
@@ -92,6 +94,10 @@ text-align: left !important;
 /* This prevents formatting from non mobile creating margin-left for this */
 .navburg {
  margin-left: 0px !important;
+}
+
+.content {
+  margin-left: 8% !important;
 }
 
 
