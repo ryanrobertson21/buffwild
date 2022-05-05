@@ -114,9 +114,12 @@ body {
 
 .navbar-toggler {
   /* This is for positioning the hamburger icon on mobile */
-    margin-left: 5px !important;
     position: absolute;
+    text-align: left !important;
+    padding-left: 0 !important;
 }
+
+
 
 .navbar {
     left: 0px !important;
