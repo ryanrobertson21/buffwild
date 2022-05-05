@@ -182,14 +182,20 @@ text-align: left !important;
 .content {
   margin-left: 8% !important;
 }
+/* Position mouse on mobile */
+.mouse-wrap{
+  left:90% !important;
+  top:26% !important;
+  width: 10vw !important;
+}
 }
 
 
 .mouse-wrap{
   display:inline-block;
-  position:absolute;
-  left:96%;
-  top:89%;
+  position:fixed;
+  left:84%;
+  top:81%;
   transform:translate(-50%,-50%);
 }
 
