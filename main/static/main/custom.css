@@ -144,6 +144,47 @@ body {
     display: block !important;
 }
 
+/* This is for formatting on mobile screens (research more) */
+@media only screen and (max-width: 480px) {
+img {
+width: 100% !important;
+}
+/* OLD/IRRELEVANT NOW BUT KEEPING FOR NOW-Gave image some padding in desktop screen so it aligns more with text, not necessary on mobile so overriding */
+.crew img {
+  padding-top: 0px !important;
+  /* Do want some on the bottom though for mobile */
+  padding-bottom: 10px !important;
+}
+
+.social-div {
+  padding-right: 0px !important;
+}
+
+/* The below is to format the hamburger drop down text, will need to move this to custom.css */
+.nav-item {
+font-family: "Soria-Bold";
+font-size: 1rem !important;
+margin-top: 5px !important;
+text-align: left !important;
+}
+
+.navbar-collapse > ul {
+  /* This prevents a click to close hamburger menu from accidentally clicking one of the links */
+  margin-top: 20px !important;
+  /* This is for preventing the expanded links from shifting right after hamburger menu opneed */
+  position: absolute !important;
+}
+/* This prevents formatting from non mobile creating margin-left for this */
+.navburg {
+ margin-left: 0px !important;
+}
+
+.content {
+  margin-left: 8% !important;
+}
+}
+
+
 .mouse-wrap{
   display:inline-block;
   position:absolute;
