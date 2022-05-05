@@ -122,12 +122,8 @@ body {
 
 
 .navbar-toggler {
-    left: 10px !important;
+    margin-left: 10px !important;
     position: absolute;
-}
-
-.fa-bars {
-
 }
 
 .navbar {
