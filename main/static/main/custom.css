@@ -12,6 +12,29 @@ html {
   overflow-x:hidden
 }
 
+.social-icons {
+    color: #000000;
+}
+
+.telegram-icon {
+  color: #FFFFFF;
+  background-color: #000000;
+}
+
+.fa-stack:hover .fa-circle{
+   color: #E1DA22 !important;
+}
+
+.social-div {
+  margin-top: 20px !important;
+  padding-top: 2px !important;
+  padding-right: 40px !important;
+  text-align: center !important;
+  font-size: .65rem;
+  white-space: nowrap !important;
+  position: absolute !important;
+}
+
 
 .navbar-nav .nav-link {
     color: #FFFFFF !important;
@@ -31,15 +54,6 @@ body {
   font-family: 'Soria-Bold' !important;
 }
 
-.social-icons {
-    color: #000000;
-}
-
-.telegram-icon {
-  color: #FFFFFF;
-  background-color: #000000;
-}
-
 .link-nav {
   margin-top: 0% !important;
   margin-left: 26% !important;
@@ -53,17 +67,6 @@ body {
   top: 1.3rem;
 }
 
-.social-div {
-  margin-top: 20px !important;
-  padding-top: 2px !important;
-  padding-right: 40px !important;
-  text-align: center !important;
-  font-size: .65rem;
-  white-space: nowrap !important;
-  position: absolute !important;
-}
-
-
 .nav-item {
   height: 20px;
   font-family: "Soria-Bold";
@@ -76,10 +79,6 @@ body {
   color: #E1DA22 !important;
 }
 
-.fa-stack:hover .fa-circle{
-   color: #E1DA22 !important;
-}
-
 .container-btn:hover .button{
    color: white !important;
    background-color: #E1DA22;
@@ -90,7 +89,6 @@ body {
 }
 
 .container1 {
-  height: 35px;
   width: 100%;
   max-width:100% !important;
 }
@@ -124,13 +122,10 @@ body {
     padding-top: 12px !important;
 }
 
-
-
 .navbar {
     left: 0px !important;
     position: relative;
 }
-
 
   /* position dropdown over image on home?*/
 .navburg {
@@ -182,13 +177,15 @@ text-align: left !important;
 .content {
   margin-left: 8% !important;
 }
+
+
+/* MOUSE SCROLL ICON */
 /* Position mouse on mobile */
 .mouse-wrap{
   left:90% !important;
   top:26% !important;
 }
 }
-
 
 .mouse-wrap{
   display:inline-block;
@@ -501,4 +498,73 @@ text-align: left !important;
       scale(1);
     opacity:1;
   }
+}
+
+/* HEADER SOCIAL ICONS */
+ul.social-network {
+  list-style: none;
+  display: inline;
+  margin-left: 0 !important;
+  margin-bottom: 0rem !important;
+  margin-top: 1.5rem !important;
+  padding: 0;
+}
+
+ul.social-network li {
+  display: inline;
+  margin: 0 5px;
+}
+
+.social-circle li a {
+  display: inline-block;
+  position: relative;
+  margin: 0 auto 0 auto;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  text-align: center;
+  /* controls the size of the white circles */
+  width: 25px;
+  height: 25px;
+  /* controls just the size of the icons, not the white circles */
+  font-size: 15px !important;
+  background-color: #FFFFFF !important;
+}
+
+
+.social-circle li i {
+  margin: 0;
+  /* controls the the social icons vertical alignment inside of the white circles */
+  line-height: 25px;
+  text-align: center;
+  /* icon color */
+  color: #000000 !important;
+}
+
+.fa-telegram-plane {
+  font-size: 16px !important;
+  line-height: 24px !important;
+  padding-right: 1px !important;
+}
+
+.social-circle li a:hover i,
+.triggeredHover {
+  -moz-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -ms--transform: rotate(360deg);
+  transform: rotate(360deg);
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.social-circle i {
+  color: #fff;
+  -webkit-transition: all 0.8s;
+  -moz-transition: all 0.8s;
+  -o-transition: all 0.8s;
+  -ms-transition: all 0.8s;
+  transition: all 0.8s;
 }

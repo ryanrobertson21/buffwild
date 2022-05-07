@@ -15,95 +15,96 @@
     <link rel="stylesheet" href="{% static "main/custom.css" %}">
     <!-- Website Icon -->
     <link rel="icon" type="image/png" href="{% static "main/placeholder_Logo.png" %}">
-
-<!-- I don't think this is getting used at all obv since that file doesn't even exist, look it up -->
+    <!-- I don't think this is getting used at all obv since that file doesn't even exist, look it up -->
     <link rel="stylesheet" href="stylesheet.css" type="text/css" charset="utf-8" />
 
-
-
     <!-- Font Awesome -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
 
-  <!-- MDB -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css"
-    rel="stylesheet"/>
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.0.0/mdb.min.css" rel="stylesheet"/>
 
     <!-- Social Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css" integrity="sha256-XoaMnoYC5TH6/+ihMEnospgm0J1PM/nioxbOUdnM8HY=" crossorigin="anonymous">
+
     <!-- Font Awesome Kit-->
-        <script src="https://kit.fontawesome.com/4b8d5a5c98.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/4b8d5a5c98.js" crossorigin="anonymous"></script>
+
+    <!-- This is for loading the correct Telegram icon-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"/>
+
+
 {% block header %}
 <div class="container1">
- <div class="row container-fluid">
-  <div class="col-8 d-flex justify-content-start">
+  <div class="row container-fluid">
+    <div class="col-8 d-flex justify-content-start">
     {% block links %}
       <!-- expand-lg so that it collapses into hamburger at a bigger screen width, this way it collpases before links and icons clash and show on top of eachother-->
-   <nav class="navbar navbar-expand-lg navbar-dark">
-     <div class="container-fluid">
-    <div class="link-nav">
-     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fas fa-bars"></i>
-     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-     <ul class="navbar-nav navburg me-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-       <a class="nav-link" href="{% anchor 'home' 'season 1' %}">SEASON 1</a>
-      </li>
-     <li class="nav-item">
-      <a class="nav-link" href="{% anchor 'home' 'dao' %}">DAO</a>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link" href="{% anchor 'home' 'roadmap' %}">ROADMAP</a>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link" href="{% anchor 'home' 'team' %}">TEAM</a>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link" href="{% url 'collection' %}">COLLECTION</a>
-     </li>
-     <li class="nav-item">
-      <a class="nav-link" href="{% url 'test' %}">WHITEPAPER</a>
-     </li>
-    </ul>
-   </div>
+      <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <div class="link-nav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav navburg me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link" href="{% anchor 'home' 'season 1' %}">SEASON 1</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% anchor 'home' 'dao' %}">DAO</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% anchor 'home' 'roadmap' %}">ROADMAP</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% anchor 'home' 'team' %}">TEAM</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'collection' %}">COLLECTION</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'test' %}">WHITEPAPER</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    {% endblock links %}
+    </div>
+    <div class="col-4">
+      <ul class="social-network social-circle">
+        <li>
+          <a href="#" class="icoDiscord" title="Discord" target="_blank">
+            <i class="fab fa-discord"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#" class="icoTelegram" title="Telegram" target="_blank">
+            <i class="fab fa-telegram-plane"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/buffwildcrew/" class="icoInstagram" title="Instagram" target="_blank">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/buffwild_radix" class="icoTwitter" title="Twitter" target="_blank">
+            <i class="fa fa-twitter"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
- </nav>
- {% endblock links %}
-</div>
+{% endblock header %}
+</head>
 
+  <body>
 
-  <div class="col-4">
-    <div class="social-div">
-        <span class="fa-stack fa-1x">
-          <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
-          <a href="#" title="Discord" target="_blank"><i class="fab fa-discord fa-stack-1x fa-1x social-icons"></i></a>
-        </span>
-        <span class="fa-stack fa-1x">
-          <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
-          <a href="https://t.me/BuffWildCollective" title="Telegram" target="_blank"><i class="fa-circle fab fa-telegram fa-stack-1x fa-2x telegram-icon"></i></a>
-        </span>
-        <span class="fa-stack fa-1x">
-          <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
-          <a href="https://www.instagram.com/buffwildcrew/" title="Instagram" target="_blank"><i class="fab fa-instagram fa-stack-1x fa-lg social-icons"></i></a>
-        </span>
-        <span class="fa-stack fa-1x">
-          <i class="fas fa-circle fa-stack-2x" style="color:White;"></i>
-          <a href="https://twitter.com/buffwild_radix" title="Twitter" target="_blank"><i class="fab fa-twitter fa-stack-1x fa-lg social-icons"></i></a>
-        </span>
-    </div>
-    </div>
-    </div>
-    </div>
-    {% endblock header %}
-
-  </head>
-    <body>
-
-  {% block content %}{% endblock %}
+{% block content %}{% endblock %}
 
     <!-- Optional JavaScript; choose one of the two! -->
 
