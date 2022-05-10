@@ -130,15 +130,9 @@ body {
 
 /* This is for formatting on mobile screens (research more) */
 @media only screen and (max-width: 480px) {
+
 img {
 width: 100% !important;
-}
-
-/* OLD/IRRELEVANT NOW BUT KEEPING FOR NOW-Gave image some padding in desktop screen so it aligns more with text, not necessary on mobile so overriding */
-.crew img {
-  padding-top: 0px !important;
-  /* Do want some on the bottom though for mobile */
-  padding-bottom: 10px !important;
 }
 
 /* move hamnurger icon for mobile */
@@ -174,7 +168,16 @@ text-align: left !important;
 /* Position mouse on mobile */
 .mouse-wrap{
   left:90% !important;
-  top:26% !important;
+  top:30% !important;
+}
+/* Size mouse on mobile */
+.mouse {
+  top:0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5vw !important;
+  animation: nudgeMouse 5.5s ease-out infinite;
 }
 }
 
