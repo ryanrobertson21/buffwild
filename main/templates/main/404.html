@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+{% block header %} {% endblock header %}
+{% block content %}
+
+{% load static %}
+
+<head>
+
+<style>
+
+body {
+  color: #FFFFFF;
+}
+
+.btn-link {
+  font-size: 2.5rem !important;
+  color: #618A5A !important;
+}
+
+</style>
+</head>
+
+<body>
+<div class="page-wrap d-flex flex-row align-items-center">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <span class="display-1 d-block">404</span>
+                <div class="mb-4 lead">This is not the way</div>
+                <a href="{% url 'home' %}" class="btn btn-link">Back into the Storm</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+{% endblock %}

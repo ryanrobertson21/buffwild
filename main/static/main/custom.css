@@ -12,10 +12,15 @@ html {
   overflow-x:hidden
 }
 
+.fa-stack:hover .fa-circle{
+   color: #E1DA22 !important;
+}
 
 .navbar-nav .nav-link {
     color: #FFFFFF !important;
-    padding-top: 14px;
+    padding-top: 0 !important;
+    padding-bottom: 0px !important;
+    padding-left: 0px;
 }
 
 .navbar-nav .nav-link:hover {
@@ -23,18 +28,16 @@ html {
     text-decoration: none;
 }
 
+.row1 {
+  height: max(35px, 2.431vw);
+  margin-top: max(35px, 2.431vw) !important;
+  padding-top: 5px;
+}
+
+
 body {
   background-color: #000000 !important;
   font-family: 'Soria-Bold' !important;
-}
-
-.social-icons {
-    color: #000000;
-}
-
-.telegram-icon {
-  color: #FFFFFF;
-  background-color: #000000;
 }
 
 .link-nav {
@@ -42,48 +45,27 @@ body {
   margin-left: 26% !important;
   margin-right:auto !important;
   margin-bottom: 2px !important;
-  white-space: nowrap;
-}
-
-.show > ul > li > a {
-  font-family: "Soria-Bold";
-  font-size: 1rem;
-  margin-top: 5px;
-  text-align: left !important;
-  color: #E1DA22 !important;
-
+  white-space: nowrap !important;
 }
 
 .collapse {
   top: 1.3rem;
 }
 
-.social-div {
-  margin-top: 20px !important;
-  margin-left: 25% !important;
-  margin-right:auto !important;
-  padding-top: 2px !important;
-  text-align: center !important;
-  font-size: .65rem;
-  white-space: nowrap !important;
-  position: absolute !important;
+.social-circle {
+  align-items: center;
 }
 
-
 .nav-item {
-  height: 20px;
   font-family: "Soria-Bold";
-  font-size: 1.6rem;
+  font-size: max(1.7vw, 20px) ;
   margin-right: 5px;
-  text-align: center !important;
+  text-align: left !important;
+  padding-bottom: 0px !important;
 }
 
 .navbar-nav>li>a {
   color: #E1DA22 !important;
-}
-
-.fa-stack:hover .fa-circle{
-   color: #E1DA22 !important;
 }
 
 .container-btn:hover .button{
@@ -96,19 +78,18 @@ body {
 }
 
 .container1 {
-  height: 35px;
   width: 100%;
   max-width:100% !important;
 }
 
-.row {
-  height: 35px;
+.col-sm-4 {
+  text-align: center !important;
+  }
 
-}
-
-.col {
-  height: 35px;
-}
+/* horizontally adjust social icons on desktop */
+  ul.social-circle {
+    margin-right: 7.5%;
+  }
 
 #img_container {
     position:relative;
@@ -124,16 +105,18 @@ body {
     height:50px;
 }
 
-.navbar-toggler {
-    left: 0px !important;
-    position: absolute;
-}
-
 .navbar {
     left: 0px !important;
     position: relative;
 }
 
+.navbar-toggler {
+  /* This is for positioning the hamburger icon on mobile */
+    position: absolute;
+    text-align: left !important;
+    padding-left: 0 !important;
+    display:inline-block;
+}
 
   /* position dropdown over image on home?*/
 .navburg {
@@ -145,11 +128,67 @@ body {
     display: block !important;
 }
 
+/* This is for formatting on mobile screens (research more) */
+@media only screen and (max-width: 480px) {
+
+img {
+width: 100% !important;
+}
+
+/* move hamnurger icon for mobile */
+.link-nav {
+  margin-left: 40% !important;
+  margin-right:auto !important;
+  margin-bottom: 2px !important;
+  text-align: center !important;
+}
+
+/* The below is to format the hamburger drop down text, will need to move this to custom.css */
+.nav-item {
+font-family: "Soria-Bold";
+font-size: 5.5vw !important;
+margin-top: 0px !important;
+padding-left: 3px !important;
+text-align: left !important;
+}
+
+.navbar-collapse > ul {
+  /* This is for preventing the expanded links from shifting right after hamburger menu opneed */
+  position: absolute !important;
+}
+/* This prevents formatting from non mobile creating margin-left for this */
+.navburg {
+ margin-left: 0px !important;
+}
+
+.content {
+  margin-left: 8% !important;
+}
+
+/* Position mouse on mobile */
+.mouse-wrap{
+  left:90% !important;
+  top:30% !important;
+}
+/* Size mouse on mobile */
+.mouse {
+  top:0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5vw !important;
+  animation: nudgeMouse 5.5s ease-out infinite;
+}
+}
+
+
+/* MOUSE SCROLL ICON */
+
 .mouse-wrap{
   display:inline-block;
-  position:absolute;
-  left:96%;
-  top:89%;
+  position:fixed;
+  left:84%;
+  top:81%;
   transform:translate(-50%,-50%);
 }
 
@@ -457,3 +496,285 @@ body {
     opacity:1;
   }
 }
+
+
+
+/* HEADER CSS */
+/* HEADER SOCIAL ICONS */
+ul.social-network {
+  list-style: none;
+  display: inline;
+  margin-left: 0 !important;
+  margin-bottom: 0rem !important;
+  padding: 0;
+}
+
+ul.social-network li {
+  display: inline;
+  /* space between social icons desktop */
+  margin: 0.1vw;
+}
+
+.social-circle li a {
+  display: inline-block;
+  position: relative;
+  margin: 0 auto 0 auto;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  text-align: center;
+  /* controls the size of the white circles */
+  width: max(1.389vw, 20px);
+  height: max(1.389vw, 20px);
+  /* controls just the size of the icons, not the white circles */
+  font-size: max(0.9vw, 13px) !important;
+  background-color: #FFFFFF !important;
+  margin-top: max(0.25vw, 1px) !important;
+}
+
+.social-circle li i {
+  margin: 0;
+  /* controls the social icons vertical alignment inside of the white circles */
+  line-height: max(1.389vw, 20px);
+  text-align: center;
+  /* icon color */
+  color: #000000 !important;
+}
+
+.fa-telegram-plane {
+  font-size: max(0.95vw, 13px) !important;
+  line-height: max(1.389vw, 20px) !important;
+  padding-right: 1px !important;
+}
+
+.social-circle li a:hover i,
+.triggeredHover {
+  -moz-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -ms--transform: rotate(360deg);
+  transform: rotate(360deg);
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.social-circle i {
+  color: #fff;
+  -webkit-transition: all 0.8s;
+  -moz-transition: all 0.8s;
+  -o-transition: all 0.8s;
+  -ms-transition: all 0.8s;
+  transition: all 0.8s;
+}
+
+/* HEADER MEDIA QUERY POSITIONINGS */
+/* Header stuff */
+.navbar-expand-lg {
+  width: 0px;
+}
+
+.nav-links-col {
+  padding-left: 0px;
+}
+
+/* Mobile Screens */
+@media only screen and (max-width: 480px) {
+
+  .border-cols {
+    display: none !important;
+  }
+
+  .social-icon-col {
+    width: 75% !important;
+    text-align: right !important;
+  }
+
+  .nav-links-col {
+    width: 25% !important;
+  }
+
+  .social-circle {
+    margin-right: 0px !important;
+  }
+
+  .row {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+  }
+
+  .social-icon-col {
+    padding-right: 0px !important;
+  }
+}
+
+@media (min-width:481px) and (max-width:991px) {
+  .border-col-beg {
+    width: 12.5% !important;
+  }
+
+  .border-col-end {
+    width: 6.5% !important;
+  }
+
+  .social-icon-col {
+    width: 56% !important;
+    text-align: right !important;
+    padding-right: 0px !important;
+  }
+
+  .nav-links-col {
+    width: 25% !important;
+    align-items: flex-start !important;
+  }
+
+  .link-nav .container-fluid {
+    padding-left: 5px !important;
+  }
+
+  .nav-item {
+    font-size: 3.5vw;
+    padding-left: 3px;
+}
+}
+
+@media (min-width:992px) {
+  .border-col-beg {
+    width: 11.5% !important;
+  }
+
+  .border-col-end {
+    width: 10% !important;
+  }
+
+  .social-icon-col {
+    width: 17.5% !important;
+    text-align: right !important;
+    padding-right: 0.75% !important;
+  }
+
+  .nav-links-col {
+    width: 61% !important;
+  }
+
+  .nav-link {
+    padding-left: 0px !important;
+    padding-right: 1rem !important;
+  }
+
+}
+
+@media (min-width:1500px) {
+
+.nav-links-col {
+  padding-left: 0.25vw !important;
+}
+
+.nav-link {
+  padding-left: 0.3vw !important;
+}
+  }
+
+@media (min-width:2000px) {
+
+  .nav-links-col {
+    padding-left: 0.5vw !important;
+  }
+
+  .nav-link {
+    padding-left: 0.5vw !important;
+  }
+    }
+
+@media (min-width:3000px) {
+
+  .nav-link {
+    padding-left: 0.7vw !important;
+  }
+    }
+/* ANIMATED HAMBURGER ICON */
+    .navbar-toggler {
+        width: 20px;
+        height: 20px;
+        position: relative;
+        transition: .5s ease-in-out;
+    }
+
+    .navbar-toggler,
+    .navbar-toggler:focus,
+    .navbar-toggler:active,
+    .navbar-toggler-icon:focus {
+        outline: none;
+        box-shadow: none;
+        border: 0;
+        position: relative;
+    }
+
+    .navbar-toggler span {
+        margin: 0;
+        padding: 0;
+    }
+
+    .toggler-icon {
+        display: block;
+        position: absolute;
+        height: 3px;
+        width: 100%;
+        background: #FFFFFF;
+        border-radius: 1px;
+        opacity: 1;
+        left: 0;
+        transform: rotate(0deg);
+        transition: .25s ease-in-out;
+    }
+
+    .middle-bar {
+        margin-top: 0px;
+    }
+
+
+    /* State when the navbar is collapsed */
+
+    .navbar-toggler.collapsed .top-bar {
+        position: absolute;
+        top: -5px;
+        transform: rotate(0deg);
+    }
+
+    .navbar-toggler.collapsed .middle-bar {
+        opacity: 1;
+        position: absolute;
+        top: 2.5px;
+        filter: alpha(opacity=100);
+    }
+
+    .navbar-toggler.collapsed .bottom-bar {
+        position: absolute;
+        top: 10px;
+        transform: rotate(0deg);
+    }
+
+    /* when navigation is clicked */
+
+    .navbar-toggler .top-bar {
+        top: 2px;
+        transform: rotate(135deg);
+    }
+
+    .navbar-toggler .middle-bar {
+        opacity: 0;
+        top: inherit;
+        filter: alpha(opacity=0);
+    }
+
+    .navbar-toggler .bottom-bar {
+        top: 2px;
+        transform: rotate(-135deg);
+    }
+
+    /* Color of 3 lines */
+
+    .navbar-toggler.collapsed .toggler-icon {
+        background: #FFFFFF;
+    }

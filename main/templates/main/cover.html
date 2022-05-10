@@ -11,13 +11,9 @@
   /* Container needed to position the button. Adjust the width as needed */
 .container {
   position: relative;
-  width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
   margin: auto;
-}
-/* Container needed to position image correctly on cover page, wasn't working from custom css as it needs
-to take precedence over the above .container */
-.containerc {
-  padding-top: 10px !important;
 }
 
 div {
@@ -26,16 +22,15 @@ div {
 
 /* Make the image responsive */
 .container img {
-  width: 85%;
+  width: 75%;
   height: auto;
   top: 3%;
-
 }
 
 /* Style the button and place it in the middle of the container/image */
 .container .btn {
   position: absolute;
-  top: 92%;
+  top: 91%;
   left: 50%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
@@ -50,36 +45,51 @@ div {
   color:White;
   font-family:Soria-Bold;
   text-align: center;
-  width: 12%;
-  height: 5%;
+  width: 10%;
+  height: 4%;
   text-align: center;
-  padding-bottom: 4.5%;
+  padding-bottom: 3.5%;
   padding-left: 1.2%;
-  padding-right: 1%; !important;
+  padding-right: 1% !important;
   padding-top: 0%; !important;
   vertical-align: middle !important;
 }
 
-
-@media only screen and (max-width: 480px) {
-img {
-width: 100% !important;
-}
+h1 {
+  color: #FFFFFF;
 }
 
+h2 {
+  color: #FFFFFF;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+h6 {
+  color: #FFFFFF;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.containertext {
+  width: 75%;
+  text-align: center;
+}
 </style>
 
   <body>
 
-          <div class="container containerc">
-            <img src="{% static 'main/Buff Barn.png' %}" style="border: .427vw solid #E1DA22">
-          <div class="container-btn d-flex w-100">
-            <a href="{% url 'home' %}"><button type="button" class="btn waves-effect button btn-centertext">ENTER<i aria-hidden="true" style="vertical-align: text-top;"></i></button>
-          </div>
-
-          </div>
-
-
+    <div class="container containerc">
+      <img src="{% static 'main/Buff Barn.png' %}" style="border: .427vw solid #E1DA22">
+      <div class="container-btn d-flex w-100">
+        <a href="{% url 'home' %}"><button type="button" class="btn waves-effect button btn-centertext">ENTER<i aria-hidden="true" style="vertical-align: text-top;"></i></button>
+      </div>
+    </div>
+    <div class="container containerc">
+    <h6>An NFT Collection for the Radix Community</h6>
+    <h2>The Buff Barn was built by those, for those seeking freedom of thought, speech and a better world.</h2>
+    <h1>BUFF ON BABY!</h1>
+    </div>
   </body>
 
 

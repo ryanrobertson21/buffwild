@@ -19,6 +19,10 @@ from main import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+
+handler404 = 'main.views.error_404_view'
+handler500 = 'main.views.error_500_view'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.cover, name='cover'),
