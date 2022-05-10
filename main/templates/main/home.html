@@ -9,7 +9,10 @@
 <style>
   /* Container needed to position the button. Adjust the width as needed */
 .container {
-  width: 100%;
+  /* These two are to make the container take up full width, and the second one is to make sure it isn't overriden by any max width rules so that it takes up full width on big monitors */
+  width: 100% !important;
+  max-width: 100% !important;
+
   margin: auto !important;
   padding-bottom: 0 !important;
   margin-bottom: 0 !important;
@@ -19,14 +22,10 @@
 
 }
 
-.containerc {
-  padding-top: 10px !important;
-}
-
 
 /* Make the image responsive */
 .container img {
-  width: 82%;
+  width: 75%;
   height: auto;
   top: 0%;
 }
@@ -35,6 +34,7 @@
   width: 85%;
   height: auto;
   justify-content: center !important;
+  display: block;
 }
 
 .content {
