@@ -128,6 +128,30 @@ body {
     display: block !important;
 }
 
+.roadmap img {
+  width: 100% !important;
+  padding-left: 5% !important;
+  padding-right: 10% !important;
+}
+
+#season-1 {
+  text-align: left !important;
+  margin-left: 14% !important;
+  margin-right: 15% !important;
+}
+
+#dao {
+  text-align: left !important;
+  margin-left: 14% !important;
+  margin-right: 15% !important;
+}
+
+#team {
+  text-align: left !important;
+  margin-left: 14% !important;
+  margin-right: 15% !important;
+}
+
 /* This is for formatting on mobile screens (research more) */
 @media only screen and (max-width: 480px) {
 
@@ -138,7 +162,25 @@ width: 100% !important;
 .roadmap img {
   height: 100% !important;
   padding-left: 0% !important;
-  padding-right: 5% !important;
+  padding-right: 4% !important;
+}
+
+#season-1 {
+  text-align: left !important;
+  margin-left: 4% !important;
+  margin-right: 5% !important;
+}
+
+#dao {
+  text-align: left !important;
+  margin-left: 4% !important;
+  margin-right: 5% !important;
+}
+
+#team {
+  text-align: left !important;
+  margin-left: 4% !important;
+  margin-right: 5% !important;
 }
 /* move hamnurger icon for mobile */
 .link-nav {
