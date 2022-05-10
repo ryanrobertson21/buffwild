@@ -72,6 +72,11 @@ h3 {
   color: #618A5A;
 }
 
+h4 {
+  color: #E1DA22;
+  text-align: center;
+}
+
 hr{
     height: 1px;
     background-color: #E1DA22;
@@ -82,6 +87,13 @@ hr{
   padding-left: 0px !important;
 }
 
+.council {
+  text-align: center
+}
+
+.teamrow {
+  padding-top: 20px !important;
+}
 
 </style>
 </head>
@@ -165,12 +177,55 @@ c13.2,0,23.9-10.7,23.9-23.9v-36C51.4,14.3,40.7,3.6,27.4,3.6z"/>
      </section>
      <hr/>
      <section id ="team">
-      <h1>Crew Council</h1>
-      <h3>Tank</h3>
-      <h3>Chillybook</h3>
-      <h3>Hammy the Hatmaker</h3>
-      <h3>Mister Wizard</h3>
-       </section>
+       <h1 class="council">CREW COUNCIL</h1>
+       <div class="row teamrow">
+         <div class="col-12 col-md-6 col-lg-3">
+           <div class="row">
+             <h4>Tank</h4>
+           </div>
+           <div class="row">
+             <img src="{% static 'main/TeamBuffs/Wolf Two.png' %}">
+           </div>
+           <div class="row">
+             <p>Lead Dev. Hates NFTs.</p>
+           </div>
+         </div>
+         <div class="col-12 col-md-6 col-lg-3">
+           <div class="row">
+             <h4>ChillyBook</h4>
+           </div>
+           <div class="row">
+             <img src="{% static 'main/TeamBuffs/Chilly Buff.jpeg' %}">
+           </div>
+           <div class="row">
+             <p>Chief HR Person. Loves cheese curls.</p>
+           </div>
+         </div>
+         <div class="col-12 col-md-6 col-lg-3">
+           <div class="row">
+            <h4>Hammy the Hatmaker</h4>
+           </div>
+           <div class="row">
+             <img src="{% static 'main/TeamBuffs/Hammy Buff.png' %}">
+           </div>
+           <div class="row">
+             <p>Lead Designer. Always wearing a hat. Might be bald.</p>
+           </div>
+         </div>
+         <div class="col-12 col-md-6 col-lg-3">
+           <div class="row">
+            <h4>Mister Wizard</h4>
+           </div>
+           <div class="row">
+             <img src="{% static 'main/TeamBuffs/Wizard Buff.jpeg' %}">
+           </div>
+           <div class="row">
+             <p>Chief Marketer. Has a baby buff, but stays out of the kids pool.</p>
+           </div>
+         </div>
+       </div>
+     </section>
+     <hr/>
    </div>
 </body>
 
