@@ -23,6 +23,7 @@ class Image(models.Model):
     last_updated=models.DateTimeField(blank=True, null=True)
 
     img_photo=models.ImageField(upload_to='unlocked_buffs/', null=True, blank=True)
+    img_url=models.CharField(null=True, blank=True, max_length=100)
 
     def __str__(self):
         return '{}'.format(self.uniqueId)
@@ -42,4 +43,6 @@ class Image(models.Model):
 
         self.slug = slugify('{}'.format(self.uniqueId))
         self.last_updated = timezone.localtime(timezone.now())
+        x = str(self.img_photo).replace(' ', '%20')
+        self.img_url = "https://buffwild.b-cdn.net/" + x
         super(Image, self).save(*args, **kwargs)

@@ -3,9 +3,6 @@
 {% load custom_tags %}
 <html lang="en">
   <head>
-    <link type="text/css" rel="stylesheet" href="{% static "main/magicscroll/magicscroll.css" %}"/>
-    <script type="text/javascript" src="/static/main/magicscroll/magicscroll.js"></script>
-
     <style>
     .MagicScroll a img{
       height: 100px;
@@ -15,13 +12,6 @@
 
     }
     </style>
-    <script>
-    var MagicScrollOptions = {
-        step:1,
-        autoplay:500,
-        arrows:'off'
-    }
-    </script>
 
 </head>
 <body>
@@ -49,7 +39,15 @@
   </div>
 
 
-
+  <link type="text/css" rel="stylesheet" href="{% static "main/magicscroll/magicscroll.css" %}"/>
+  <script type="text/javascript" src="/static/main/magicscroll/magicscroll.js"></script>
+  <script>
+  var MagicScrollOptions = {
+      step:1,
+      autoplay:500,
+      arrows:'off'
+  }
+  </script>
 
 
 
