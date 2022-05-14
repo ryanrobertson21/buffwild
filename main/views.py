@@ -14,9 +14,6 @@ def collection(request):
 def cover(request):
     return render(request, 'main/cover.html')
 
-def about(request):
-    return render(request, 'main/about.html')
-
 def instructions(request):
     return render(request, 'main/instructions.html')
 
@@ -32,6 +29,7 @@ def walletLookup(request):
     return render(request, 'main/walletLookup.html',{
         'images': images,
     })
+
 
 def error_404_view(request, exception):
     return render(request, 'main/404.html')
