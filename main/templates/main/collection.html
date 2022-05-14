@@ -54,6 +54,7 @@
         {% if image.ownerWallet != "Locked" %}
             <img class="img-responsive" src={{image.img_url}}>
             <a>#{{image.id}}</a>
+            <a>#{{image.tradeId}}</a>
         {% else %}
             <img class="img-responsive" src="{% static 'main/locked_image.jpg' %}">
         {% endif %}
