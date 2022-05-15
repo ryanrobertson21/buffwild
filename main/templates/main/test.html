@@ -5,49 +5,41 @@
   <head>
     <style>
     .MagicScroll a img{
-      height: 100px;
+      height: 100px !important;
+      width: 75px !important;
     }
 
-    .MagicScroll {
-
-    }
     </style>
+
+    <link type="text/css" rel="stylesheet" href="{% static "main/magicscroll/magicscroll.css" %}"/>
+    <script type="text/javascript" src="/static/main/magicscroll/magicscroll.js"></script>
+    <script>
+    var MagicScrollOptions = {
+        step:1,
+        autoplay:500,
+        arrows:'off'
+    }
+      </script>
 
 </head>
 <body>
-  <div class="MagicScroll" data-options="step: 1; autoplay: 500; arrows: off">
-      <a><img src="https://buffwild.b-cdn.net/Angel_Buff.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Bas.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Blue.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Green.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Orange.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Pink.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Purple.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Red.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Tubby.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Demon Buff.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Angel_Buff.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Bas.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Blue.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Green.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Orange.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Pink.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Purple.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Red.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Battle Buff Tubby.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/Demon Buff.png" /></a>
-  </div>
+
+    <div class="MagicScroll" data-options="mode: carousel; arrows: off">
+        <a><img src="https://buffwild.b-cdn.net/1 of 1's/Angel_Buff.png" /></a>
+        <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Bas.png" /></a>
+        <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Blue.png" /></a>
+        <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Green.png" /></a>
+        <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Orange.png" /></a>
+        <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Pink.png" /></a>
+        <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Purple.png" /></a>
+        <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Red.png" /></a>
+        <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Tubby.png" /></a>
+        <a><img src="https://buffwild.b-cdn.net/1 of 1'ss/Demon Buff.png" /></a>
+    </div>
 
 
-  <link type="text/css" rel="stylesheet" href="{% static "main/magicscroll/magicscroll.css" %}"/>
-  <script type="text/javascript" src="/static/main/magicscroll/magicscroll.js"></script>
-  <script>
-  var MagicScrollOptions = {
-      step:1,
-      autoplay:500,
-      arrows:'off'
-  }
-  </script>
+
+
 
 
 
