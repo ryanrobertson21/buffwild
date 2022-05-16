@@ -106,10 +106,10 @@
           <div class="card shadow-sm">
         {% if image.ownerWallet != "Locked" %}
             <img class="img-responsive" src={{image.img_url}} alt="Buff Wild Crew NFT">
-            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">#{{image.id}}</p></a>
+            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">#{{image.uniqueId}}</p></a>
         {% else %}
             <img class="img-responsive" src="https://buffwild.b-cdn.net/SiteImages/locked_image.png">
-            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">#{{image.id}}</p></a>
+            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">#{{image.uniqueId}}</p></a>
         {% endif %}
           </div>
         </div>

@@ -31,7 +31,7 @@ def walletLookup(request):
     try:
         if request.GET.get('searchNum'):
             search = request.GET.get('searchNum')
-            images = Image.objects.filter(id=search)
+            images = Image.objects.filter(uniqueId=search)
     except ValueError: ## This prevents someone who searches for anything but a number from breaking the page
             print("Invalid Search. Numbers only")
 
