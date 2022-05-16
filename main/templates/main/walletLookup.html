@@ -35,6 +35,25 @@
       width: 100%;
       }
 
+    .numsearch {
+      margin-top: 20px;
+    }
+
+    .btn-outline-primary {
+    color: #E1DA22;
+    border-color: #E1DA22;
+}
+
+.btn-outline-primary:hover {
+    color: #FFFFFF;
+    background-color: #E1DA22;
+    border-top-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+    border-left-color: #FFFFFF;
+    border-right-color: #FFFFFF;
+}
+
+
 
 </style>
 
@@ -46,7 +65,16 @@
 <form method="get">
 <div class="container-sm">
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search Wallet Address" name="search" aria-label="Search" aria-describedby="search-addon" />
+  <input type="search" class="form-control rounded" placeholder="Search Wallet Address" name="searchWal" aria-label="Search" aria-describedby="search-addon" />
+  <button type="submit" class="btn btn-outline-primary">search</button>
+</div>
+</div>
+</form>
+
+<form method="get">
+<div class="container-sm numsearch">
+<div class="input-group">
+  <input type="search" class="form-control rounded" placeholder="Search Buff Number" name="searchNum" aria-label="Search" aria-describedby="search-addon" />
   <button type="submit" class="btn btn-outline-primary">search</button>
 </div>
 </div>
@@ -62,9 +90,16 @@
             <img class="img-responsive" src={{image.img_photo.url}}>
           </div>
         </div>
+      {% else %}
+      <div class="col">
+        <div class="card shadow-sm">
+          <img class="img-responsive" src="https://buffwild.b-cdn.net/SiteImages/locked_image.png">
+        </div>
+      </div>
         {% endif %}
         {% endfor %}
       </div>
+
     </main>
 
 

@@ -48,5 +48,5 @@ class Image(models.Model):
         self.slug = slugify('{}'.format(self.uniqueId))
         self.last_updated = timezone.localtime(timezone.now())
         x = str(self.img_photo).replace(' ', '%20')
-        self.img_url = "https://buffwild.b-cdn.net/" + x
+        self.img_url = "https://buffwild.b-cdn.net/Buff Wild Collection - Metadata/images/" + x
         super(Image, self).save(*args, **kwargs)

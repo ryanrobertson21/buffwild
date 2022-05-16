@@ -22,9 +22,13 @@ def test(request):
 
 def walletLookup(request):
     images=None
-    if request.GET.get('search'):
-        search = request.GET.get('search')
+    if request.GET.get('searchWal'):
+        search = request.GET.get('searchWal')
         images = Image.objects.filter(ownerWallet=search)
+
+    if request.GET.get('searchNum'):
+        search = request.GET.get('searchNum')
+        images = Image.objects.filter(id=search)
 
     return render(request, 'main/walletLookup.html',{
         'images': images,
