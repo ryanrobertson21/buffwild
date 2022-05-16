@@ -17,6 +17,9 @@ def cover(request):
 def instructions(request):
     return render(request, 'main/instructions.html')
 
+def terms(request):
+    return render(request, 'main/terms.html')
+
 def test(request):
     return render(request, 'main/test.html')
 
@@ -25,10 +28,13 @@ def walletLookup(request):
     if request.GET.get('searchWal'):
         search = request.GET.get('searchWal')
         images = Image.objects.filter(ownerWallet=search)
+    try:
+        if request.GET.get('searchNum'):
+            search = request.GET.get('searchNum')
+            images = Image.objects.filter(id=search)
+    except ValueError: ## This prevents someone who searches for anything but a number from breaking the page
+            print("Invalid Search. Numbers only")
 
-    if request.GET.get('searchNum'):
-        search = request.GET.get('searchNum')
-        images = Image.objects.filter(id=search)
 
     return render(request, 'main/walletLookup.html',{
         'images': images,

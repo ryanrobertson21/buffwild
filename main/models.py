@@ -7,6 +7,7 @@ from django.urls import reverse
 
 
 class Image(models.Model):
+    id=models.IntegerField(null=False, blank=True, primary_key=True)
     title=models.CharField(null=True, blank=True, max_length=200)
     ownerWallet=models.CharField(default='Locked', max_length=200)
     #price=

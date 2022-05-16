@@ -14,7 +14,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static "main/custom.css" %}">
     <!-- Website Icon -->
-    <link rel="icon" type="image/png" src="https://buffwild.b-cdn.net/SiteImages/placeholder_Logo.png">
+    <link rel="icon" type="image/png" href="{% static "main/logo.png" %}">
     <!-- I don't think this is getting used at all obv since that file doesn't even exist, look it up -->
     <link rel="stylesheet" href="stylesheet.css" type="text/css" charset="utf-8" />
 
@@ -115,6 +115,20 @@
   <body>
 
 {% block content %}{% endblock %}
+
+<footer>
+<hr/>
+<div class="row align-items-center text-center" style="padding-top:10px;">
+  <div class="col-4">
+    <p style="color:#FFFFFF; font-size:16px;">&copy;2022 Buff Wild Crew LLC</p>
+  </div>
+  <div class="col-4">
+    <img src="https://buffwild.b-cdn.net/SiteImages/logo.png" alt="Buff Wild Crew Logo" style="width:10vw;">
+  </div>
+  <div class="col-4 align-middle">
+    <a href="{% url 'terms' %}" class="link-primary" style="color:#FFFFFF; font-size:16px;" title="Terms and Conditions"> Terms and Conditions </a>
+  </div>
+</footer>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
