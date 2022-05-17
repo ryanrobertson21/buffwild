@@ -131,8 +131,7 @@ body {
   /* position dropdown over image on home?*/
 .navburg {
     position: absolute;
-    width: 100%;
-    z-index: 999;
+
 }
   /* */
 .navbar-collapse.in {
@@ -642,12 +641,12 @@ ul.social-network li {
   }
 
   .social-icon-col {
-    width: 75% !important;
+    width: 55% !important;
     text-align: right !important;
   }
 
   .nav-links-col {
-    width: 25% !important;
+    width: 45% !important;
   }
 
   .social-circle {
