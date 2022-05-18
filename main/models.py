@@ -45,9 +45,10 @@ class Image(models.Model):
         if self.tradeId is None:
             self.tradeId = shortuuid.random(length=6)
 
-
-        self.slug = slugify('{}'.format(self.uniqueId))
-        self.last_updated = timezone.localtime(timezone.now())
-        x = str(self.img_photo).replace(' ', '%20')
-        self.img_url = "https://buffwild.b-cdn.net/Buff Wild Collection - Metadata/images/" + x
+        if self.slug is None:
+            self.slug = slugify('{}'.format(self.uniqueId))
+            self.last_updated = timezone.localtime(timezone.now())
+        if self.img_url is None:
+            x = str(self.img_photo).replace(' ', '%20')
+            self.img_url = "https://buffwild.b-cdn.net/Buff%20Wild%20Collection%20-%20Metadata/images/" + x
         super(Image, self).save(*args, **kwargs)

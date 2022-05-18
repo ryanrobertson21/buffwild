@@ -99,7 +99,13 @@
         <div class="col">
           <div class="card shadow-sm">
             <img class="img-responsive" src={{image.img_url}}>
-            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">#{{image.uniqueId}}</p></a>
+            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+              {% if image.title is not None %}
+              {{image.title}}
+              {% endif %}
+              #{{image.uniqueId}}
+
+            </p></a>
           </div>
         </div>
       {% else %}
