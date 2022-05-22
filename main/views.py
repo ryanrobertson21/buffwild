@@ -1,9 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.db.models import Q
 from . models import *
 
 def home(request):
-    return render(request, 'main/home.html')
+    sold = Image.objects.filter(~Q(ownerWallet='Locked'))
+    sold = round(sold.count() / 100, 2)
+    if sold == 100:
+        sold = 100
+    context = {}
+    context['sold'] = sold
+    return render(request, 'main/home.html', context)
 
 def collection(request):
     images = Image.objects.all()
