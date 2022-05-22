@@ -35,10 +35,12 @@ def walletLookup(request):
     if request.GET.get('searchWal'):
         search = request.GET.get('searchWal')
         images = Image.objects.filter(ownerWallet=search)
+        images= sorted(images, key= lambda image:int(image.uniqueId))
     try:
         if request.GET.get('searchNum'):
             search = request.GET.get('searchNum')
             images = Image.objects.filter(uniqueId=search.lstrip('0'))
+            images= sorted(images, key= lambda image:int(image.uniqueId))
 
 
     except ValueError: ## This prevents someone who searches for anything but a number from breaking the page
