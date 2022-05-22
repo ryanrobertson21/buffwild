@@ -6,15 +6,15 @@ from . models import *
 def home(request):
     sold = Image.objects.filter(~Q(ownerWallet='Locked'))
     sold = round(sold.count() / 100, 2)
-    if sold == 100:
-        sold = 100
     context = {}
     context['sold'] = sold
     return render(request, 'main/home.html', context)
 
 def collection(request):
     images = Image.objects.all()
+    images= sorted(images, key= lambda image:int(image.uniqueId))
     context = {}
+
     context['images'] = images
     return render(request, 'main/collection.html', context)
 
