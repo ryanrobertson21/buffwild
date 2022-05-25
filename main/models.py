@@ -19,7 +19,7 @@ class Image(models.Model):
     # all codes should be the same except buy code prefaced with a B, sell code with an S, and cancel with an X
 
     #Utility Variables
-    uniqueId=models.CharField(null=True, blank=True, max_length=100)
+    uniqueId=models.IntegerField(null=True, blank=True)
     tradeId=models.CharField(null=True, blank=True, max_length=100)
     slug=models.SlugField(max_length=500, unique=True, blank=True, null=True)
     date_created=models.DateTimeField(blank=True, null=True)
