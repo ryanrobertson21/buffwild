@@ -155,7 +155,7 @@
             <a href="{% url 'walletLookup' %}" class="btn btn-info" role="button"> My Buffs </a>
           </div>
           <div class="col-6">
-            <a href="{% url 'chest' %}" class="btn btn-info" role="button">Faction Chest</a>
+            <a href="{% url 'collection' %}" class="btn btn-info" role="button">Collection</a>
           </div>
       </div>
     </div>
@@ -185,32 +185,7 @@
       </div>
     </div>
   </div>
-  <div class='row pages'>
-  {% if images.has_other_pages %}
-  <ul class="pagination">
-    {% if images.has_previous %}
-      <li><a href="?page={{ images.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
-    {% endif %}
-    {% for i in images.paginator.page_range %}
-      {% if images.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-      {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if images.has_next %}
-      <li><a href="?page={{ images.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
-    {% endif %}
-  </ul>
-{% endif %}
-</div>
-</div>
-<a class="top" href="#">Top ↑</a>
-</div>
+
 </main>
 
 

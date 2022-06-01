@@ -31,6 +31,7 @@ urlpatterns = [
     path('collection/walletLookup/', views.walletLookup, name='walletLookup'),
     path('instructions/', views.instructions, name='instructions'),
     path('terms/', views.terms, name='terms'),
+    path('chest/', views.chest, name='chest'),
     path('test/', views.test, name='test'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

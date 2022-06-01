@@ -12,6 +12,28 @@ html {
   overflow-x:hidden
 }
 
+
+.pagination {
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+.pagination li a{
+  color: #FFFFFF;
+  padding-right: 2.5px;
+  padding-left: 2.5px;
+}
+
+.pagination li span{
+  padding-right: 2.5px;
+  padding-left: 2.5px;
+}
+
+.pagination .active{
+  color: #E1DA22;
+}
+
+
 .fa-stack:hover .fa-circle{
    color: #E1DA22 !important;
 }
