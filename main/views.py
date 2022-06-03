@@ -67,6 +67,9 @@ def terms(request):
 def test(request):
     return render(request, 'main/test.html')
 
+def test4(request):
+    return render(request, 'main/test4.html')
+
 def walletLookup(request):
     images=None
     if request.GET.get('searchWal'):
