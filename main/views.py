@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from . models import *
+import pickle
 
 def home(request):
     sold = Image.objects.filter(~Q(ownerWallet='Locked'))
@@ -58,8 +59,26 @@ def collection(request):
 def cover(request):
     return render(request, 'main/cover.html')
 
+def wild(path):
+    try:
+        with open(path, 'rb') as f:
+            available_wild = pickle.load(f)
+            return available_wild
+    except EOFError:
+        return 10000
+
 def instructions(request):
-    return render(request, 'main/instructions.html')
+    local_wild_path = "/Users/RyanRobertson21/PycharmProjects/xrd/12-automated_token_sale/wildTickets.pickle"
+    production_wild_path = "/home/RyanRobertson21/xrdPayment/12-automated_token_sale/wildTickets.pickle"
+    context = {}
+    left = len(wild(production_wild_path))
+    context['left'] = left
+    redeemed = 10000 - left
+    redeemed = round(redeemed / 100, 2)
+    print('here')
+    print(redeemed)
+    context['redeemed'] = redeemed
+    return render(request, 'main/instructions.html', context)
 
 def terms(request):
     return render(request, 'main/terms.html')
