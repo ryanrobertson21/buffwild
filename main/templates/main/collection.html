@@ -7,6 +7,15 @@
 
 <style>
 
+  .card {
+    max-width: 100% !important;
+  }
+
+  .img-responsive {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
   .form-check {
     align-items: end;
   }
@@ -165,12 +174,12 @@
 
   <div class="album py-5">
     <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
         {% for image in images %}
         <div class="col">
           <div class="card shadow-sm">
         {% if image.ownerWallet != "Locked" %}
-            <img class="img-responsive" src={{image.img_url}} alt="Buff Wild Crew NFT">
+            <img class="img-responsive img-fluid" src={{image.img_url}} alt="Buff Wild Crew NFT">
             <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">
               #{{image.uniqueId}}
               {% if image.title is not None %}
@@ -178,7 +187,7 @@
               {% endif %}
             </p></a>
         {% else %}
-            <img class="img-responsive" src="https://buffwild.b-cdn.net/SiteImages/locked_image.png">
+            <img class="img-responsive img-fluid locked" src="https://buffwild.b-cdn.net/SiteImages/locked_image.jpg">
             <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">#{{image.uniqueId}}</p></a>
         {% endif %}
           </div>
