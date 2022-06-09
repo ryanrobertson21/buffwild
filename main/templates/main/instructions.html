@@ -75,6 +75,16 @@
   margin-bottom:15px;
 }
 
+.percent-col {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-wrapper {
+  justify-content: center;
+  align-items: center;
+}
+
 
 
 
@@ -191,6 +201,37 @@
 </p>
 <p>You may begin redeeming your Wild Tickets for the WT 25% Event starting at Wednesday, June 1, 2022, at 9 am PT, and the Event will run until 10,000 Wild Tickets for this event have been redeemed.
 </p>
+
+<div class="row d-flex justify-content-center">
+<div class="col-lg-3 col-md-5 percent-col my-auto">
+<div class="flex-wrapper">
+ <div class="single-chart">
+   <div class="circle-wrapper">
+   <svg viewBox="0 0 36 36" class="circular-chart green">
+     <path class="circle-bg"
+       d="M18 2.0845
+         a 15.9155 15.9155 0 0 1 0 31.831
+         a 15.9155 15.9155 0 0 1 0 -31.831"
+     />
+     <path class="circle circle-animation"
+       stroke-dasharray="{{redeemed}}, 100"
+       d="M18 2.0845
+         a 15.9155 15.9155 0 0 1 0 31.831
+         a 15.9155 15.9155 0 0 1 0 -31.831"
+     />
+     <text x="18" y="17.35" class="percentage text-wrap">
+       {{left}}
+     </text>
+     <text x="18" y="23.35" class="percentage text-wrap">
+       Remaining
+     </text>
+   </svg>
+   </div>
+ </div>
+</div>
+</div>
+</div>
+
 <script>
 function myFunction() {
   /* Get the text field */
