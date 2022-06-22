@@ -1,0 +1,204 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+{% load static %}
+  <head>
+
+<style>
+
+  .card {
+    max-width: 100% !important;
+  }
+
+  .img-responsive {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .form-check {
+    align-items: end;
+  }
+  .pages {
+    margin-left: 10px;
+    margin-right: 10px;
+    display: block;
+  }
+
+  .pagination {
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+
+  .top {
+  position: sticky;
+  bottom: 20px;
+  place-self: end;
+  text-decoration: none;
+  padding: 10px;
+  color: #FFFFFF;
+  background: #000000;
+  border-radius: 100px;
+
+  --offset: 500px;
+  margin-top: calc(100vh + var(--offset));
+}
+
+  .top:hover {
+    color: #E1DA22;
+  }
+
+  .container-top {
+    text-align: end;
+
+    --offset: 100px;
+    --fade: 120px;
+
+    mask: linear-gradient(#0000 calc(100vh + var(--offset)), #000 calc(100vh + var(--offset) + var(--fade)));
+  }
+
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  h1, h2{
+    color: #618A5A;
+  }
+
+  .logocontainer img {
+    text-align: center !important;
+    width: 75vw;
+  }
+
+  .logocontainer {
+    text-align: center;
+    position: relative;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: auto;
+  }
+
+  .cover-container .py-5 {
+    padding-top: 0px !important;
+  }
+
+  .py-lg-5 {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+
+  .btn {
+    color: #FFFFFF;
+    background-color: #E1DA22;
+    font-size: 1rem !important;
+  }
+
+  .btn:hover {
+    color: #E1DA22;
+    background-color: #FFFFFF;
+  }
+
+  .py-5 {
+    padding-bottom: 4rem !important;
+  }
+
+  .py-lg-5 a {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    padding-left: 3em;
+    padding-right: 3em;
+    margin: -2em;
+  }
+
+  .navburg {
+    position: absolute;
+    background-color: #000000;
+    z-index: 999;
+  }
+
+  .nav-item {
+    background-color: #000000;
+  }
+
+  .logocontainer{
+    padding-top: -10px;
+  }
+
+.form-check {
+  text-align: start !important;
+  color: #FFFFFF;
+
+}
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+
+</style>
+</head>
+
+<body>
+  <div class="container logocontainer">
+  <img src="https://buffwild.b-cdn.net/SiteImages/logo_banner.png" alt="Buff Wild Crew Logo Banner"/>
+  </div>
+<main>
+<div class="cover-container d-inline-flex h-100 w-100 p-3 mt-2 mb-0 mx-auto flex-column">
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Buff Wild Crew</h1>
+        <h2 class="fw-light">Minted Buffs</h2>
+        <p class="lead text-muted"></p>
+        <div class="row">
+          <div class="col-6">
+            <a href="{% url 'walletLookup' %}" class="btn btn-info" role="button"> My Buffs </a>
+          </div>
+          <div class="col-6">
+            <a href="{% url 'collection' %}" class="btn btn-info" role="button">Collection</a>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="album py-5">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+        {% for image in images %}
+        <div class="col">
+          <div class="card shadow-sm">
+        {% if image.ownerWallet != "Locked" %}
+            <img class="img-responsive" src={{image.img_url}} alt="Buff Wild Crew NFT">
+            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+              #{{image.uniqueId}}
+              {% if image.title is not None %}
+              - {{image.title}}
+              {% endif %}
+            </p></a>
+        {% else %}
+            <img class="img-responsive" src="https://buffwild.b-cdn.net/SiteImages/locked_image.jpg">
+            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">#{{image.uniqueId}}</p></a>
+        {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+
+</main>
+
+
+
+
+</body>
+
+{% endblock %}

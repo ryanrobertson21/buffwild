@@ -75,14 +75,18 @@ h6 {
   width: 75%;
   text-align: center;
 }
+
+body {
+  max-height: 400px;
+}
 </style>
 
   <body>
 
-    <div class="container containerc">
-      <img src="{% static 'main/Buff Barn.png' %}" style="border: .427vw solid #E1DA22">
+    <div class="container containerc fix-safari">
+      <img src="https://buffwild.b-cdn.net/SiteImages/Buff Barn.png" alt="Outside Buff Wild Crew Digital Bar" style="border: .427vw solid #E1DA22">
       <div class="container-btn d-flex w-100">
-        <a href="{% url 'home' %}"><button type="button" class="btn waves-effect button btn-centertext">ENTER<i aria-hidden="true" style="vertical-align: text-top;"></i></button>
+        <a href="{% url 'home' %}"><button type="button" class="btn waves-effect button btn-centertext">ENTER<i aria-hidden="true" style="vertical-align: text-top;"></i></button></a>
       </div>
     </div>
     <div class="container containerc">

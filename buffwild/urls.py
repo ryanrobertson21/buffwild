@@ -28,9 +28,12 @@ urlpatterns = [
     path('', views.cover, name='cover'),
     path('home/', views.home, name='home'),
     path('collection/', views.collection, name='collection'),
-    path('about/', views.about, name='about'),
+    path('collection/walletLookup/', views.walletLookup, name='walletLookup'),
     path('instructions/', views.instructions, name='instructions'),
+    path('terms/', views.terms, name='terms'),
+    path('chest/', views.chest, name='chest'),
     path('test/', views.test, name='test'),
+    path('test4/', views.test4, name='test4'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

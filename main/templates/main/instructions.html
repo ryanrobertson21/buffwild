@@ -2,6 +2,8 @@
 
 {% block content %}
 
+{% load static %}
+<head>
 <style>
   .bd-placeholder-img {
     font-size: 1.125rem;
@@ -16,32 +18,234 @@
       font-size: 3.5rem;
     }
   }
+
+  .navburg {
+      position: absolute;
+      background-color: #000000;
+      z-index: 999;
+  }
+
+  .nav-item {
+      background-color: #000000;
+  }
+
+  h1 {
+    margin-top: 10px;
+  }
+
+  body img {
+    text-align: center !important;
+    width: 75vw;
+  }
+
+  body p, body h1, body h2, body h3{
+    text-align: center;
+    color: #FFFFFF;
+    margin-right: 12.5%;
+    margin-left: 12.5%;
+  }
+
+  body p {
+    font-size: 1.5rem;
+  }
+
+  body h1 {
+    font-size: 2.3rem;
+  }
+
+  body h2 {
+    font-size: 2rem;
+  }
+
+  button {
+    background-color: #E1DA22;
+    color: #FFFFFF;
+  }
+
+.logocontainer {
+  text-align: center;
+  position: relative;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: auto;
+}
+
+.qr {
+  width:max(80px, 10vw);
+  margin-bottom:15px;
+}
+
+.percent-col {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-wrapper {
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+
+
 </style>
+</head>
 
 
-<!-- Custom styles for this template -->
-<link href="starter-template.css" rel="stylesheet">
 <body>
+  <div class="container logocontainer">
+  <img src="https://buffwild.b-cdn.net/SiteImages/logo_banner.png" alt="Buff Wild Crew Logo Banner"/>
+  </div>
+  <h1><span style="color: #E1DA22">Buying Instructions</span></h1>
+  <h2>Buff Wild Crew, Season One, Genisis Collection</h2>
+  <h2><span style="color: #E1DA22">All BUFFs are created equal.</span></h2>
 
-<div class="col-lg-8 mx-auto p-3 py-md-5">
-<header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-<a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-  <h1>Instructions</h1>
-</a>
-</header>
 
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac molestie tortor. Donec ut suscipit turpis, sed commodo elit. Pellentesque non magna at mauris viverra blandit vel sed ex. Quisque nec auctor tellus. Aenean aliquam justo interdum, mollis est id, tristique ligula. Nam a eros ac felis maximus varius. Sed elit tellus, volutpat mattis pulvinar quis, blandit eget sem. Nullam id eleifend leo, vel eleifend purus. Vestibulum hendrerit turpis vel ullamcorper euismod. Nunc commodo pretium ipsum nec mollis. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+
+<p>Therefore, each BUFF NFT will be 100 XRD each for the entirety of the sale from the Season One Genisis Collection.
 </p>
-<p>
-Nulla facilisi. Etiam mollis mi ipsum, eu suscipit erat auctor vitae. Phasellus tempus nunc at erat iaculis, in iaculis turpis feugiat. Nulla sollicitudin, ante vitae imperdiet malesuada, sapien erat fermentum ipsum, at condimentum risus dolor non nulla. Quisque elementum at sapien at vulputate. Duis placerat augue cursus, pulvinar orci vel, varius purus. Morbi a dui pulvinar dolor venenatis mattis. Integer lobortis ac nunc auctor bibendum. Vestibulum interdum auctor nunc, eu varius tellus aliquet at. Praesent sed eros posuere tellus tempus tempus at ac turpis. Praesent aliquam dui nec massa hendrerit condimentum. Donec finibus non lorem nec volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+<p>All BUFFs tokens will be randomized upon purchase. There will be NO cherry-picking BUFFs.
 </p>
-<p>
-Integer placerat, tortor eu maximus tincidunt, elit ex ultrices arcu, a eleifend turpis nibh in ligula. Suspendisse potenti. Phasellus pharetra, urna sed suscipit congue, mauris odio rutrum lectus, id dapibus enim nulla et augue. Nunc ut ultricies odio. Nam vitae sodales nunc, quis cursus elit. Curabitur tortor libero, iaculis id justo a, maximus auctor est. In hac habitasse platea dictumst. Integer imperdiet ipsum non ullamcorper ornare. Nam non turpis non nunc faucibus dapibus. Donec a justo ac dui viverra lobortis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nam nunc mauris, varius id interdum id, molestie in lorem.
+<p>In the collection there are 9910 BUFFs that have been randomly generated from 6 categories of over 230 traits.
+   In addition to the randomly generated BUFFs, there are 90 one of ones integrated into the minting process, to create
+   a grand total of 10,000 Buff Wild NFT images.
 </p>
-<p>
-Phasellus dignissim magna sit amet sollicitudin sagittis. Integer hendrerit lacus ut est accumsan, hendrerit pretium est aliquam. Ut eget enim in augue vulputate egestas. Donec id pretium mi. In scelerisque nibh odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In hac habitasse platea dictumst. Integer erat est, congue ac dapibus at, tincidunt at nisl. Suspendisse mollis augue in tortor aliquet, ut mattis odio ornare.
+<p>150 BUFF Wild NFTs (which will be randomly purchased) will be held for marketing purposes and Wild Ticket Prizes.
 </p>
-<p>
-Proin ac sagittis lectus. Aliquam bibendum magna non mauris gravida, at rutrum lacus pulvinar. Etiam ac diam lacinia, fringilla lorem vitae, lobortis mauris. In vel suscipit lacus. Vestibulum dignissim libero ac varius vulputate. Nulla mauris ante, vestibulum id libero ac, semper egestas tellus. Sed at felis in nibh tincidunt tincidunt at id quam. Aenean consequat lorem eu mauris fringilla, quis vehicula urna commodo. Curabitur ullamcorper auctor diam id convallis.
+<p>There will be no BUFF Wild NFTs withheld from the collection for the Crew Council or Community Team. Each Crew Council or
+   Community Team Member may purchase up to the unique wallet limit of 150 BUFFs at their own expense from their own personal
+   funds. Each Crew Council and Community Team member has been given a unique buff, as can be seen in the Team section of the Home page,
+   however these BUFFs are not part of the collection, and will never be listed for sale.
 </p>
+<br>
+<h1><span style="color: #E1DA22">In order to purchase a Buff Wild NFT, strictly follow the instructions below:</span>
+</h1>
+<p><span style="color: #E1DA22">STEP ONE:</span> Decide how many Buffs you would like to purchase. Each Buff Wild NFT is
+   100 XRD. There is a max wallet limit of 150 Buffs.
+</p>
+<p>For example, if you wish to purchase 10 Buffs, it will cost 10 x 100 XRD = 1,000 XRD
+</p>
+<p><span style="color: #E1DA22">STEP TWO (a):</span> Send XRD from your personal wallet (NOT AN EXCHANGE wallet) in multiples of 100 (100, 200, 300… 15,000)
+   in accordance with how many BUFFs you wish to purchase.<span style="color: #E1DA22"> ONLY SEND XRD</span> to the Buff Wild Crew Wallet, any other token will ignored and lost; AND
+</p>
+<p><span style="color: #E1DA22">(b):</span> Include the word <span style="font-family:Times New Roman; color: #E1DA22">random</span> in the message text
+   (no capitals, no whitespace), and make sure the message is <span style="color: #E1DA22">NOT</span> encrypted. Finally,
+    send the transaction to the Buff Wild Crew wallet address, which is:
+</p>
+<div class="container" style="text-align:center;">
+  <img class="qr" src="https://buffwild.b-cdn.net/SiteImages/real_wallet.png">
+</div>
+<p><input type="text" value="rdx1qsp0ez9yxa0l5qwf6fz93tda6842fft3cqr44ak3mgjtn9p4eme8wrccm4922" id="myInput">
+<button onclick="myFunction()">Copy Wallet</button>
+</p>
+<p><span style="color: #E1DA22">STEP THREE:</span> Please allow at least 5 minutes for us to find your BUFF(s) in the herd and send them to you
+   from across the stormy plains of the Midwest. (Some of these storm hardened BUFFs can be a little stubborn!)
+</p>
+<p><span style="color: #E1DA22">STEP FOUR:</span> You will receive a transaction with your BUFF token(s), and a message with your randomly assigned unique BUFF
+   number for your Buff Wild NFT(s). Do<span style="color: #E1DA22"> NOT </span>transfer your BUFF token(s) to any other wallet, only the purchasing wallet will be recognized for ownership.
+</p>
+<p>Any refunds due to invalid purchase transactions will be subject to a fee of 2 XRD to cover network costs.
+</p>
+<p>If you run into any issues with the purchasing process please reach out to any of the Crew Council or Community team members on
+   <a href="https://t.me/+p8yDd7eF7YJiNzVh" class="link-primary" style="color:#E1DA22" title="Telegram" target="_blank">Telegram</a>,
+   <a href="https://discord.gg/vKNTmH8B4m" class="link-primary" style="color:#E1DA22" title="Discord" target="_blank">Discord</a>,
+   or <a href="https://twitter.com/buffwild_radix" class="link-primary" style="color:#E1DA22" title="Twitter" target="_blank">Twitter</a>
+    and we will assist you accordingly.
+</p>
+<br>
+<br>
+<br>
+<p>To see which Buff Wild NFT image(s) you were assigned, please go to the <a href="{% url 'walletLookup' %}" class="link-primary" style="color:#E1DA22">wallet lookup feature</a> located on our
+   collection page. You can either enter your wallet address to see your Buff Wild NFT collection, or alternatively you
+   can use the unique BUFF minting number to search for your Buffs individually.
+</p>
+<p><span style="color: #E1DA22">Only buffs that have been purchased will be visible!</span>
+</p>
+<p> Upon the release of Babylon and Smart Contracts on the Radix Network, you will be able to send your BUFF tokens to our
+    minting smart contract to integrate your Buff Wild NFT onto the Radix DLT network.
+</p>
+<br>
+<br>
+<br>
+<h1><span style="color: #E1DA22">Trading Buff Wild NFTs:</span>
+</h1>
+<p>DO<span style="color: #E1DA22"> NOT </span>attempt to trade Buff Wild NFTs between each other before the Trading Platform has launched.
+  Only the wallet that originally made the purchase will be recognized.
+</p>
+<p>The trading platform will be uploaded to the BWC Website within a few weeks of the initial launch of the Buff Wild Crew!
+</p>
+<p>If you attempt to trade Buff Wild NFT(s) tokens beforehand you will run the risk of losing your tokens to the ether. Off market trades that are
+   not sanctioned by the Buff Wild Crew Council will not be honored.
+</p>
+<p>Once the trading platform is live, the Buff Wild Crew Council will retain a 10% royalty on all secondary market trades.
+</p>
+<br>
+<br>
+<h1><span style="color: #E1DA22">Wild Ticket Turn-In Event Instructions</span></h1>
+<p>Howdy Buffs, these instructions are strictly for the first Wild Ticket Turn-In, the “WT 25% Event” according to the Roadmap, please read and follow them carefully.
+</p>
+<p>There will be a total of 10,000 Wild Tickets allowed to be redeemed for the prizes that have been allocated to the WT 25% Event. You may redeem as little or as many Wild Tickets as you wish during this Event up until 10,000 Wild tickets have been redeemed.
+</p>
+<p>Wild Tickets that you possess may be redeemed at any time during any of the Wild Ticket Turn-In Events while they are active. You may choose to hold onto your Wild Tickets for future Turn-In Events held during the initial sale of the BWC Genesis Collection.
+</p>
+<p>Here is how the process will work:
+</p>
+<p>Please send the amount of Wild Tickets you wish to redeem to the BUFF Wallet rdx1qsp0ez9yxa0l5qwf6fz93tda6842fft3cqr44ak3mgjtn9p4eme8wrccm4922, same wallet used to purchase BUFFS. DO NOT REDEEM YOUR TICKETS UNTIL 9am PT on June 1, 2022… If you do beforehand, they will be lost.
+</p>
+<p>Do <span style="color: #E1DA22"> NOT </span> attempt to buy BUFFs and redeem Wild Tickets in the same transaction, as the script will not recognize the BUFF purchase.
+</p>
+<p>The Wallet’s Script Engine will read the number of Wild Tickets you have submitted from your wallet in the transaction, and the Script Engine will randomly generate a message based on the prize, or prizes, you may or may not have won and send the prizes to your wallet you redeemed your Wild Tickets from.
+</p>
+<p>You may begin redeeming your Wild Tickets for the WT 25% Event starting at Wednesday, June 1, 2022, at 9 am PT, and the Event will run until 10,000 Wild Tickets for this event have been redeemed.
+</p>
+
+<div class="row d-flex justify-content-center">
+<div class="col-lg-3 col-md-5 percent-col my-auto">
+<div class="flex-wrapper">
+ <div class="single-chart">
+   <div class="circle-wrapper">
+   <svg viewBox="0 0 36 36" class="circular-chart green">
+     <path class="circle-bg"
+       d="M18 2.0845
+         a 15.9155 15.9155 0 0 1 0 31.831
+         a 15.9155 15.9155 0 0 1 0 -31.831"
+     />
+     <path class="circle circle-animation"
+       stroke-dasharray="{{redeemed}}, 100"
+       d="M18 2.0845
+         a 15.9155 15.9155 0 0 1 0 31.831
+         a 15.9155 15.9155 0 0 1 0 -31.831"
+     />
+     <text x="18" y="17.35" class="percentage text-wrap">
+       {{left}}
+     </text>
+     <text x="18" y="23.35" class="percentage text-wrap">
+       Remaining
+     </text>
+   </svg>
+   </div>
+ </div>
+</div>
+</div>
+</div>
+
+<script>
+function myFunction() {
+  /* Get the text field */
+  var copyText = document.getElementById("myInput");
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+  /* Copy the text inside the text field */
+  navigator.clipboard.writeText(copyText.value);
+
+}
+</script>
+</body>
+
 {% endblock %}

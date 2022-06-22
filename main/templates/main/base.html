@@ -14,7 +14,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static "main/custom.css" %}">
     <!-- Website Icon -->
-    <link rel="icon" type="image/png" href="{% static "main/placeholder_Logo.png" %}">
+    <link rel="icon" type="image/png" href="https://buffwild.b-cdn.net/SiteImages/logo.png" >
     <!-- I don't think this is getting used at all obv since that file doesn't even exist, look it up -->
     <link rel="stylesheet" href="stylesheet.css" type="text/css" charset="utf-8" />
 
@@ -55,13 +55,10 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav navburg">
               <li class="nav-item">
-                <a class="nav-link" href="{% anchor 'home' 'season 1' %}">SEASON 1</a>
+                <a class="nav-link" href="{% anchor 'home' 'season-1' %}">SEASON ONE</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% anchor 'home' 'dao' %}">DAO</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% anchor 'home' 'roadmap' %}">ROADMAP</a>
+                <a class="nav-link" href="{% url 'instructions' %}">INSTRUCTIONS</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% anchor 'home' 'team' %}">TEAM</a>
@@ -70,7 +67,7 @@
                 <a class="nav-link" href="{% url 'collection' %}">COLLECTION</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'test' %}">WHITEPAPER</a>
+                <a class="nav-link" href="">WHITEPAPER</a>
               </li>
             </ul>
           </div>
@@ -82,12 +79,17 @@
     <div class="social-icon-col">
       <ul class="social-network social-circle">
         <li>
-          <a href="#" class="icoDiscord" title="Discord" target="_blank">
+          <a href="https://www.youtube.com/channel/UCBYJ3wt97oM7SqZ6L8xZsjg" class="icoYoutube" title="YouTube" target="_blank">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://discord.gg/vKNTmH8B4m" class="icoDiscord" title="Discord" target="_blank">
             <i class="fab fa-discord"></i>
           </a>
         </li>
         <li>
-          <a href="#" class="icoTelegram" title="Telegram" target="_blank">
+          <a href="https://t.me/+p8yDd7eF7YJiNzVh" class="icoTelegram" title="Telegram" target="_blank">
             <i class="fab fa-telegram-plane"></i>
           </a>
         </li>
@@ -113,6 +115,20 @@
   <body>
 
 {% block content %}{% endblock %}
+
+<footer>
+<hr/>
+<div class="row align-items-center text-center" style="padding-top:10px;">
+  <div class="col-4">
+    <p style="color:#FFFFFF; font-size:16px;">&copy;2022 Buff Wild Crew LLC</p>
+  </div>
+  <div class="col-4">
+    <img src="https://buffwild.b-cdn.net/SiteImages/logo.png" alt="Buff Wild Crew Logo" style="width:10vw;">
+  </div>
+  <div class="col-4 align-middle">
+    <a href="{% url 'terms' %}" class="link-primary" style="color:#FFFFFF; font-size:16px;" title="Terms and Conditions"> Terms and Conditions </a>
+  </div>
+</footer>
 
     <!-- Optional JavaScript; choose one of the two! -->
 

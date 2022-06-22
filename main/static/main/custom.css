@@ -12,9 +12,33 @@ html {
   overflow-x:hidden
 }
 
+
+.pagination {
+  justify-content: center;
+  color: #FFFFFF;
+}
+
+.pagination li a{
+  color: #FFFFFF;
+  padding-right: 2.5px;
+  padding-left: 2.5px;
+}
+
+.pagination li span{
+  padding-right: 2.5px;
+  padding-left: 2.5px;
+}
+
+.pagination .active{
+  color: #E1DA22;
+}
+
+
 .fa-stack:hover .fa-circle{
    color: #E1DA22 !important;
 }
+
+
 
 .navbar-nav .nav-link {
     color: #FFFFFF !important;
@@ -26,6 +50,14 @@ html {
 .navbar-nav .nav-link:hover {
     color: #E1DA22 !important;
     text-decoration: none;
+}
+
+.nav-link {
+  z-index:999;
+}
+
+.input-group {
+  z-index:1;
 }
 
 .row1 {
@@ -46,6 +78,7 @@ body {
   margin-right:auto !important;
   margin-bottom: 2px !important;
   white-space: nowrap !important;
+  position: relative;
 }
 
 .collapse {
@@ -108,6 +141,7 @@ body {
 .navbar {
     left: 0px !important;
     position: relative;
+
 }
 
 .navbar-toggler {
@@ -121,11 +155,35 @@ body {
   /* position dropdown over image on home?*/
 .navburg {
     position: absolute;
-    width: 100%;
+
 }
   /* */
 .navbar-collapse.in {
     display: block !important;
+}
+
+.roadmap img {
+  width: 100% !important;
+  padding-left: 5% !important;
+  padding-right: 10% !important;
+}
+
+#season-1 {
+  text-align: left !important;
+  margin-left: 14% !important;
+  margin-right: 15% !important;
+}
+
+#dao {
+  text-align: left !important;
+  margin-left: 14% !important;
+  margin-right: 15% !important;
+}
+
+#team {
+  text-align: left !important;
+  margin-left: 14% !important;
+  margin-right: 15% !important;
 }
 
 /* This is for formatting on mobile screens (research more) */
@@ -135,6 +193,29 @@ img {
 width: 100% !important;
 }
 
+.roadmap img {
+  height: 100% !important;
+  padding-left: 0% !important;
+  padding-right: 4% !important;
+}
+
+#season-1 {
+  text-align: left !important;
+  margin-left: 4% !important;
+  margin-right: 5% !important;
+}
+
+#dao {
+  text-align: left !important;
+  margin-left: 4% !important;
+  margin-right: 5% !important;
+}
+
+#team {
+  text-align: left !important;
+  margin-left: 4% !important;
+  margin-right: 5% !important;
+}
 /* move hamnurger icon for mobile */
 .link-nav {
   margin-left: 40% !important;
@@ -161,14 +242,11 @@ text-align: left !important;
  margin-left: 0px !important;
 }
 
-.content {
-  margin-left: 8% !important;
-}
 
 /* Position mouse on mobile */
 .mouse-wrap{
   left:90% !important;
-  top:30% !important;
+  top:38% !important;
 }
 /* Size mouse on mobile */
 .mouse {
@@ -179,6 +257,59 @@ text-align: left !important;
   width: 5vw !important;
   animation: nudgeMouse 5.5s ease-out infinite;
 }
+}
+
+/* Percent sales loading indicator */
+
+.flex-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.single-chart {
+  width: 33%;
+  justify-content: space-around ;
+  flex-grow: 1;
+}
+
+.circular-chart {
+  display: block;
+  margin: 10px auto;
+  max-width: 80%;
+  max-height: 250px;
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #eee;
+  stroke-width: 3.8;
+}
+
+.circle {
+  fill: none;
+  stroke-width: 2.8;
+  stroke-linecap: round;
+}
+
+.circle-animation {
+  animation: progress 2.5s ease-out forwards;
+}
+
+@keyframes progress {
+  0% {
+    stroke-dasharray: 0 100;
+  }
+}
+
+.circular-chart.green .circle {
+  stroke: #618A5A;
+}
+
+.percentage {
+  fill: #FFFFFF;
+  font-size: 0.35em;
+  text-anchor: middle;
 }
 
 
@@ -587,12 +718,12 @@ ul.social-network li {
   }
 
   .social-icon-col {
-    width: 75% !important;
+    width: 55% !important;
     text-align: right !important;
   }
 
   .nav-links-col {
-    width: 25% !important;
+    width: 45% !important;
   }
 
   .social-circle {
@@ -636,6 +767,12 @@ ul.social-network li {
   .nav-item {
     font-size: 3.5vw;
     padding-left: 3px;
+}
+
+.roadmap img {
+  height: 100% !important;
+  padding-left: 0% !important;
+  padding-right: 5% !important;
 }
 }
 

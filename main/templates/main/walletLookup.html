@@ -1,6 +1,7 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+
 <head>
   <link rel="canonical" href="#">
 
@@ -8,6 +9,16 @@
 <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
+
+    .card {
+      max-width: 100% !important;
+    }
+
+    .img-responsive {
+      max-width: 100% !important;
+      height: auto !important;
+    }
+
     .bd-placeholder-img {
       font-size: 1.125rem;
       text-anchor: middle;
@@ -20,12 +31,50 @@
       .bd-placeholder-img-lg {
         font-size: 3.5rem;
       }
+
+      .container-sm {
+        width: 75% !important;
+      }
     }
 
     .img-responsive {
         width: auto;
         height: 350px;
         }
+
+    .container-sm {
+      width: 100%;
+      }
+
+    .numsearch {
+      margin-top: 20px;
+    }
+
+    .navburg {
+        position: absolute;
+        background-color: #000000;
+        z-index: 999;
+    }
+
+    .nav-item {
+        background-color: #000000;
+    }
+
+    .btn-outline-primary {
+    color: #E1DA22;
+    border-color: #E1DA22;
+}
+
+.btn-outline-primary:hover {
+    color: #FFFFFF;
+    background-color: #E1DA22;
+    border-top-color: #FFFFFF;
+    border-bottom-color: #FFFFFF;
+    border-left-color: #FFFFFF;
+    border-right-color: #FFFFFF;
+}
+
+
 
 </style>
 
@@ -34,10 +83,20 @@
 <main>
 <br>
 <br>
+
 <form method="get">
 <div class="container-sm">
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search Wallet Address" name="search" aria-label="Search" aria-describedby="search-addon" />
+  <input type="search" class="form-control rounded" placeholder="Search Wallet Address" name="searchWal" aria-label="Search" aria-describedby="search-addon" />
+  <button type="submit" class="btn btn-outline-primary">search</button>
+</div>
+</div>
+</form>
+
+<form method="get">
+<div class="container-sm numsearch">
+<div class="input-group">
+  <input type="search" class="form-control rounded" placeholder="Search Buff Number" name="searchNum" aria-label="Search" aria-describedby="search-addon" />
   <button type="submit" class="btn btn-outline-primary">search</button>
 </div>
 </div>
@@ -50,15 +109,30 @@
       {% if image.ownerWallet != "Locked" %}
         <div class="col">
           <div class="card shadow-sm">
-            <img class="img-responsive" src={{image.img_photo.url}}>
+            <img class="img-responsive" src={{image.img_url}}>
+            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+              #{{image.uniqueId}}
+              {% if image.title is not None %}
+              - {{image.title}}
+              {% endif %}
+
+            </p></a>
           </div>
         </div>
+      {% else %}
+      <div class="col">
+        <div class="card shadow-sm">
+          <img class="img-responsive" src="https://buffwild.b-cdn.net/SiteImages/locked_image.jpg">
+          <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">#{{image.uniqueId}}</p></a>
+        </div>
+      </div>
         {% endif %}
         {% endfor %}
       </div>
+
     </main>
 
-        <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
 
 
       </body>

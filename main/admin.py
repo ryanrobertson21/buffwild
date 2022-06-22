@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Image
-from .forms import ShowImageForm
+from .models import Image, ImageTwo
+from .forms import ShowImageForm, ShowImageFormTwo
 
 
 #class ShowPhotoInline(admin.TabularInline):
@@ -10,7 +10,14 @@ from .forms import ShowImageForm
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     form = ShowImageForm
-    #inlines = [ShowPhotoInline]
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        form.save_photos(form.instance)
+
+@admin.register(ImageTwo)
+class ImageAdmin(admin.ModelAdmin):
+    form = ShowImageFormTwo
 
     def save_related(self, request, form, formsets, change):
         super().save_related(request, form, formsets, change)
