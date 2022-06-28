@@ -61,18 +61,87 @@
     }
 
     .btn-outline-primary {
-    color: #E1DA22;
-    border-color: #E1DA22;
-}
+      color: #E1DA22;
+      border-color: #E1DA22;
+    }
 
-.btn-outline-primary:hover {
-    color: #FFFFFF;
-    background-color: #E1DA22;
-    border-top-color: #FFFFFF;
-    border-bottom-color: #FFFFFF;
-    border-left-color: #FFFFFF;
-    border-right-color: #FFFFFF;
-}
+    .btn-outline-primary:hover {
+      color: #FFFFFF;
+      background-color: #E1DA22;
+      border-top-color: #FFFFFF;
+      border-bottom-color: #FFFFFF;
+      border-left-color: #FFFFFF;
+      border-right-color: #FFFFFF;
+    }
+
+    .cover-container .py-5 {
+      padding-top: 0px !important;
+    }
+
+    .py-lg-5 {
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+    }
+
+    .buffbutton {
+      padding-bottom: 25px !important;
+    }
+
+    .btn-block {
+      color: #FFFFFF;
+      background-color: #E1DA22;
+      font-size: 1rem !important;
+      padding-left: 1em !important;
+      padding-right: 1em !important;
+    }
+
+    .btn-block:hover {
+      color: #E1DA22;
+      background-color: #FFFFFF;
+    }
+
+    .py-5 {
+      padding-bottom: 4rem !important;
+    }
+
+    .py-lg-5 a {
+      display: inline-block;
+      position: relative;
+      z-index: 1;
+      padding-left: 3em;
+      padding-right: 3em;
+      margin: -2em;
+    }
+
+    h1, h2{
+      color: #618A5A;
+    }
+
+    .trade {
+      margin: auto !important;
+      white-space: nowrap !important;
+      padding-left: 0px;
+      padding-right: 0px;
+    }
+
+    .traderow {
+      padding-left: 5px;
+      padding-right: 5px;
+      margin-left: 2.5px;
+      margin-right: 2.5px;
+    }
+
+    .buy {
+      background-color: #0000FF;
+    }
+
+    .sell {
+      background-color: #EEDC5B;
+    }
+
+    .cancel {
+      background-color: #FF0000;
+    }
 
 
 
@@ -102,6 +171,26 @@
 </div>
 </form>
 
+<div class="cover-container d-inline-flex h-100 w-100 p-3 mt-2 mb-0 mx-auto flex-column">
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light">Buff Lookup</h1>
+      <p class="lead text-muted"></p>
+      <div class="row row-cols-1 row-cols-md-3 g-3 gy-3 buttonrow">
+        <div class="col buffbutton">
+          <a href="{% url 'collection' %}" class="btn btn-lg btn-block" role="button">Collection</a>
+        </div>
+        <div class="col buffbutton">
+          <a href="{% url 'chest' %}" class="btn btn-info btn-lg btn-block" role="button">Faction Chest</a>
+        </div>
+        <div class="col buffbutton">
+          <a href="{% url 'trading' %}" class="btn btn-lg btn-block" role="button">For Sale</a>
+        </div>
+      </div>
+  </div>
+</section>
+
 <div class="album py-5">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
@@ -114,6 +203,22 @@
               #{{image.uniqueId}}
               {% if image.title is not None %}
               - {{image.title}}
+              {% endif %}
+              <div class="row traderow">
+                <div class="col-4 trade buy rounded-pill"">
+                  B{{image.tradeId}}
+                </div>
+                <div class="col-4 trade sell rounded-pill">
+                  S{{image.tradeId}}
+                </div>
+                <div class="col-4 trade cancel rounded-pill">
+                  C{{image.tradeId}}
+                </div>
+              </div>
+              {% if image.forSale != "No" %}
+              Price: {{image.forSale}} XRD
+              {% else %}
+              Not for sale
               {% endif %}
 
             </p></a>
@@ -129,6 +234,9 @@
         {% endif %}
         {% endfor %}
       </div>
+    </div>
+  </div>
+</div>
 
     </main>
 

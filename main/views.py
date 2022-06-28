@@ -21,6 +21,19 @@ def chest(request):
     context['images'] = images
     return render(request, 'main/chest.html', context)
 
+def trading(request):
+    images = Image.objects.filter(~Q(forSale='No'))
+    images= sorted(images, key= lambda image:int(image.uniqueId))
+    images2 = ImageTwo.objects.filter(~Q(forSale='No'))
+    images2= sorted(images2, key= lambda image:int(image.uniqueId))
+    images = images + images2
+    images= sorted(images, key= lambda image:int(image.uniqueId))
+
+    context = {}
+
+    context['images'] = images
+    return render(request, 'main/trading.html', context)
+
 def collection(request):
     images = Image.objects.all()
     images= sorted(images, key= lambda image:int(image.uniqueId))

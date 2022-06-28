@@ -32,6 +32,7 @@ urlpatterns = [
     path('instructions/', views.instructions, name='instructions'),
     path('terms/', views.terms, name='terms'),
     path('chest/', views.chest, name='chest'),
+    path('trading/', views.trading, name='trading'),
     path('test/', views.test, name='test'),
     path('test4/', views.test4, name='test4'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

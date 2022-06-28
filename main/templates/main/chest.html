@@ -93,10 +93,16 @@
     padding-bottom: 0px !important;
   }
 
+  .buffbutton {
+    padding-bottom: 25px !important;
+  }
+
   .btn {
     color: #FFFFFF;
     background-color: #E1DA22;
     font-size: 1rem !important;
+    padding-left: 1em !important;
+    padding-right: 1em !important;
   }
 
   .btn:hover {
@@ -134,7 +140,32 @@
 .form-check {
   text-align: start !important;
   color: #FFFFFF;
+}
 
+.trade {
+  margin: auto !important;
+  white-space: nowrap !important;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.traderow {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 2.5px;
+  margin-right: 2.5px;
+}
+
+.buy {
+  background-color: #0000FF;
+}
+
+.sell {
+  background-color: #EEDC5B;
+}
+
+.cancel {
+  background-color: #FF0000;
 }
 
   @media (min-width: 768px) {
@@ -155,17 +186,19 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Buff Wild Crew</h1>
-        <h2 class="fw-light">Minted Buffs</h2>
+        <h1 class="fw-light">Faction Chest</h1>
         <p class="lead text-muted"></p>
-        <div class="row">
-          <div class="col-6">
-            <a href="{% url 'walletLookup' %}" class="btn btn-info" role="button"> My Buffs </a>
+        <div class="row row-cols-1 row-cols-md-3 g-3 gy-3 buttonrow">
+          <div class="col buffbutton">
+            <a href="{% url 'walletLookup' %}" class="btn btn-lg btn-block" role="button">My Buffs</a>
           </div>
-          <div class="col-6">
-            <a href="{% url 'collection' %}" class="btn btn-info" role="button">Collection</a>
+          <div class="col buffbutton">
+            <a href="{% url 'collection' %}" class="btn btn-info btn-lg btn-block" role="button">Collection</a>
           </div>
-      </div>
+          <div class="col buffbutton">
+            <a href="{% url 'trading' %}" class="btn btn-lg btn-block" role="button">For Sale</a>
+          </div>
+        </div>
     </div>
   </section>
 
@@ -182,6 +215,22 @@
               {% if image.title is not None %}
               - {{image.title}}
               {% endif %}
+              <div class="row traderow">
+                <div class="col-4 trade buy rounded-pill"">
+                  B{{image.tradeId}}
+                </div>
+                <div class="col-4 trade sell rounded-pill">
+                  S{{image.tradeId}}
+                </div>
+                <div class="col-4 trade cancel rounded-pill">
+                  C{{image.tradeId}}
+                </div>
+              </div>
+              {% if image.forSale != "No" %}
+              Price: {{image.forSale}} XRD
+              {% else %}
+              Not for sale
+              {% endif %}
             </p></a>
         {% else %}
             <img class="img-responsive" src="https://buffwild.b-cdn.net/SiteImages/locked_image.jpg">
@@ -193,6 +242,7 @@
       </div>
     </div>
   </div>
+</div>
 
 </main>
 
