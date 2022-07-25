@@ -14,7 +14,7 @@ def home(request):
 
     context = {}
 
-    left = len(read_pickle_file(production_avail_buffs_path))
+    left = len(read_pickle_file(local_avail_buffs_path))
     context['left'] = left
     print(left)
     sold = 10000 - left
@@ -35,16 +35,42 @@ def chest(request):
     return render(request, 'main/chest.html', context)
 
 def trading(request):
+    print('a')
     images = Image.objects.filter(~Q(forSale='No'))
-    images= sorted(images, key= lambda image:int(image.uniqueId))
+    print(type(images))
+    for i in images:
+        print(i)
+        print(type(i))
+        break
+    print('b')
+    images = sorted(images, key= lambda image:int(image.uniqueId))
+    print(type(images))
+    for i in images:
+        print(i)
+        print(type(i))
+        break
     images2 = ImageTwo.objects.filter(~Q(forSale='No'))
-    images2= sorted(images2, key= lambda image:int(image.uniqueId))
+    images2 = sorted(images2, key= lambda image:int(image.uniqueId))
     images = images + images2
-    images= sorted(images, key= lambda image:int(image.uniqueId))
-
+    images = sorted(images, key= lambda image:int(image.uniqueId))
+    traits = Trait.objects.all()
     context = {}
 
     context['images'] = images
+    context['traits'] = traits
+
+    images = Image.objects.all()
+    images = sorted(images, key= lambda image:int(image.uniqueId))
+
+    for image in images:
+        try:
+            print(image.traits.fur_feature)
+        except Exception as e:
+            print(e)
+
+    print('blahh')
+
+
     return render(request, 'main/trading.html', context)
 
 def collection(request):
@@ -97,7 +123,7 @@ def instructions(request):
     local_wild_path = "/Users/RyanRobertson21/PycharmProjects/xrd/12-automated_token_sale/wildTickets.pickle"
     production_wild_path = "/home/RyanRobertson21/xrdPayment/12-automated_token_sale/wildTickets.pickle"
     context = {}
-    left = len(read_pickle_file(production_wild_path))
+    left = len(read_pickle_file(local_wild_path))
     context['left'] = left
     redeemed = 10000 - left
     redeemed = round(redeemed / 100, 2)

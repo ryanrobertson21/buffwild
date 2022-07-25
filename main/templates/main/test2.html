@@ -1,47 +1,305 @@
-<!doctype html>
+{% extends 'main/base.html' %}
+
+{% block content %}
+
 {% load static %}
-{% load custom_tags %}
-<html lang="en">
   <head>
-    <style>
-    .MagicScroll a img{
-      height: 100px !important;
-      width: 75px !important;
+
+<style>
+
+  .card-full {
+    max-width: 100% !important;
+  }
+
+  .img-responsive {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  .form-check {
+    align-items: end;
+  }
+  .pages {
+    margin-left: 10px;
+    margin-right: 10px;
+    display: block;
+  }
+
+  .pagination {
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .top {
+  position: sticky;
+  bottom: 20px;
+  place-self: end;
+  text-decoration: none;
+  padding: 10px;
+  color: #FFFFFF;
+  background: #000000;
+  border-radius: 100px;
+
+  --offset: 500px;
+  margin-top: calc(100vh + var(--offset));
+}
+
+  .top:hover {
+    color: #E1DA22;
+  }
+
+  .container-top {
+    text-align: end;
+
+    --offset: 100px;
+    --fade: 120px;
+
+    mask: linear-gradient(#0000 calc(100vh + var(--offset)), #000 calc(100vh + var(--offset) + var(--fade)));
+  }
+
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  h1, h2{
+    color: #618A5A;
+  }
+
+  p {
+    margin-bottom: 0px;
+  }
+
+  .logocontainer img {
+    text-align: center !important;
+    width: 75vw;
+  }
+
+  .logocontainer {
+    text-align: center;
+    position: relative;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: auto;
+  }
+
+  .cover-container .py-5 {
+    padding-top: 0px !important;
+  }
+
+  .py-lg-5 {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+
+  .buffbutton {
+    padding-bottom: 25px !important;
+  }
+
+  .btn {
+    color: #FFFFFF;
+    background-color: #E1DA22;
+    font-size: 1rem !important;
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+  }
+
+  .btn:hover {
+    color: #E1DA22;
+    background-color: #FFFFFF;
+  }
+
+  .py-5 {
+    padding-bottom: 4rem !important;
+  }
+
+  .py-lg-5 a {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    padding-left: 3em;
+    padding-right: 3em;
+    margin: -2em;
+  }
+
+  .navburg {
+    position: absolute;
+    background-color: #000000;
+    z-index: 999;
+  }
+
+  .nav-item {
+    background-color: #000000;
+  }
+
+  .logocontainer{
+    padding-top: -10px;
+  }
+
+.form-check {
+  text-align: start !important;
+  color: #FFFFFF;
+}
+
+.trade {
+  margin: auto !important;
+  white-space: nowrap !important;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.traderow {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 2.5px;
+  margin-right: 2.5px;
+}
+
+.buy {
+  background-color: #0000FF;
+}
+
+.sell {
+  background-color: #EEDC5B;
+}
+
+.cancel {
+  background-color: #FF0000;
+}
+
+p {
+  color: #FFFFFF;
+}
+
+h5 {
+  color: #E1DA22
+}
+
+p1 {
+  font-size: 20px;
+  color: #618A5A
+}
+
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
     }
+  }
 
-    </style>
-
-    <link type="text/css" rel="stylesheet" href="{% static "main/magicscroll/magicscroll.css" %}"/>
-    <script type="text/javascript" src="/static/main/magicscroll/magicscroll.js"></script>
-    <script>
-    var MagicScrollOptions = {
-        step:1,
-        autoplay:500,
-        arrows:'off'
-    }
-      </script>
-
+</style>
 </head>
-<body>
 
-  <div class="MagicScroll" data-options="mode: carousel; arrows: off">
-      <a><img src="https://buffwild.b-cdn.net/1 of 1's/Angel_Buff.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Bas.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Blue.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Green.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Orange.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Pink.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Purple.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Red.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/1 of 1's/Battle Buff Tubby.png" /></a>
-      <a><img src="https://buffwild.b-cdn.net/1 of 1'ss/Demon Buff.png" /></a>
+<body>
+  <div class="container logocontainer">
+  <img src="https://buffwild.b-cdn.net/SiteImages/logo_banner.png" alt="Buff Wild Crew Logo Banner"/>
   </div>
+<main>
+<div class="cover-container d-inline-flex h-100 w-100 p-3 mt-2 mb-0 mx-auto flex-column">
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Buffs for Sale</h1>
+        <p class="lead text-muted"></p>
+        <div class="row row-cols-1 row-cols-md-3 g-3 gy-3 buttonrow">
+          <div class="col buffbutton">
+            <a href="{% url 'walletLookup' %}" class="btn btn-lg btn-block" role="button">My Buffs</a>
+          </div>
+          <div class="col buffbutton">
+            <a href="{% url 'collection' %}" class="btn btn-info btn-lg btn-block" role="button">Collection</a>
+          </div>
+          <div class="col buffbutton">
+            <a href="{% url 'chest' %}" class="btn btn-lg btn-block" role="button">Faction Chest</a>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <div class="col text-center">
+    <div class="row text-center">
+      <h2>TRADING INSTRUCTIONS</h2>
+    </div>
+    <div class="row text-center">
+      <p1>WALLET</p1>
+      <p>The wallet is rdx1qsp0ez9yxa0l5qwf6fz93tda6842fft3cqr44ak3mgjtn9p4eme8wrccm4922 (The same as the minting wallet)</p>
+      <p1>SELLING</p1>
+      <p>The minimum sales price is 50 xrd. To sell your buff send the appropriate token to our wallet along with the <span style="color: #EEDC5B">sell code</span> and your asking price as the message, like this <span style="color: #EEDC5B">S439PGU</span>-500 to sell for 500 XRD. All sales are subject to a 10% royalty</p>
+      <p1>BUYING</p1>
+      <p>To buy a buff, simply send the amount of xrd the seller is requesting to our wallet along with the <span style="color: #0000FF">buy code</span> as the message</p>
+      <p1>TO CANCEL A SALES LISTING</p1>
+      <p>If you would like to cancel your listing send 3 xrd to the wallet along with the <span style="color: #FF0000">cancel code</span> as the message</p>
+      <p1>SEQUESTERED TOKENS</p1>
+      <p>your token will be sequestered if:</p>
+      <p>-You sent a buff token when you should’ve sent a buff1 token, or visa versa</p>
+      <p>-You try to sell someone elses buff</p>
+      <p>-You have a buff currently listed for sale and try to list it for sale again without cancelling first</p>
+      <p>-You try to sell for below the minimum sales price</p>
+      <p>-You try to send a sales price with too many decimal places, we accept 6 decimal places max</p>
+      <p>-You send an invalid sales price (we only accept numbers)</p>
+      <p1>Rescuing a sequestered token</p1>
+      <p>To rescue a sequestered token send 3 xrd to the wallet along with SOS as the message</p>
+      <br>
+      <br>
+
+
+    </div>
+  </div>
+
+  <div class="album py-5">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+        {% for image in images %}
+        <div class="col">
+
+          <div class="card-full shadow-sm">
+            <div class="card">
+              <div class="face front">
+                <img class="img-responsive" src={{image.img_url}} alt="Buff Wild Crew NFT">
+              </div>
+              <div class="face back">Back</div>
+            </div>
+            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+              #{{image.uniqueId}}
+              {% if image.title is not None %}
+              - {{image.title}}
+              {% endif %}
+              <div class="row traderow">
+                <div class="col-4 trade buy rounded-pill">
+                  B{{image.tradeId}}
+                </div>
+                <div class="col-4 trade sell rounded-pill">
+                  S{{image.tradeId}}
+                </div>
+                <div class="col-4 trade cancel rounded-pill">
+                  C{{image.tradeId}}
+                </div>
+              </div>
+              {% if image.forSale != "No" %}
+              Price: {{image.forSale}} XRD
+              {% else %}
+              Not for sale
+              {% endif %}
+            </p></a>
+          </div>
+
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+
+</script>
+
+
+
 </body>
 
-
-
-
-
-
-  </body>
-</html>
+{% endblock %}
