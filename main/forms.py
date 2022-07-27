@@ -3,7 +3,7 @@ from django.core.validators import validate_image_file_extension
 from django.utils.translation import gettext as _
 
 
-from .models import Image, ImageTwo
+from .models import Image, ImageTwo, Trait
 
 
 class ShowImageForm(forms.ModelForm):
@@ -11,7 +11,6 @@ class ShowImageForm(forms.ModelForm):
         model = Image
         fields = (
             "title",
-            "slug",
         )
 
     images = forms.FileField(
@@ -54,3 +53,10 @@ class ShowImageFormTwo(forms.ModelForm):
         for upload in self.files.getlist("images"):
             image = ImageTwo(img_photo=upload)
             image.save()
+
+class ShowTraitForm(forms.ModelForm):
+    class Meta:
+        model = Trait
+        fields = (
+            "uniqueId",
+        )
