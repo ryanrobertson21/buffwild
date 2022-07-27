@@ -618,8 +618,47 @@ td {
 
           </div>
   </div>
+
+        {% else %}
+        <div class="col">
+          <div class="card-full shadow-sm">
+
+            <div class="container">
+                <img class="img-responsive" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
+
+
+            </div>
+            <a style="text-align:center; color:#FFFFFF; background-color:#000000;">
+              <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+              #{{image.uniqueId}}
+              {% if image.title is not None %}
+              - {{image.title}}
+              {% endif %}
+              <div class="row traderow">
+                <div class="col-4 trade buy rounded-pill">
+                  B{{image.tradeId}}
+                </div>
+                <div class="col-4 trade sell rounded-pill">
+                  S{{image.tradeId}}
+                </div>
+                <div class="col-4 trade cancel rounded-pill">
+                  C{{image.tradeId}}
+                </div>
+              </div>
+              <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+              {% if image.forSale != "No" %}
+              Price: {{image.forSale}} XRD
+              {% else %}
+              Not for sale
+              {% endif %}
+            </p>
+          </a>
+
+          </div>
+  </div>
         {% endif %}
         {% endfor %}
+  </div>
   </div>
   </div>
   </main>
