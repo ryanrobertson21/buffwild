@@ -14,7 +14,7 @@ def home(request):
 
     context = {}
 
-    left = len(read_pickle_file(local_avail_buffs_path))
+    left = len(read_pickle_file(production_avail_buffs_path))
     context['left'] = left
     print(left)
     sold = 10000 - left
@@ -110,7 +110,7 @@ def instructions(request):
     local_wild_path = "/Users/RyanRobertson21/PycharmProjects/xrd/12-automated_token_sale/wildTickets.pickle"
     production_wild_path = "/home/RyanRobertson21/xrdPayment/12-automated_token_sale/wildTickets.pickle"
     context = {}
-    left = len(read_pickle_file(local_wild_path))
+    left = len(read_pickle_file(production_wild_path))
     context['left'] = left
     redeemed = 10000 - left
     redeemed = round(redeemed / 100, 2)
