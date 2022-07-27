@@ -10,13 +10,14 @@
 
   <style>
 
-    .card {
+    .card-full {
       max-width: 100% !important;
     }
 
     .img-responsive {
       max-width: 100% !important;
       height: auto !important;
+      position: relative !important;
     }
 
     .bd-placeholder-img {
@@ -143,6 +144,218 @@
       background-color: #FF0000;
     }
 
+    p {
+      color: #FFFFFF;
+    }
+
+    h5 {
+      color: #E1DA22
+    }
+
+    p1 {
+      font-size: 20px;
+      color: #618A5A
+    }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+    blockquote {
+      color: #888;
+      margin: 20px 0 20px 20px;
+    }
+
+    blockquote:before,
+    blockquote:after{
+      content: '"';
+    }
+
+    @mixin uppercase {
+      text-transform: uppercase;
+    }
+
+    @mixin center {
+      margin: 0 auto;
+    }
+
+    /*.intro {
+      position: relative;
+      margin: 10px;
+      width: 40%;
+      height: auto;
+      color: #444;
+    }*/
+
+    @mixin deck {
+      position: relative;
+      background: transparent;
+      margin: 3em;
+      width: 99%;
+      height: auto;
+    }
+
+    @mixin card {
+      position: relative;
+      display: inline-block;
+      background: transparent;
+      background-color: #000;
+      color: #000;
+      width: 150px;
+      height: 200px;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+
+
+    .card {
+      @include card;
+    }
+
+    .card .face {
+      border: 1px solid #333;
+      color: black;
+      height: auto;
+
+      text-align: center;
+      text-transform: capitalize;
+      box-shadow: 4px 4px 10px #555; /* Slim drop shadow so as not to bleed into the bounding box of the next card  */
+    }
+
+    .card .front {
+      position: absolute;
+      transform: rotateX(0deg) rotateY(0deg);
+      transition: all .4s ease-in-out;
+      backface-visibility: visible;
+      z-index: 10;
+    }
+
+    .card {
+      transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+      animation: drop3 .5s ease-in;
+      background-color: #000000;
+      height: 58vh;
+    }
+
+    .card .back {
+      transform: rotateX(0deg) rotateY(180deg);
+      transform-style: preserve-3d;
+      transition: all .4s ease-in-out;
+      backface-visibility: hidden;
+      z-index: 5;
+    }
+
+    /* Flip the card and apply easing */
+    .card.flip .front {
+      transform: rotateY(180deg);
+      transform-style: preserve-3d;
+      transition: all .4s ease-in-out;
+      backface-visibility: hidden;
+      z-index: 900;
+    }
+
+    .card.flip .back {
+      transform: rotateY(0deg);
+      transform-style: preserve-3d;
+      transition: all .4s ease-in-out;
+      backface-visibility: visible;
+      z-index: 1000;
+    }
+
+    .card-back {
+
+      max-width: 100% !important;
+      height: auto;
+    }
+
+  .buff-logo {
+    height: 10vh;
+  }
+
+  .buff-num {
+  background-color: #000000;
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 10px;
+  width: 100% !important;
+  height: 5vh;
+}
+
+.buff-num p {
+  width: 100% !important;
+  height: 3vh;
+  line-height: 3vh;
+}
+
+.buff-score {
+  background-color: #000000;
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 10px;
+  width: 100% !important;
+  height: 5vh;
+}
+
+
+ p-num {
+   color: #C0A86D;
+   position: absolute;
+   top: 23%;
+   left: 36%;
+   font-size: 2rem
+ }
+
+ p-score {
+   color: #C0A86D;
+   position: absolute;
+   top: 85%;
+   left: 17.5%;
+   font-size: 2rem
+ }
+
+.table>:not(caption)>*>* {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.table-responsive .container {
+  padding-left: 1px !important;
+  padding-right: 1px !important;
+  margin-top: 10px !important;
+}
+
+.table {
+  margin-top: 100px !important;
+}
+
+.thead-light {
+  height: 4px !important;
+}
+
+.py-1 {
+  padding-bottom: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+th {
+  font-size: 8.5px;
+}
+
+tr {
+  font-size: 8.5px;
+  line-height: 12.5px;
+}
+
+td {
+  line-height: 12.5px;
+}
+
+
 
 
 </style>
@@ -193,55 +406,247 @@
 
 <div class="album py-5">
   <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
       {% for image in images %}
       {% if image.ownerWallet != "Locked" %}
-        <div class="col">
-          <div class="card shadow-sm">
-            <img class="img-responsive" src={{image.img_url}}>
-            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">
-              #{{image.uniqueId}}
-              {% if image.title is not None %}
-              - {{image.title}}
-              {% endif %}
-              <div class="row traderow">
-                <div class="col-4 trade buy rounded-pill"">
-                  B{{image.tradeId}}
-                </div>
-                <div class="col-4 trade sell rounded-pill">
-                  S{{image.tradeId}}
-                </div>
-                <div class="col-4 trade cancel rounded-pill">
-                  C{{image.tradeId}}
-                </div>
-              </div>
-              {% if image.forSale != "No" %}
-              Price: {{image.forSale}} XRD
-              {% else %}
-              Not for sale
-              {% endif %}
+      {% if image.uniqueId <= 9910 %}
+      <div class="col">
+        <div class="card-full shadow-sm">
 
-            </p></a>
+          <div class="card">
+
+            <div class="face front">
+              <img class="img-responsive" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
+            </div>
+
+            <div class="face back">
+                <img class="card-img" src="https://buffwild.b-cdn.net/SiteImages/Buff_Wild_Card_Back.png" alt="Buff Wild Crew NFT Card Back">
+                <div class="card-img-overlay">
+                  <p-num class="card-title">#{{image.uniqueId|stringformat:"04d"}}</p-num>
+
+                  <div class="container py-1">
+                  <table class="table table-bordered table-hover table-sm">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Category</th>
+                      <th scope="col">Feature</th>
+                      <th scope="col">Specific</th>
+                      <th scope="col">Rarity</th>
+                      <th scope="col">Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Background</th>
+                      <td>{{image.traits.background_feature}}</td>
+                      <td>{{image.traits.background_specific}}</td>
+                      <td>{{image.traits.background_feature_rarity}}%</td>
+                      <td>{{image.traits.background_buff_score}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Fur</th>
+                      <td>{{image.traits.fur_feature}}</td>
+                      <td>{{image.traits.fur_specific}}</td>
+                      <td>{{image.traits.fur_feature_rarity}}%</td>
+                      <td>{{image.traits.fur_buff_score}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Eyes</th>
+                      <td>{{image.traits.eyes_feature}}</td>
+                      <td>{{image.traits.eyes_specific}}</td>
+                      <td>{{image.traits.eyes_feature_rarity}}%</td>
+                      <td>{{image.traits.eyes_buff_score}}</td>
+                    </tr>
+                     <tr>
+                      <th scope="row">Mouth</th>
+                      <td>{{image.traits.mouth_feature}}</td>
+                      <td>{{image.traits.mouth_specific}}</td>
+                      <td>{{image.traits.mouth_feature_rarity}}%</td>
+                      <td>{{image.traits.mouth_buff_score}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Horns</th>
+                      <td>{{image.traits.horns_feature}}</td>
+                      <td>{{image.traits.horns_specific}}</td>
+                      <td>{{image.traits.horns_feature_rarity}}%</td>
+                      <td>{{image.traits.horns_buff_score}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Swag</th>
+                      <td>{{image.traits.swag_feature}}</td>
+                      <td>{{image.traits.swag_specific}}</td>
+                      <td>{{image.traits.swag_feature_rarity}}%</td>
+                      <td>{{image.traits.swag_buff_score}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Smoking</th>
+                      <td>{{image.traits.smoking}}</td>
+                      <td>N/A</td>
+                      {% if image.traits.smoking_rarity != "N/A" %}
+                      <td>{{image.traits.smoking_rarity}}%</td>
+                      {% else %}
+                      <td>{{image.traits.smoking_rarity}}</td>
+                      {% endif %}
+                      <td>{{image.traits.smoking_buff_score}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Double Baby</th>
+                      <td>{{image.traits.double_baby_buff}}</td>
+                      <td>N/A</td>
+                      {% if image.traits.double_baby_buff_rarity != "N/A" %}
+                      <td>{{image.traits.double_baby_buff_rarity}}%</td>
+                      {% else %}
+                      <td>{{image.traits.double_baby_buff_rarity}}</td>
+                      {% endif %}
+                      <td>{{image.traits.double_baby_buff_buff_score}}</td>
+                    </tr>
+
+                    {% if image.traits.matching_buff_score > 0 %}
+                    {% for key, values in image.traits.get_matching_data.items %}
+                    <tr>
+                      <th scope="row">Matching</th>
+                      <td>{{values.0}}</td>
+                      <td>{{values.1}} matches</td>
+                      <td>N/A</td>
+                      <td>{{values.3}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <th scope="row">Matching</th>
+                      <td>No</td>
+                      <td>N/A</td>
+                      <td>N/A</td>
+                      <td>0</td>
+                    </tr>
+                    {% endif %}
+
+                    {% if image.traits.get_collection_list|length > 0 %}
+                    {% for key, values in image.traits.get_colletion_data.items %}
+                    <tr>
+                      <th scope="row">Collection</th>
+                      <td>{{values.0}}</td>
+                      <td>{{values.1}}</td>
+                      <td>{{values.2}}%</td>
+                      <td>{{values.3}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                    <tr>
+                      <th scope="row">Collection</th>
+                      <td>{{image.traits.collections}}</td>
+                      <td>{{image.traits.collections_name}}</td>
+                      <td>{{image.traits.collections_rarity}}</td>
+                      <td>{{image.traits.collections_buff_score}}</td>
+                    </tr>
+                    {% endif %}
+                  </tbody>
+                  </table>
+                  </div>
+
+                  <p-score class="card-title">Buff Score: {{image.traits.total_buff_score}}</p-score>
+                </div>
+            </div>
+
           </div>
+          <a style="text-align:center; color:#FFFFFF; background-color:#000000;">
+            <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+            #{{image.uniqueId}}
+            {% if image.title is not None %}
+            - {{image.title}}
+            {% endif %}
+            <div class="row traderow">
+              <div class="col-4 trade buy rounded-pill">
+                B{{image.tradeId}}
+              </div>
+              <div class="col-4 trade sell rounded-pill">
+                S{{image.tradeId}}
+              </div>
+              <div class="col-4 trade cancel rounded-pill">
+                C{{image.tradeId}}
+              </div>
+            </div>
+            <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+            {% if image.forSale != "No" %}
+            Price: {{image.forSale}} XRD
+            {% else %}
+            Not for sale
+            {% endif %}
+          </p>
+        </a>
+
         </div>
+</div>
+
       {% else %}
       <div class="col">
-        <div class="card shadow-sm">
-          <img class="img-responsive" src="https://buffwild.b-cdn.net/SiteImages/locked_image.jpg">
-          <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">#{{image.uniqueId}}</p></a>
+        <div class="card-full shadow-sm">
+
+          <div class="container">
+              <img class="img-responsive" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
+
+
+          </div>
+          <a style="text-align:center; color:#FFFFFF; background-color:#000000;">
+            <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+            #{{image.uniqueId}}
+            {% if image.title is not None %}
+            - {{image.title}}
+            {% endif %}
+            <div class="row traderow">
+              <div class="col-4 trade buy rounded-pill">
+                B{{image.tradeId}}
+              </div>
+              <div class="col-4 trade sell rounded-pill">
+                S{{image.tradeId}}
+              </div>
+              <div class="col-4 trade cancel rounded-pill">
+                C{{image.tradeId}}
+              </div>
+            </div>
+            <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+            {% if image.forSale != "No" %}
+            Price: {{image.forSale}} XRD
+            {% else %}
+            Not for sale
+            {% endif %}
+          </p>
+        </a>
+
         </div>
-      </div>
-        {% endif %}
-        {% endfor %}
-      </div>
-    </div>
+</div>
+      {% endif %}
+      {% else %}
+<div class="col">
+  <div class="card shadow-sm">
+    <img class="img-responsive" src="https://buffwild.b-cdn.net/SiteImages/locked_image.jpg">
+    <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">#{{image.uniqueId}}</p></a>
   </div>
+</div>
+  {% endif %}
+      {% endfor %}
+</div>
+</div>
 </div>
 
     </main>
 
 
+    <script>
+      // Get card element
+      const card = document.querySelectorAll('.card');
 
+      // Loop through cards.
+      // This is so you can have multiple cards on a page.
+      for (let i = 0; i < card.length; i++) {
+         // Add a click event listener to each card.
+         card[i].addEventListener("click", function() {
+           // Toggle active class on card
+           card[i].classList.toggle("flip");
+         });
+      }
+
+    </script>
 
       </body>
 
