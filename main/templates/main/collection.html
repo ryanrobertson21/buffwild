@@ -265,7 +265,7 @@
     animation: drop3 .5s ease-in;
     background-color: transparent;
     color: transparent;
-    height: 58vh;
+    height: auto;
   }
 
   .card-full {
@@ -388,6 +388,14 @@ td {
 line-height: 12.5px;
 }
 
+.buff-info {
+  padding-top: 5px;
+}
+
+.trade-info {
+  margin-bottom: 0px !important;
+}
+
 </style>
 </head>
 
@@ -429,7 +437,6 @@ line-height: 12.5px;
           <div class="card-full shadow-sm">
 
             <div class="card">
-
               <div class="face front card-img">
                 <img class="card-img" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
               </div>
@@ -564,12 +571,14 @@ line-height: 12.5px;
               </div>
 
             </div>
+            <div class="container buff-info">
             <a style="text-align:center; color:#FFFFFF; background-color:#000000;">
-              <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+              <p style="text-align:center; color:#FFFFFF; background-color:#000000;" class = "trade-info">
               #{{image.uniqueId}}
               {% if image.title is not None %}
               - {{image.title}}
               {% endif %}
+              </p>
               <div class="row traderow">
                 <div class="col-4 trade buy rounded-pill">
                   B{{image.tradeId}}
@@ -589,7 +598,7 @@ line-height: 12.5px;
               {% endif %}
             </p>
           </a>
-
+          </div>
           </div>
   </div>
 
@@ -599,15 +608,15 @@ line-height: 12.5px;
 
             <div class="card">
                 <img class="card-img" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
-
-
             </div>
+            <div class="container buff-info">
             <a style="text-align:center; color:#FFFFFF; background-color:#000000;">
-              <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+              <p style="text-align:center; color:#FFFFFF; background-color:#000000;" class = "trade-info">
               #{{image.uniqueId}}
               {% if image.title is not None %}
               - {{image.title}}
               {% endif %}
+              </p>
               <div class="row traderow">
                 <div class="col-4 trade buy rounded-pill">
                   B{{image.tradeId}}
@@ -627,7 +636,7 @@ line-height: 12.5px;
               {% endif %}
             </p>
           </a>
-
+          </div>
           </div>
   </div>
         {% endif %}
