@@ -244,8 +244,7 @@
   }
 
   .card .face {
-    border: 1px solid #333;
-    color: black;
+    color: transparent;
     height: auto;
 
     text-align: center;
@@ -264,9 +263,14 @@
   .card {
     transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
     animation: drop3 .5s ease-in;
-    background-color: #000000;
+    background-color: transparent;
+    color: transparent;
     height: 58vh;
   }
+
+  .card-full {
+  color: transparent;
+}
 
   .card .back {
     transform: rotateX(0deg) rotateY(180deg);
@@ -426,11 +430,11 @@ line-height: 12.5px;
 
             <div class="card">
 
-              <div class="face front">
-                <img class="img-responsive" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
+              <div class="face front card-img">
+                <img class="card-img" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
               </div>
 
-              <div class="face back">
+              <div class="face back card-img">
                   <img class="card-img" src="https://buffwild.b-cdn.net/SiteImages/Buff_Wild_Card_Back.png" alt="Buff Wild Crew NFT Card Back">
                   <div class="card-img-overlay">
                     <p-num class="card-title">#{{image.uniqueId|stringformat:"04d"}}</p-num>
@@ -593,8 +597,8 @@ line-height: 12.5px;
         <div class="col">
           <div class="card-full shadow-sm">
 
-            <div class="container">
-                <img class="img-responsive" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
+            <div class="card">
+                <img class="card-img" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
 
 
             </div>
@@ -630,8 +634,10 @@ line-height: 12.5px;
         {% else %}
   <div class="col">
     <div class="card shadow-sm">
-      <img class="img-responsive" src="https://buffwild.b-cdn.net/SiteImages/locked_image.jpg">
+      <div class="card">
+          <img class="card-img" src="https://buffwild.b-cdn.net/SiteImages/locked_image.jpg">
       <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">#{{image.uniqueId}}</p></a>
+    </div>
     </div>
   </div>
     {% endif %}
