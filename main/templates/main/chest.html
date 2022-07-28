@@ -387,7 +387,14 @@ line-height: 12.5px;
 
 td {
 line-height: 12.5px;
+}
 
+.buff-info {
+  padding-top: 5px;
+}
+
+.trade-info {
+  margin-bottom: 0px !important;
 }
 
 
@@ -429,11 +436,15 @@ line-height: 12.5px;
         {% if image.ownerWallet != "Locked" %}
           <div class="card">
             <img class="card-img" src={{image.img_url}} alt="Buff Wild Crew NFT">
-            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+          </div>
+          <div class="container buff-info">
+            <a style="text-align:center; color:#FFFFFF; background-color:#000000;">
+              <p style="text-align:center; color:#FFFFFF; background-color:#000000;" class = "trade-info">
               #{{image.uniqueId}}
               {% if image.title is not None %}
               - {{image.title}}
               {% endif %}
+              </p>
               <div class="row traderow">
                 <div class="col-4 trade buy rounded-pill"">
                   B{{image.tradeId}}
@@ -445,13 +456,15 @@ line-height: 12.5px;
                   C{{image.tradeId}}
                 </div>
               </div>
-              </div>
+              <p style="text-align:center;">
               {% if image.forSale != "No" %}
               Price: {{image.forSale}} XRD
               {% else %}
               Not for sale
               {% endif %}
-            </p></a>
+              </p>
+            </a>
+            </div>
         {% else %}
         <div class="card">
           <img class="card-img" src="https://buffwild.b-cdn.net/SiteImages/locked_image.jpg">

@@ -264,7 +264,7 @@
       animation: drop3 .5s ease-in;
       background-color: transparent;
       color: transparent;
-      height: 58vh;
+      height: auto;
     }
 
     .card-full {
@@ -388,6 +388,9 @@ td {
 
 }
 
+.buff-info {
+  padding-top: 5px;
+}
 
 
 
@@ -596,6 +599,7 @@ td {
               </div>
 
             </div>
+            <div class="container buff-info">
             <a style="text-align:center; color:#FFFFFF; background-color:#000000;">
               <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
               #{{image.uniqueId}}
@@ -614,14 +618,13 @@ td {
                 </div>
               </div>
               <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+
               {% if image.forSale != "No" %}
               Price: {{image.forSale}} XRD
-              {% else %}
-              Not for sale
               {% endif %}
             </p>
           </a>
-
+</div>
           </div>
   </div>
 
@@ -634,6 +637,7 @@ td {
 
 
             </div>
+            <div class="container buff-info">
             <a style="text-align:center; color:#FFFFFF; background-color:#000000;">
               <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
               #{{image.uniqueId}}
@@ -659,7 +663,7 @@ td {
               {% endif %}
             </p>
           </a>
-
+          </div>
           </div>
   </div>
         {% endif %}
