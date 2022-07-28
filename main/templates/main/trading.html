@@ -243,8 +243,7 @@
     }
 
     .card .face {
-      border: 1px solid #333;
-      color: black;
+      color: transparent;
       height: auto;
 
       text-align: center;
@@ -263,8 +262,13 @@
     .card {
       transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
       animation: drop3 .5s ease-in;
-      background-color: #000000;
+      background-color: transparent;
+      color: transparent;
       height: 58vh;
+    }
+
+    .card-full {
+      color: transparent;
     }
 
     .card .back {
@@ -456,15 +460,16 @@ td {
 
             <div class="card">
 
-              <div class="face front">
-                <img class="img-responsive" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
+              <div class="face front card-img">
+                <img class="card-img" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
               </div>
 
-              <div class="face back">
+              <div class="face back card-img">
                   <img class="card-img" src="https://buffwild.b-cdn.net/SiteImages/Buff_Wild_Card_Back.png" alt="Buff Wild Crew NFT Card Back">
                   <div class="card-img-overlay">
                     <p-num class="card-title">#{{image.uniqueId|stringformat:"04d"}}</p-num>
 
+<div class="table-responsive">
                     <div class="container py-1">
                     <table class="table table-bordered table-hover table-sm">
                     <thead class="thead-light">
@@ -584,6 +589,7 @@ td {
                     </tbody>
                     </table>
                     </div>
+                    </div>
 
                     <p-score class="card-title">Buff Score: {{image.traits.total_buff_score}}</p-score>
                   </div>
@@ -623,8 +629,8 @@ td {
         <div class="col">
           <div class="card-full shadow-sm">
 
-            <div class="container">
-                <img class="img-responsive" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
+            <div class="card">
+                <img class="card-img" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
 
 
             </div>
