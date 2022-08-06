@@ -6,10 +6,23 @@ from . models import *
 import pickle
 
 def home(request):
-    sold = Image.objects.filter(~Q(ownerWallet='Locked'))
-    sold = round(sold.count() / 100, 2)
+    #sold = Image.objects.filter(~Q(ownerWallet='Locked'))
+    #sold = round(sold.count() / 100, 2)
+
+    local_avail_buffs_path = "/Users/RyanRobertson21/PycharmProjects/xrd/12-automated_token_sale/availableBuffs.pickle"
+    production_avail_buffs_path = "/home/RyanRobertson21/xrdPayment/12-automated_token_sale/availableBuffs.pickle"
+
     context = {}
+
+    left = len(read_pickle_file(production_avail_buffs_path))
+    context['left'] = left
+    print(left)
+    sold = 10000 - left
+    sold = round(sold / 100, 2)
+    print('here avail buffs')
+    print(sold)
     context['sold'] = sold
+    #context['sold'] = sold
     return render(request, 'main/home.html', context)
 
 def chest(request):
@@ -20,6 +33,32 @@ def chest(request):
 
     context['images'] = images
     return render(request, 'main/chest.html', context)
+
+def trading(request):
+    print('a')
+    images = Image.objects.filter(~Q(forSale='No'))
+    print(type(images))
+    for i in images:
+        print(i)
+        print(type(i))
+        break
+    print('b')
+    images = sorted(images, key= lambda image:int(image.uniqueId))
+    print(type(images))
+    for i in images:
+        print(i)
+        print(type(i))
+        break
+    images2 = ImageTwo.objects.filter(~Q(forSale='No'))
+    images2 = sorted(images2, key= lambda image:int(image.uniqueId))
+    images = images + images2
+    images = sorted(images, key= lambda image:int(image.uniqueId))
+    traits = Trait.objects.all()
+    context = {}
+
+    context['images'] = images
+
+    return render(request, 'main/trading.html', context)
 
 def collection(request):
     images = Image.objects.all()
@@ -59,11 +98,11 @@ def collection(request):
 def cover(request):
     return render(request, 'main/cover.html')
 
-def wild(path):
+def read_pickle_file(path):
     try:
         with open(path, 'rb') as f:
-            available_wild = pickle.load(f)
-            return available_wild
+            file = pickle.load(f)
+            return file
     except EOFError:
         return 10000
 
@@ -71,11 +110,11 @@ def instructions(request):
     local_wild_path = "/Users/RyanRobertson21/PycharmProjects/xrd/12-automated_token_sale/wildTickets.pickle"
     production_wild_path = "/home/RyanRobertson21/xrdPayment/12-automated_token_sale/wildTickets.pickle"
     context = {}
-    left = len(wild(production_wild_path))
+    left = len(read_pickle_file(production_wild_path))
     context['left'] = left
     redeemed = 10000 - left
     redeemed = round(redeemed / 100, 2)
-    print('here')
+    print('here wild redeemed')
     print(redeemed)
     context['redeemed'] = redeemed
     return render(request, 'main/instructions.html', context)

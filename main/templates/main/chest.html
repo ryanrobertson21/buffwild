@@ -93,10 +93,16 @@
     padding-bottom: 0px !important;
   }
 
+  .buffbutton {
+    padding-bottom: 25px !important;
+  }
+
   .btn {
     color: #FFFFFF;
     background-color: #E1DA22;
     font-size: 1rem !important;
+    padding-left: 1em !important;
+    padding-right: 1em !important;
   }
 
   .btn:hover {
@@ -134,7 +140,32 @@
 .form-check {
   text-align: start !important;
   color: #FFFFFF;
+}
 
+.trade {
+  margin: auto !important;
+  white-space: nowrap !important;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.traderow {
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-left: 2.5px;
+  margin-right: 2.5px;
+}
+
+.buy {
+  background-color: #0000FF;
+}
+
+.sell {
+  background-color: #EEDC5B;
+}
+
+.cancel {
+  background-color: #FF0000;
 }
 
   @media (min-width: 768px) {
@@ -142,6 +173,230 @@
       font-size: 3.5rem;
     }
   }
+
+  p {
+    color: #FFFFFF;
+  }
+
+  h5 {
+    color: #E1DA22
+  }
+
+  p1 {
+    font-size: 20px;
+    color: #618A5A
+  }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+  blockquote {
+    color: #888;
+    margin: 20px 0 20px 20px;
+  }
+
+  blockquote:before,
+  blockquote:after{
+    content: '"';
+  }
+
+  @mixin uppercase {
+    text-transform: uppercase;
+  }
+
+  @mixin center {
+    margin: 0 auto;
+  }
+
+  /*.intro {
+    position: relative;
+    margin: 10px;
+    width: 40%;
+    height: auto;
+    color: #444;
+  }*/
+
+  @mixin deck {
+    position: relative;
+    background: transparent;
+    margin: 3em;
+    width: 99%;
+    height: auto;
+  }
+
+  @mixin card {
+    position: relative;
+    display: inline-block;
+    background: transparent;
+    background-color: #000;
+    color: #000;
+    width: 150px;
+    height: 200px;
+    margin-right: 20px;
+    cursor: pointer;
+  }
+
+
+  .card {
+    @include card;
+  }
+
+  .card .face {
+    color: transparent;
+    height: auto;
+
+    text-align: center;
+    text-transform: capitalize;
+    box-shadow: 4px 4px 10px #555; /* Slim drop shadow so as not to bleed into the bounding box of the next card  */
+  }
+
+  .card .front {
+    position: absolute;
+    transform: rotateX(0deg) rotateY(0deg);
+    transition: all .4s ease-in-out;
+    backface-visibility: visible;
+    z-index: 10;
+  }
+
+  .card {
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+    animation: drop3 .5s ease-in;
+    background-color: transparent;
+    color: transparent;
+    height: 58vh;
+  }
+
+  .card-full {
+    color: transparent;
+  }
+
+  .card .back {
+    transform: rotateX(0deg) rotateY(180deg);
+    transform-style: preserve-3d;
+    transition: all .4s ease-in-out;
+    backface-visibility: hidden;
+    z-index: 5;
+  }
+
+  /* Flip the card and apply easing */
+  .card.flip .front {
+    transform: rotateY(180deg);
+    transform-style: preserve-3d;
+    transition: all .4s ease-in-out;
+    backface-visibility: hidden;
+    z-index: 900;
+  }
+
+  .card.flip .back {
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+    transition: all .4s ease-in-out;
+    backface-visibility: visible;
+    z-index: 1000;
+  }
+
+  .card-back {
+
+    max-width: 100% !important;
+    height: auto;
+  }
+
+.buff-logo {
+  height: 10vh;
+}
+
+.buff-num {
+background-color: #000000;
+margin-right: 5px;
+margin-left: 5px;
+font-size: 10px;
+width: 100% !important;
+height: 5vh;
+}
+
+.buff-num p {
+width: 100% !important;
+height: 3vh;
+line-height: 3vh;
+}
+
+.buff-score {
+background-color: #000000;
+margin-right: 5px;
+margin-left: 5px;
+font-size: 10px;
+width: 100% !important;
+height: 5vh;
+}
+
+
+p-num {
+ color: #C0A86D;
+ position: absolute;
+ top: 23%;
+ left: 36%;
+ font-size: 2rem
+}
+
+p-score {
+ color: #C0A86D;
+ position: absolute;
+ top: 85%;
+ left: 17.5%;
+ font-size: 2rem
+}
+
+.table>:not(caption)>*>* {
+padding-left: 0px !important;
+padding-right: 0px !important;
+padding-top: 0px !important;
+padding-bottom: 0px !important;
+}
+
+.table-responsive .container {
+padding-left: 1px !important;
+padding-right: 1px !important;
+margin-top: 10px !important;
+}
+
+.table {
+margin-top: 100px !important;
+}
+
+.thead-light {
+height: 4px !important;
+}
+
+.py-1 {
+padding-bottom: 0 !important;
+padding-left: 0 !important;
+padding-right: 0 !important;
+}
+
+th {
+font-size: 8.5px;
+}
+
+tr {
+font-size: 8.5px;
+line-height: 12.5px;
+}
+
+td {
+line-height: 12.5px;
+}
+
+.buff-info {
+  padding-top: 5px;
+}
+
+.trade-info {
+  margin-bottom: 0px !important;
+}
+
 
 </style>
 </head>
@@ -155,37 +410,66 @@
   <section class="py-5 text-center container">
     <div class="row py-lg-5">
       <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">Buff Wild Crew</h1>
-        <h2 class="fw-light">Minted Buffs</h2>
+        <h1 class="fw-light">Faction Chest</h1>
         <p class="lead text-muted"></p>
-        <div class="row">
-          <div class="col-6">
-            <a href="{% url 'walletLookup' %}" class="btn btn-info" role="button"> My Buffs </a>
+        <div class="row row-cols-1 row-cols-md-3 g-3 gy-3 buttonrow">
+          <div class="col buffbutton">
+            <a href="{% url 'walletLookup' %}" class="btn btn-lg btn-block" role="button">My Buffs</a>
           </div>
-          <div class="col-6">
-            <a href="{% url 'collection' %}" class="btn btn-info" role="button">Collection</a>
+          <div class="col buffbutton">
+            <a href="{% url 'collection' %}" class="btn btn-info btn-lg btn-block" role="button">Collection</a>
           </div>
-      </div>
+          <div class="col buffbutton">
+            <a href="{% url 'trading' %}" class="btn btn-lg btn-block" role="button">For Sale</a>
+          </div>
+        </div>
     </div>
   </section>
 
   <div class="album py-5">
     <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
         {% for image in images %}
         <div class="col">
           <div class="card shadow-sm">
+
         {% if image.ownerWallet != "Locked" %}
-            <img class="img-responsive" src={{image.img_url}} alt="Buff Wild Crew NFT">
-            <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">
+          <div class="card">
+            <img class="card-img" src={{image.img_url}} alt="Buff Wild Crew NFT">
+          </div>
+          <div class="container buff-info">
+            <a style="text-align:center; color:#FFFFFF; background-color:#000000;">
+              <p style="text-align:center; color:#FFFFFF; background-color:#000000;" class = "trade-info">
               #{{image.uniqueId}}
               {% if image.title is not None %}
               - {{image.title}}
               {% endif %}
-            </p></a>
+              </p>
+              <div class="row traderow">
+                <div class="col-4 trade buy rounded-pill"">
+                  B{{image.tradeId}}
+                </div>
+                <div class="col-4 trade sell rounded-pill">
+                  S{{image.tradeId}}
+                </div>
+                <div class="col-4 trade cancel rounded-pill">
+                  C{{image.tradeId}}
+                </div>
+              </div>
+              <p style="text-align:center;">
+              {% if image.forSale != "No" %}
+              Price: {{image.forSale}} XRD
+              {% else %}
+              Not for sale
+              {% endif %}
+              </p>
+            </a>
+            </div>
         {% else %}
-            <img class="img-responsive" src="https://buffwild.b-cdn.net/SiteImages/locked_image.jpg">
+        <div class="card">
+          <img class="card-img" src="https://buffwild.b-cdn.net/SiteImages/locked_image.jpg">
             <a style="text-align:center; color:#FFFFFF; background-color:#000000;"><p style="text-align:center; color:#FFFFFF; background-color:#000000;">#{{image.uniqueId}}</p></a>
+        </div>
         {% endif %}
           </div>
         </div>
@@ -193,6 +477,7 @@
       </div>
     </div>
   </div>
+</div>
 
 </main>
 

@@ -116,7 +116,7 @@
 <p>150 BUFF Wild NFTs (which will be randomly purchased) will be held for marketing purposes and Wild Ticket Prizes.
 </p>
 <p>There will be no BUFF Wild NFTs withheld from the collection for the Crew Council or Community Team. Each Crew Council or
-   Community Team Member may purchase up to the unique wallet limit of 150 BUFFs at their own expense from their own personal
+   Community Team Member may purchase up to the unique wallet limit of 200 BUFFs at their own expense from their own personal
    funds. Each Crew Council and Community Team member has been given a unique buff, as can be seen in the Team section of the Home page,
    however these BUFFs are not part of the collection, and will never be listed for sale.
 </p>
@@ -124,7 +124,7 @@
 <h1><span style="color: #E1DA22">In order to purchase a Buff Wild NFT, strictly follow the instructions below:</span>
 </h1>
 <p><span style="color: #E1DA22">STEP ONE:</span> Decide how many Buffs you would like to purchase. Each Buff Wild NFT is
-   100 XRD. There is a max wallet limit of 150 Buffs.
+   100 XRD. There is a max wallet limit of 200 Buffs.
 </p>
 <p>For example, if you wish to purchase 10 Buffs, it will cost 10 x 100 XRD = 1,000 XRD
 </p>
@@ -202,6 +202,7 @@
 <p>You may begin redeeming your Wild Tickets for the WT 25% Event starting at Wednesday, June 1, 2022, at 9 am PT, and the Event will run until 10,000 Wild Tickets for this event have been redeemed.
 </p>
 
+
 <div class="row d-flex justify-content-center">
 <div class="col-lg-3 col-md-5 percent-col my-auto">
 <div class="flex-wrapper">
@@ -232,6 +233,7 @@
 </div>
 </div>
 
+
 <script>
 function myFunction() {
   /* Get the text field */
@@ -245,6 +247,22 @@ function myFunction() {
   navigator.clipboard.writeText(copyText.value);
 
 }
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    const square = entry.target.querySelector('.circle');
+
+    if (entry.isIntersecting) {
+      square.classList.add('circle-animation');
+   return; // if we added the class, exit the function
+    }
+
+    // We're not intersecting, so remove the class!
+    square.classList.remove('circle-animation');
+  });
+});
+
+observer.observe(document.querySelector('.circle-wrapper'));
 </script>
 </body>
 
