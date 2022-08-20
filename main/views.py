@@ -107,13 +107,17 @@ def read_pickle_file(path):
         return 10000
 
 def instructions(request):
-    local_wild_path = "/Users/RyanRobertson21/PycharmProjects/xrd/12-automated_token_sale/wildTickets.pickle"
+    old_local_wild_path = "/Users/RyanRobertson21/PycharmProjects/xrd/12-automated_token_sale/wildTickets.pickle"
+    local_wild_path = "C:\\Users\\rtrob\\my_projects\\xrdPayment\\12-automated_token_sale\\wildTickets.pickle"
     production_wild_path = "/home/RyanRobertson21/xrdPayment/12-automated_token_sale/wildTickets.pickle"
     context = {}
     left = len(read_pickle_file(production_wild_path))
     context['left'] = left
-    redeemed = 10000 - left
-    redeemed = round(redeemed / 100, 2)
+    redeemed = 40000 - left
+    print('l')
+    print(left)
+    print(redeemed)
+    redeemed = round(redeemed / 400, 2)
     print('here wild redeemed')
     print(redeemed)
     context['redeemed'] = redeemed
