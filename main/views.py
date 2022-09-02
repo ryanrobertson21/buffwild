@@ -121,6 +121,123 @@ def instructions(request):
     print('here wild redeemed')
     print(redeemed)
     context['redeemed'] = redeemed
+
+    buff = 0
+    labagbuff = 0
+    scorp = 0
+    dinos = 0
+    roid_boiz = 0
+    robos = 0
+    rippies = 0
+    gnomes = 0
+    radish = 0
+    penguins = 0
+    pandas = 0
+    radoodle = 0
+    cats = 0
+    natty_radish = 0
+    apes = 0
+    hell = 0
+    hoard = 0
+    t_shirt = 0
+    cc_hundred_thousand = 0
+    cc_fifty_thousand = 0
+    cc_twenty_five_thousand = 0
+    cc_ten_thousand = 0
+    cc_five_thousand = 0
+    cc_two_thousand_five_hundred = 0
+    cc_one_thousand = 0
+    cc_five_hundred = 0
+    cc_one_hundred = 0
+    print('hi')
+    available_wild = read_pickle_file(production_wild_path)
+    print(available_wild)
+
+    for wild in available_wild:
+        if wild <= 25:  # 25 regular buffs from collection
+            buff += 1
+        elif wild <= 26:  # 1 Labagarre buff, send buff1
+            labagbuff += 1
+        elif wild <= 29:  # 3 Scorps
+            scorp += 1
+        elif wild <= 69:  # 40 Dinos
+            dinos += 1
+        elif wild <= 79:  # 10 roid boiz
+            roid_boiz += 1
+        elif wild <= 89:  # 10 robos
+            robos += 1
+        elif wild <= 99:  # 10 rippies
+            rippies += 1
+        elif wild <= 104:  # 5 gnomes
+            gnomes += 1
+        elif wild <= 109:  # 5 radishes
+            radish += 1
+        elif wild <= 114:  # 5 penguins
+            penguins += 1
+        elif wild <= 129:  # 15 pandas
+            pandas += 1
+        elif wild <= 139:  # 10 radoodles
+            radoodle += 1
+        elif wild <= 149:  # 10 mutant cats
+            cats += 1
+        elif wild <= 169:  # 20 natty radishes
+            natty_radish += 1
+        elif wild <= 199:  # 30 rad apes
+            apes += 1
+        elif wild <= 209:  # 10 hell hound cerbers
+            hell += 1
+        elif wild <= 229:  # 20 hoard
+            hoard += 1
+        elif wild <= 234:  # 5 t shirts
+            t_shirt += 1
+        elif wild <= 434:  # 1,000 crew
+            cc_hundred_thousand += 1
+        elif wild <= 834:  # 500 crew coin
+            cc_fifty_thousand += 1
+        elif wild <= 1234:  # 250 crew coin
+            cc_twenty_five_thousand += 1
+        elif wild <= 2234:  # 100 crew coin
+            cc_ten_thousand += 1
+        elif wild <= 4234:  # 50 crew coin
+            cc_five_thousand += 1
+        elif wild <= 12234:  # 25 crew coin
+            cc_two_thousand_five_hundred += 1
+        elif wild <= 22234:  # 10 crew coin
+            cc_one_thousand += 1
+        elif wild <= 39234:  # 5 crew coin
+            cc_five_hundred += 1
+        elif wild <= 40000:  # 1 crew coin
+            cc_one_hundred += 1
+
+    context['buff'] = buff
+    context['labagbuff'] = labagbuff
+    context['scorp'] = scorp
+    context['dinos'] = dinos
+    context['roid_boiz']= roid_boiz
+    context['robos']= robos
+    context['rippies']= rippies
+    context['gnomes']= gnomes
+
+    context['radish']= radish
+    context['penguins']= penguins
+    context['pandas']= pandas
+    context['radoodle']= radoodle
+    context['cats']= cats
+    context['natty_radish']= natty_radish
+    context['apes']= apes
+    context['hell']= hell
+    context['hoard']= hoard
+    context['t_shirt']= t_shirt
+    context['cc_hundred_thousand']= cc_hundred_thousand
+    context['cc_fifty_thousand']= cc_fifty_thousand
+    context['cc_twenty_five_thousand']= cc_twenty_five_thousand
+    context['cc_ten_thousand']= cc_ten_thousand
+    context['cc_five_thousand']= cc_five_thousand
+    context['cc_two_thousand_five_hundred']= cc_two_thousand_five_hundred
+    context['cc_one_thousand']= cc_one_thousand
+    context['cc_five_hundred']= cc_five_hundred
+    context['cc_one_hundred']= cc_one_hundred
+
     return render(request, 'main/instructions.html', context)
 
 def terms(request):
