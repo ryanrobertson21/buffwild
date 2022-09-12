@@ -4,6 +4,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 from . models import *
 import pickle
+from django.http import JsonResponse
+from rest_framework.generics import ListAPIView
+from .serializers import SummarySerializer
+from .pagination import StandardResultsSetPagination
+from itertools import chain
 
 def home(request):
     #sold = Image.objects.filter(~Q(ownerWallet='Locked'))
@@ -34,31 +39,245 @@ def chest(request):
     context['images'] = images
     return render(request, 'main/chest.html', context)
 
+def is_ajax(request):
+    return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+
+
 def trading(request):
-    print('a')
-    images = Image.objects.filter(~Q(forSale='No'))
-    print(type(images))
-    for i in images:
-        print(i)
-        print(type(i))
-        break
-    print('b')
-    images = sorted(images, key= lambda image:int(image.uniqueId))
-    print(type(images))
-    for i in images:
-        print(i)
-        print(type(i))
-        break
-    images2 = ImageTwo.objects.filter(~Q(forSale='No'))
-    images2 = sorted(images2, key= lambda image:int(image.uniqueId))
-    images = images + images2
-    images = sorted(images, key= lambda image:int(image.uniqueId))
-    traits = Trait.objects.all()
-    context = {}
+    # print('a')
+    # images = Image.objects.filter(~Q(forSale='No'))
+    # print(type(images))
+    # for i in images:
+    #     print(i)
+    #     print(type(i))
+    #     break
+    # print('b')
+    # images = sorted(images, key= lambda image:int(image.uniqueId))
+    # print(type(images))
+    # for i in images:
+    #     print(i)
+    #     print(type(i))
+    #     break
+    # images2 = ImageTwo.objects.filter(~Q(forSale='No'))
+    # images2 = sorted(images2, key= lambda image:int(image.uniqueId))
+    # images = images + images2
+    # images = sorted(images, key= lambda image:int(image.uniqueId))
+    # traits = Trait.objects.all()
+    # context = {}
+    #
+    # context['images'] = images
 
-    context['images'] = images
+    return render(request, 'main/trading.html', {})
 
-    return render(request, 'main/trading.html', context)
+class BuffListing(ListAPIView):
+    # set the pagination and serializer class
+
+    pagination_class = StandardResultsSetPagination
+    serializer_class = SummarySerializer
+
+    def get_queryset(self):
+        # filter the queryset based on the filters applied
+
+        queryList1 = Image.objects.filter(~Q(forSale='No'))
+        queryList2 = ImageTwo.objects.filter(~Q(forSale='No'))
+        queryList = list(chain(queryList1, queryList2))
+
+        background = self.request.query_params.get('background', None)
+        fur = self.request.query_params.get('fur', None)
+        swag = self.request.query_params.get('swag', None)
+        horns = self.request.query_params.get('horns', None)
+        eyes = self.request.query_params.get('eyes', None)
+        mouth = self.request.query_params.get('mouth', None)
+        title = self.request.query_params.get('title', None)
+        ownerWallet = self.request.query_params.get('ownerWallet', None)
+        sort_by = self.request.query_params.get('sort_by', None)
+
+        if background:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: x.traits.background_feature == background, queryList)
+        if fur:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: x.traits.fur_feature == fur, queryList)
+        if swag:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: x.traits.swag_feature == swag, queryList)
+        if horns:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: x.traits.horns_feature == horns, queryList)
+        if eyes:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: x.traits.eyes_feature == eyes, queryList)
+        if mouth:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: x.traits.mouth_feature == mouth, queryList)
+        if title:
+            queryList = filter(lambda x: x.title == title, queryList)
+        if ownerWallet:
+            queryList = filter(lambda x: x.ownerWallet == ownerWallet, queryList)
+
+        # sort it if applied on based on price/points
+
+        queryList=list(queryList)
+
+        if sort_by == "uniqueId":
+            queryList.sort(key=lambda x: x.uniqueId)
+        elif sort_by == "forSale":
+            queryList.sort(key=lambda x: x.forSale)
+        print('huh')
+        print(queryList)
+        queryList=list(queryList)
+        print(type(queryList))
+
+
+        # for i in queryList:
+        #     print(i)
+        #     print(i.traits)
+        #     print(type(i))
+        #     break
+        return queryList
+
+
+def getBackground(request):
+    # get all the countreis from the database excluding
+    # null and blank values
+    print('get background')
+    if request.method == "GET" and is_ajax(request):
+        background = Image.objects.exclude(traits__background_feature__isnull=True).\
+            exclude(traits__background_feature__exact='').order_by('traits__background_feature').values_list('traits__background_feature').distinct()
+        background = [i[0] for i in list(background)]
+        data = {
+            "background": background,
+        }
+
+        return JsonResponse(data, status = 200)
+
+
+def getFur(request):
+    print('get fur')
+    if request.method == "GET" and is_ajax(request):
+        # get all the varities from the database excluding
+        # null and blank values
+
+        fur = Image.objects.exclude(traits__fur_feature__isnull=True).\
+        	exclude(traits__fur_feature__exact='').order_by('traits__fur_feature').values_list('traits__fur_feature').distinct()
+        fur = [i[0] for i in list(fur)]
+        data = {
+            "fur": fur,
+        }
+        return JsonResponse(data, status = 200)
+
+def getSwag(request):
+    print('get swag')
+    if request.method == "GET" and is_ajax(request):
+        # get all the varities from the database excluding
+        # null and blank values
+
+        swag = Image.objects.exclude(traits__swag_feature__isnull=True).\
+        	exclude(traits__swag_feature__exact='').order_by('traits__swag_feature').values_list('traits__swag_feature').distinct()
+        swag = [i[0] for i in list(swag)]
+        data = {
+            "swag": swag,
+        }
+        return JsonResponse(data, status = 200)
+
+def getHorns(request):
+    print('get horns')
+    if request.method == "GET" and is_ajax(request):
+        # get all the varities from the database excluding
+        # null and blank values
+
+        horns = Image.objects.exclude(traits__horns_feature__isnull=True).\
+        	exclude(traits__horns_feature__exact='').order_by('traits__horns_feature').values_list('traits__horns_feature').distinct()
+        horns = [i[0] for i in list(horns)]
+        data = {
+            "horns": horns,
+        }
+        return JsonResponse(data, status = 200)
+
+def getEyes(request):
+    print('get eyes')
+    if request.method == "GET" and is_ajax(request):
+        # get all the varities from the database excluding
+        # null and blank values
+
+        eyes = Image.objects.exclude(traits__eyes_feature__isnull=True).\
+        	exclude(traits__eyes_feature__exact='').order_by('traits__eyes_feature').values_list('traits__eyes_feature').distinct()
+        eyes = [i[0] for i in list(eyes)]
+        data = {
+            "eyes": eyes,
+        }
+        return JsonResponse(data, status = 200)
+
+def getMouth(request):
+    print('get eyes')
+    if request.method == "GET" and is_ajax(request):
+        # get all the varities from the database excluding
+        # null and blank values
+
+        mouth = Image.objects.exclude(traits__mouth_feature__isnull=True).\
+        	exclude(traits__mouth_feature__exact='').order_by('traits__mouth_feature').values_list('traits__mouth_feature').distinct()
+        mouth = [i[0] for i in list(mouth)]
+        data = {
+            "mouth": mouth,
+        }
+        return JsonResponse(data, status = 200)
+
+def getTitle(request):
+    if request.method == "GET" and is_ajax(request):
+        # get all the varities from the database excluding
+        # null and blank values
+        title = request.GET.get('title')
+        title = Image.objects.exclude(title__isnull=True).\
+        	exclude(title__exact='').order_by('title').values_list('title').distinct()
+        title = [i[0] for i in list(title)]
+        data = {
+            "title": title,
+        }
+        return JsonResponse(data, status = 200)
+
+def getownerWallet(request):
+    if request.method == "GET" and is_ajax(request):
+        # get all the varities from the database excluding
+        # null and blank values
+
+        ownerWallet = Image.objects.exclude(ownerWallet__isnull=True).\
+        	exclude(ownerWallet__exact='').order_by('ownerWallet').values_list('ownerWallet').distinct()
+        ownerWallet = [i[0] for i in list(ownerWallet)]
+        data = {
+            "ownerWallet": ownerWallet,
+        }
+        return JsonResponse(data, status = 200)
+
+
+# def getTitle(request):
+#     # get the provinces for given country from the
+#     # database excluding null and blank values
+#
+#     if request.method == "GET" and request.is_ajax():
+#         title = request.GET.get('title')
+#         title = Wine.objects.filter(country = country).\
+#             	exclude(province__isnull=True).exclude(province__exact='').\
+#             	order_by('province').values_list('province').distinct()
+#         province = [i[0] for i in list(province)]
+#         data = {
+#             "province": province,
+#         }
+#         return JsonResponse(data, status = 200)
+#
+#
+# def getRegion(request):
+#     # get the regions for given province from the
+#     # database excluding null and blank values
+#
+#     if request.method == "GET" and request.is_ajax():
+#         province = request.GET.get('province')
+#         region = Wine.objects.filter(province = province).\
+#                 exclude(region__isnull=True).exclude(region__exact='').values_list('region').distinct()
+#         region = [i[0] for i in list(region)]
+#         data = {
+#             "region": region,
+#         }
+#         return JsonResponse(data, status = 200)
 
 def collection(request):
     images = Image.objects.all()

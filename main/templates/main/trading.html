@@ -388,14 +388,744 @@ td {
 
 }
 
+
+
 .buff-info {
   padding-top: 5px;
 }
 
+<style type="text/css">
+.properties_table{
+   min-height: 540px;
+   font-size: 14px;
+}
 
 
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+    <script>
+      // variable that keeps all the filter information
+
+
+var send_data = {}
+
+$(document).ready(function () {
+    // reset all parameters on page load
+    console.log('hello there');
+    resetFilters();
+    // bring all the data without any filters
+    console.log('hello there 2');
+    getAPIData();
+    // get all countries from database via
+    console.log('hello there 3');
+    // AJAX call into country select options
+
+    getBackground();
+    // get all varities from database via
+    console.log('hello there 4');
+    // AJAX call into variert select options
+
+    getFur();
+    getSwag();
+    getHorns();
+    getEyes();
+    getMouth();
+    console.log('hello there 5');
+    // on selecting the country option
+    console.log('hello there 6');
+    $('#background').on('change', function () {
+        // since province and region is dependent
+
+        // on country select, empty all the options from select input
+
+        $("#title").val("all");
+        $("#ownerWallet").val("all");
+        send_data['title'] = '';
+        send_data['ownerWallet'] = '';
+
+        // update the selected country
+
+        if(this.value == "all")
+            send_data['background'] = "";
+        else
+            send_data['background'] = this.value;
+
+        //get province of selected country
+
+        getTitle(this.value);
+        // get api data of updated filters
+
+
+        getAPIData();
+
+    });
+
+
+    // on filtering the variety input
+
+    $('#fur').on('change', function () {
+        // get the api data of updated variety
+
+        if(this.value == "all")
+            send_data['fur'] = "";
+        else
+            send_data['fur'] = this.value;
+        getAPIData();
+    });
+
+    $('#swag').on('change', function () {
+        // get the api data of updated variety
+
+        if(this.value == "all")
+            send_data['swag'] = "";
+        else
+            send_data['swag'] = this.value;
+        getAPIData();
+    });
+
+    $('#horns').on('change', function () {
+        // get the api data of updated variety
+
+        if(this.value == "all")
+            send_data['horns'] = "";
+        else
+            send_data['horns'] = this.value;
+        getAPIData();
+    });
+
+    $('#eyes').on('change', function () {
+        // get the api data of updated variety
+
+        if(this.value == "all")
+            send_data['eyes'] = "";
+        else
+            send_data['eyes'] = this.value;
+        getAPIData();
+    });
+
+    $('#mouth').on('change', function () {
+        // get the api data of updated variety
+
+        if(this.value == "all")
+            send_data['mouth'] = "";
+        else
+            send_data['mouth'] = this.value;
+        getAPIData();
+    });
+
+    // on filtering the province input
+
+    $('#title').on('change', function () {
+        // clear the region input
+
+        // since it is dependent on province input
+
+        send_data['ownerWallet'] = "";
+        $('#ownerWallet').val("all");
+        if(this.value == "all")
+            send_data['title'] = "";
+        else
+            send_data['title'] = this.value;
+        get_ownerWallet(this.value);
+        getAPIData();
+    });
+
+    // on filtering the region input
+
+    $('#ownerWallet').on('change', function () {
+        if(this.value == "all")
+            send_data['ownerWallet'] = "";
+        else
+            send_data['ownerWallet'] = this.value;
+        getAPIData();
+    });
+
+    // sort the data according to price/points
+
+    $('#sort_by').on('change', function () {
+        send_data['sort_by'] = this.value;
+        getAPIData();
+    });
+
+    // display the results after reseting the filters
+
+    $("#display_all").click(function(){
+        resetFilters();
+        getAPIData();
+    })
+})
+
+
+/**
+    Function that resets all the filters
+**/
+function resetFilters() {
+    console.log('reset filters')
+    $("#background").val("all");
+    $("#fur").val("all");
+    $("#swag").val("all");
+    $("#horns").val("all");
+    $("#eyes").val("all");
+    $("#mouth").val("all");
+    $("#title").val("all");
+    $("#ownerWallet").val("all");
+    $("#sort_by").val("none");
+
+    //clearing up the province and region select box
+
+    getTitle("all");
+    getownerWallet("all");
+
+    send_data['background'] = '';
+    send_data['fur'] = '';
+    send_data['swag'] = '';
+    send_data['horns'] = '';
+    send_data['eyes'] = '';
+    send_data['mouth'] = '';
+    send_data['title'] = '';
+    send_data['ownerWallet'] = '';
+    send_data["sort_by"] = '',
+    send_data['format'] = 'json';
+}
+
+/**.
+    Utility function to showcase the api data
+    we got from backend to the table content
+**/
+
+function putTableData(result) {
+    // creating table row for each result and
+
+    // pushing to the html cntent of table body of listing table
+
+    let row;
+    if(result["results"].length > 0){
+        $("#no_results").hide();
+        $("#list_data").show();
+        $("#listing").html("");
+        $("#listing").append(row);
+        $.each(result["results"], function (a, b) {
+            if (b.uniqueId <= 9910) {
+              let title;
+              let smoking;
+              let double_baby_buff;
+              let matching;
+              let collection;
+
+              if (b.title != null) {
+                title = " - " + b.title
+              }
+              else {
+                title = ""
+              }
+              if (b.traits.smoking != "N/A") {
+                smoking = "<td>" + b.traits.smoking_rarity + "%</td>"
+              }
+              else {
+                smoking = "<td>" + b.traits.smoking_rarity + "</td>"
+              }
+              if (b.traits.double_baby_buff_rarity != "N/A") {
+                double_baby_buff = "<td>" + b.traits.double_baby_buff_rarity + "%</td>"
+              }
+              else {
+                double_baby_buff = "<td>" + b.traits.double_baby_buff_rarity + "</td>"
+              }
+              if (b.traits.matching_buff_score > 0) {
+                dic_string = b.traits.matching_dictionary
+                console.log('we right ehre do')
+                d = JSON.parse(dic_string)
+                for (var key in d) {
+                  matching += "<tr> \
+                    <th scope='row'>Matching</th> \
+                    <td>" + key + "</td> \
+                    <td>" + d[key][0] + " matches</td> \
+                    <td>N/A</td> \
+                    <td>" + d[key][2] + "</td> \
+                  </tr> "
+                }
+              }
+              else {
+                matching = "<tr> \
+                  <th scope='row'>Matching</th> \
+                  <td>No</td> \
+                  <td>N/A</td> \
+                  <td>N/A</td> \
+                  <td>0</td> \
+                </tr>"
+              }
+
+              row = "<div class='col'> \
+                  <div class='card-full shadow-sm'> \
+                    <div class='card'> \
+                      <div class='face front card-img'> \
+                        <img class='card-img' src=" + b.img_url + " alt='Buff Wild Crew NFT Card Front'> \
+                      </div> \
+                      <div class='face back card-img'> \
+                        <img class='card-img' src='https://buffwild.b-cdn.net/SiteImages/Buff_Wild_Card_Back.png' alt='Buff Wild Crew NFT Card Back'> \
+                        <div class='card-img-overlay'> \
+                          <p-num class='card-title'>#"+b.uniqueId+"|stringformat:'04d'</p-num> \
+                          <div class='table-responsive'> \
+                            <div class='container py-1'> \
+                            <table class='table table-bordered table-hover table-sm'> \
+                            <thead class='thead-light'> \
+                              <tr> \
+                                <th scope='col'>Category</th> \
+                                <th scope='col'>Feature</th> \
+                                <th scope='col'>Specific</th> \
+                                <th scope='col'>Rarity</th> \
+                                <th scope='col'>Score</th> \
+                              </tr> \
+                            </thead> \
+                            <tbody> \
+                              <tr> \
+                                <th scope='row'>Background</th> \
+                                <td>" + b.traits.background_feature + "</td> \
+                                <td>" + b.traits.background_specific + "</td> \
+                                <td>" + b.traits.background_feature_rarity + "%</td> \
+                                <td>" + b.traits.background_buff_score + "</td> \
+                              </tr> \
+                              <tr> \
+                                <th scope='row'>Fur</th> \
+                                <td>" + b.traits.fur_feature + "</td> \
+                                <td>" + b.traits.fur_specific + "</td> \
+                                <td>" + b.traits.fur_feature_rarity + "%</td> \
+                                <td>" + b.traits.fur_buff_score + "</td> \
+                              </tr> \
+                              <tr> \
+                                <th scope='row'>Eyes</th> \
+                                <td>" + b.traits.eyes_feature + "</td> \
+                                <td>" + b.traits.eyes_specific + "</td> \
+                                <td>" + b.traits.eyes_feature_rarity + "%</td> \
+                                <td>" + b.traits.eyes_buff_score + "</td> \
+                              </tr> \
+                               <tr> \
+                                <th scope='row'>Mouth</th> \
+                                <td>" + b.traits.mouth_feature + "</td> \
+                                <td>" + b.traits.mouth_specific + "</td> \
+                                <td>" + b.traits.mouth_feature_rarity + "%</td> \
+                                <td>" + b.traits.mouth_buff_score + "</td> \
+                              </tr> \
+                              <tr> \
+                                <th scope='row'>Horns</th> \
+                                <td>" + b.traits.horns_feature + "</td> \
+                                <td>" + b.traits.horns_specific + "</td> \
+                                <td>" + b.traits.horns_feature_rarity + "%</td> \
+                                <td>" + b.traits.horns_buff_score + "</td> \
+                              </tr> \
+                              <tr> \
+                                <th scope='row'>Swag</th> \
+                                <td>" + b.traits.swag_feature + "</td> \
+                                <td>" + b.traits.swag_specific + "</td> \
+                                <td>" + b.traits.swag_feature_rarity + "%</td> \
+                                <td>" + b.traits.swag_buff_score + "</td> \
+                              </tr> \
+                              <tr> \
+                                <th scope='row'>Smoking</th> \
+                                <td>" + b.traits.smoking + "</td> \
+                                <td>N/A</td>" + smoking +
+                                "<td>" + b.traits.smoking_buff_score + "</td> \
+                              </tr> \
+                              <tr> \
+                                <th scope='row'>Double Baby</th> \
+                                <td>" + b.traits.double_baby_buff + "</td> \
+                                <td>N/A</td>" + double_baby_buff +
+                                "<td>" + b.traits.double_baby_buff_buff_score + "</td> \
+                              </tr>" + matching +
+                            "</tbody> \
+                            </table> \
+                            </div> \
+                            </div> \
+                            <p-score class='card-title'>Buff Score: " + b.traits.total_buff_score + "</p-score> \
+                          </div> \
+                        </div> \
+                      </div> \
+                      <div class='container buff-info'> \
+                      <a style='text-align:center; color:#FFFFFF; background-color:#000000;'> \
+                        <p style='text-align:center; color:#FFFFFF; background-color:#000000;'> \
+                          #" + b.uniqueId + title +
+                        "<div class='row traderow'> \
+                          <div class='col-4 trade buy rounded-pill'> \
+                            B" + b.tradeId + " \
+                          </div> \
+                          <div class='col-4 trade sell rounded-pill'> \
+                            S" + b.tradeId + " \
+                          </div> \
+                          <div class='col-4 trade cancel rounded-pill'> \
+                            C" + b.tradeId + " \
+                          </div> \
+                        </div> \
+                        <p style='text-align:center; color:#FFFFFF; background-color:#000000;'> \
+                          Price: " + b.forSale + " XRD </p> \
+                    </a> \
+                    </div> \
+                  </div> \
+                </div>"
+            }
+            else {
+              row = "<div class='col'> \
+                        <div class='card-full shadow-sm'> \
+                          <div class='card'> \
+                              <img class='card-img' src=" + b.img_url + " alt='Buff Wild Crew NFT Card Front'> \
+                          </div> \
+                          <div class='container buff-info'> \
+                          <a style='text-align:center; color:#FFFFFF; background-color:#000000;'> \
+                            <p style='text-align:center; color:#FFFFFF; background-color:#000000;'> \
+                            #" + b.uniqueId + b.title +
+                            "<div class='row traderow'> \
+                              <div class='col-4 trade buy rounded-pill'> \
+                                B" + b.tradeId + " \
+                              </div> \
+                              <div class='col-4 trade sell rounded-pill'> \
+                                S" + b.tradeId + " \
+                              </div> \
+                              <div class='col-4 trade cancel rounded-pill'> \
+                                C" + b.tradeId + " \
+                              </div> \
+                            </div> \
+                            <p style='text-align:center; color:#FFFFFF; background-color:#000000;'> \
+                              Price: " + b.forSale + " XRD </p> \
+                        </a> \
+                      </div> \
+                      </div> \
+                </div>"
+            }
+
+            $("#listing").append(row);
+        });
+        const card = document.querySelectorAll('.card');
+        // Loop through cards.
+        // This is so you can have multiple cards on a page.
+        for (let i = 0; i < card.length; i++) {
+           // Add a click event listener to each card.
+           card[i].addEventListener("click", function() {
+             // Toggle active class on card
+             card[i].classList.toggle("flip");
+           });
+        }
+    }
+    else{
+        // if no result found for the given filter, then display no result
+
+        $("#no_results h5").html("No results found");
+        $("#list_data").hide();
+        $("#no_results").show();
+    }
+    // setting previous and next page url for the given result
+
+    let prev_url = result["previous"];
+    let next_url = result["next"];
+    // disabling-enabling button depending on existence of next/prev page.
+
+    if (prev_url === null) {
+        $("#previous").addClass("disabled");
+        $("#previous").prop('disabled', true);
+    } else {
+        $("#previous").removeClass("disabled");
+        $("#previous").prop('disabled', false);
+    }
+    if (next_url === null) {
+        $("#next").addClass("disabled");
+        $("#next").prop('disabled', true);
+    } else {
+        $("#next").removeClass("disabled");
+        $("#next").prop('disabled', false);
+    }
+    // setting the url
+
+    $("#previous").attr("url", result["previous"]);
+    $("#next").attr("url", result["next"]);
+    // displaying result count
+
+    $("#result-count span").html(result["count"]);
+    console.log('now its done')
+}
+
+function getAPIData() {
+    console.log('get api data')
+    console.log(send_data)
+    console.log(typeof send_data)
+    let url = $('#list_data').attr("url")
+    $.ajax({
+        method: 'GET',
+        url: url,
+        data: send_data,
+        beforeSend: function(){
+            $("#no_results h5").html("Loading data...");
+        },
+        success: function (result) {
+            putTableData(result);
+        },
+        error: function (response) {
+            $("#no_results h5").html("Something went wrong");
+            $("#list_data").hide();
+        }
+    });
+}
+
+$("#next").click(function () {
+    // load the next page data and
+
+    // put the result to the table body
+
+    // by making ajax call to next available url
+
+    let url = $(this).attr("url");
+    if (!url)
+        $(this).prop('all', true);
+
+    $(this).prop('all', false);
+    $.ajax({
+        method: 'GET',
+        url: url,
+        success: function (result) {
+            putTableData(result);
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+})
+
+$("#previous").click(function () {
+    // load the previous page data and
+
+    // put the result to the table body
+
+    // by making ajax call to previous available url
+
+    let url = $(this).attr("url");
+    if (!url)
+        $(this).prop('all', true);
+
+    $(this).prop('all', false);
+    $.ajax({
+        method: 'GET',
+        url: url,
+        success: function (result) {
+            putTableData(result);
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+})
+
+function getBackground() {
+    console.log('getBackground')
+    // fill the options of countries by making ajax call
+
+    // obtain the url from the countries select input attribute
+
+    let url = $("#background").attr("url");
+
+    // makes request to getCountries(request) method in views
+
+    $.ajax({
+        method: 'GET',
+        url: url,
+        data: {},
+        success: function (result) {
+
+            backgrounds_option = "<option value='all' selected>All Backgrounds</option>";
+            $.each(result["background"], function (a, b) {
+                backgrounds_option += "<option>" + b + "</option>"
+            });
+            $("#background").html(backgrounds_option)
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+}
+
+function getFur() {
+    // fill the options of varities by making ajax call
+
+    // obtain the url from the varities select input attribute
+
+    let url = $("#fur").attr("url");
+    // makes request to getvariety(request) method in views
+    console.log('hi im here');
+    $.ajax({
+        method: 'GET',
+        url: url,
+        data: {},
+        success: function (result) {
+
+            fur_options = "<option value='all' selected>All Furs</option>";
+            $.each(result["fur"], function (a, b) {
+                fur_options += "<option>" + b + "</option>"
+            });
+            $("#fur").html(fur_options)
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+}
+
+function getSwag() {
+    // fill the options of varities by making ajax call
+
+    // obtain the url from the varities select input attribute
+
+    let url = $("#swag").attr("url");
+    // makes request to getvariety(request) method in views
+    console.log('hi im here');
+    $.ajax({
+        method: 'GET',
+        url: url,
+        data: {},
+        success: function (result) {
+
+            swag_options = "<option value='all' selected>All Swag</option>";
+            $.each(result["swag"], function (a, b) {
+                swag_options += "<option>" + b + "</option>"
+            });
+            $("#swag").html(swag_options)
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+}
+
+function getHorns() {
+    // fill the options of varities by making ajax call
+
+    // obtain the url from the varities select input attribute
+
+    let url = $("#horns").attr("url");
+    // makes request to getvariety(request) method in views
+    console.log('hi im here');
+    $.ajax({
+        method: 'GET',
+        url: url,
+        data: {},
+        success: function (result) {
+
+            horns_options = "<option value='all' selected>All Horns</option>";
+            $.each(result["horns"], function (a, b) {
+                horns_options += "<option>" + b + "</option>"
+            });
+            $("#horns").html(horns_options)
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+}
+
+function getEyes() {
+    // fill the options of varities by making ajax call
+
+    // obtain the url from the varities select input attribute
+
+    let url = $("#eyes").attr("url");
+    // makes request to getvariety(request) method in views
+    console.log('hi im here');
+    $.ajax({
+        method: 'GET',
+        url: url,
+        data: {},
+        success: function (result) {
+
+            eyes_options = "<option value='all' selected>All Eyes</option>";
+            $.each(result["eyes"], function (a, b) {
+                eyes_options += "<option>" + b + "</option>"
+            });
+            $("#eyes").html(eyes_options)
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+}
+
+function getMouth() {
+    // fill the options of varities by making ajax call
+
+    // obtain the url from the varities select input attribute
+
+    let url = $("#mouth").attr("url");
+    // makes request to getvariety(request) method in views
+    console.log('hi im here');
+    $.ajax({
+        method: 'GET',
+        url: url,
+        data: {},
+        success: function (result) {
+
+            mouth_options = "<option value='all' selected>All Mouths</option>";
+            $.each(result["mouth"], function (a, b) {
+                mouth_options += "<option>" + b + "</option>"
+            });
+            $("#mouth").html(mouth_options)
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+}
+
+function getTitle(country) {
+    // fill the options of provinces by making ajax call
+
+    // obtain the url from the provinces select input attribute
+
+    let url = $("#title").attr("url");
+    // makes request to getProvince(request) method in views
+    console.log('sup');
+    let province_option = "<option value='all' selected>All Titles</option>";
+    $.ajax({
+        method: 'GET',
+        url: url,
+        data: {
+            "background": background.value
+        },
+        success: function (result) {
+            $.each(result["title"], function (a, b) {
+                province_option += "<option>" + b + "</option>"
+            });
+            $("#title").html(province_option)
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+}
+
+function getownerWallet(province) {
+    // fill the options of region by making ajax call
+
+    // obtain the url from the region select input attribute
+
+    let url = $("#ownerWallet").attr("url");
+    // makes request to getRegion(request) method in views
+
+    let region_option = "<option value='all' selected>All regions</option>";
+    $.ajax({
+        method: 'GET',
+        url: url,
+        data: {
+            "title": title.value
+        },
+        success: function (response) {
+            $.each(response["ownerWallet"], function (a, b) {
+                region_option += "<option>" + b + "</option>"
+            });
+            $("#ownerWallet").html(region_option);
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+}
+
+</script>
 
 </head>
 <body>
@@ -427,6 +1157,7 @@ td {
     <div class="row text-center">
       <h2>TRADING INSTRUCTIONS</h2>
     </div>
+
     <div class="row text-center">
       <p1>WALLET</p1>
       <p>The wallet is rdx1qsp0ez9yxa0l5qwf6fz93tda6842fft3cqr44ak3mgjtn9p4eme8wrccm4922 (The same as the minting wallet)</p>
@@ -448,14 +1179,136 @@ td {
       <p>To rescue a sequestered token send 3 xrd to the wallet along with SOS as the message</p>
       <br>
       <br>
-
-
     </div>
+
   </div>
 
-  <div class="album py-5">
+  <div class="container">
+    <section class="site_filter">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2 col-2">
+                <div class="form-group">
+                    <label for="background">Background</label>
+                    <select class="form-control" id="background"
+                        url = "{%url 'main:get_background' %}">
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2 col-2">
+                <div class="form-group">
+                    <label for="fur">Fur</label>
+                    <select class="form-control" id="fur"
+                        url = "{%url 'main:get_fur' %}">
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2 col-2">
+                <div class="form-group">
+                    <label for="swag">Swag</label>
+                    <select class="form-control" id="swag"
+                        url = "{%url 'main:get_swag' %}">
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2 col-2">
+                <div class="form-group">
+                    <label for="horns">Horns</label>
+                    <select class="form-control" id="horns"
+                        url = "{%url 'main:get_horns' %}">
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2 col-2">
+                <div class="form-group">
+                    <label for="eyes">Eyes</label>
+                    <select class="form-control" id="eyes"
+                        url = "{%url 'main:get_eyes' %}">
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2 col-2">
+                <div class="form-group">
+                    <label for="mouth">Mouth</label>
+                    <select class="form-control" id="mouth"
+                        url = "{%url 'main:get_mouth' %}">
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2 col-2">
+                <div class="form-group">
+                    <label for="title">title</label>
+                    <select class="form-control" id="title"
+                        url = "{%url 'main:get_title' %}">
+                        <option value='all' selected>All Provinces</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2 col-2">
+                <div class="form-group">
+                    <label for="ownerWallet">ownerWallet</label>
+                    <select class="form-control" id="ownerWallet" url = "{%url 'main:get_ownerWallet' %}">
+                        <option value='all' selected>All Regions</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2 col-2">
+                <div class="form-group">
+                    <label for="sort_by">Sort By</label>
+                    <select class="form-control" id="sort_by">
+                        <option selected="true"
+                        disabled="disabled" value = "none">Choose option</option>
+                        <option value='uniqueId'>Buff Number</option>
+                        <option value='forSale'>Price</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-2 col-2">
+                <div class="row justify-content-center align-self-center"
+                    style="color:white; margin-top:30px;">
+                    <a class="btn btn-secondary" id="display_all">Display all</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br />
+<section>
+    <div class="container-fluid">
+        <div id = "result-count" class="text-right">
+            <span class='font-weight-bold'></span> results found.
+        </div>
+        <div class="row properties_table justify-content-center">
+            <div id = "no_results">
+                <h5>No results found</h5>
+            </div>
+            <div class="album py-5">
+              <div class="container" id="list_data" url = "{% url 'main:listing' %}">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3" id="listing" data-toggle="table">
+                </div>
+              </div>
+            </div>
+
+        </div>
+        <div class="row justify-content-center">
+            <nav aria-label="navigation">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <button class="btn btn-primary page-link" id="previous">Previous</button>
+                    </li>
+                    <li class="page-item pull-right">
+                        <button class="btn btn-primary page-link" id="next">Next</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+  </div>
+
+  <!-- <div class="album py-5">
     <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3" id="list_data" data-toggle="table" url = "{% url 'main:listing' %}">
         {% for image in images %}
         {% if image.uniqueId <= 9910 %}
         <div class="col">
@@ -629,65 +1482,17 @@ td {
   </div>
 
         {% else %}
-        <div class="col">
-          <div class="card-full shadow-sm">
 
-            <div class="card">
-                <img class="card-img" src={{image.img_url}} alt="Buff Wild Crew NFT Card Front">
-
-
-            </div>
-            <div class="container buff-info">
-            <a style="text-align:center; color:#FFFFFF; background-color:#000000;">
-              <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
-              #{{image.uniqueId}}
-              {% if image.title is not None %}
-              - {{image.title}}
-              {% endif %}
-              <div class="row traderow">
-                <div class="col-4 trade buy rounded-pill">
-                  B{{image.tradeId}}
-                </div>
-                <div class="col-4 trade sell rounded-pill">
-                  S{{image.tradeId}}
-                </div>
-                <div class="col-4 trade cancel rounded-pill">
-                  C{{image.tradeId}}
-                </div>
-              </div>
-              <p style="text-align:center; color:#FFFFFF; background-color:#000000;">
-              {% if image.forSale != "No" %}
-              Price: {{image.forSale}} XRD
-              {% else %}
-              Not for sale
-              {% endif %}
-            </p>
-          </a>
-          </div>
-          </div>
-  </div>
         {% endif %}
         {% endfor %}
   </div>
   </div>
   </div>
-  </main>
+  </main> -->
 
 
 
   <script>
-    // Get card element
-    const card = document.querySelectorAll('.card');
-
-    // Loop through cards.
-    // This is so you can have multiple cards on a page.
-    for (let i = 0; i < card.length; i++) {
-       // Add a click event listener to each card.
-       card[i].addEventListener("click", function() {
-         // Toggle active class on card
-         card[i].classList.toggle("flip");
-       });
-    }
 
   </script>
 

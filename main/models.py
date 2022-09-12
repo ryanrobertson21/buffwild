@@ -355,6 +355,8 @@ class Trait(models.Model):
     matching_rarity=models.CharField(null=True, blank=True, max_length=200)
     matching_buff_score=models.IntegerField(null=True, blank=True)
 
+    matching_dictionary=models.CharField(null=True, blank=True, max_length=200)
+
     def __str__(self):
         return '{}'.format(self.uniqueId)
 
@@ -367,7 +369,7 @@ class Trait(models.Model):
 
     def get_matching_data(self):
         d = {}
-        print('lol')
+        print('models get matching data function')
         for attr, value in self.__dict__.items():
             if attr == "green" or attr == "red" or attr == "purple" or attr == "blue" or attr == "pink" or attr == "yellow" or attr == "brown" or attr == "black" or attr == "orange":
                 if value == "Yes":
