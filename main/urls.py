@@ -10,6 +10,8 @@ urlpatterns = [
     path("ajax/horns/", getHorns, name = 'get_horns'),
     path("ajax/eyes/", getEyes, name = 'get_eyes'),
     path("ajax/mouth/", getMouth, name = 'get_mouth'),
+    path("ajax/matching/", getMatching, name = 'get_matching'),
+    path("ajax/collections/", getCollections, name = 'get_collections'),
     path("ajax/title/", getTitle, name = 'get_title'),
     path("ajax/ownerWallet/", getownerWallet, name = 'get_ownerWallet'),
 ]

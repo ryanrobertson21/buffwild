@@ -23,7 +23,7 @@ class TraitSerializer(serializers.ModelSerializer):
         'black', 'black_num', 'black_rarity', 'black_buff_score',
         'orange', 'orange_num', 'orange_rarity', 'orange_buff_score',
         'matching', 'matching_color', 'matching_rarity', 'matching_buff_score', "matching_dictionary",
-        'collections', 'collections_name', 'collections_rarity', 'collections_buff_score'
+        'collections', 'collections_name', 'collections_rarity', 'collections_buff_score', "collections_dictionary"
 ]
 
 class BuffSerializer(serializers.ModelSerializer):

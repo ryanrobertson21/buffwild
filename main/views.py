@@ -88,6 +88,8 @@ class BuffListing(ListAPIView):
         horns = self.request.query_params.get('horns', None)
         eyes = self.request.query_params.get('eyes', None)
         mouth = self.request.query_params.get('mouth', None)
+        matching = self.request.query_params.get('matching', None)
+        collections = self.request.query_params.get('collections', None)
         title = self.request.query_params.get('title', None)
         ownerWallet = self.request.query_params.get('ownerWallet', None)
         sort_by = self.request.query_params.get('sort_by', None)
@@ -110,6 +112,12 @@ class BuffListing(ListAPIView):
         if mouth:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
             queryList = filter(lambda x: x.traits.mouth_feature == mouth, queryList)
+        if matching:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: matching in x.traits.matching_color, queryList)
+        if collections:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: collections in x.traits.collections_name, queryList)
         if title:
             queryList = filter(lambda x: x.title == title, queryList)
         if ownerWallet:
@@ -119,21 +127,20 @@ class BuffListing(ListAPIView):
 
         queryList=list(queryList)
 
-        if sort_by == "uniqueId":
+        if sort_by == "uniqueId_ascending":
             queryList.sort(key=lambda x: x.uniqueId)
-        elif sort_by == "forSale":
-            queryList.sort(key=lambda x: x.forSale)
-        print('huh')
-        print(queryList)
+        elif sort_by == "uniqueId_descending":
+            queryList.sort(key=lambda x: x.uniqueId, reverse=True)
+        elif sort_by == "forSale_ascending":
+            queryList.sort(key=lambda x: float(x.forSale))
+        elif sort_by == "forSale_descending":
+            queryList.sort(key=lambda x: float(x.forSale), reverse=True)
+        elif sort_by == "buffScore_ascending":
+            queryList.sort(key=lambda x: x.traits.total_buff_score if (x.uniqueId <= 9910) else 50)
+        elif sort_by == "buffScore_descending":
+            queryList.sort(key=lambda x: x.traits.total_buff_score if (x.uniqueId <= 9910) else 50, reverse=True)
         queryList=list(queryList)
-        print(type(queryList))
 
-
-        # for i in queryList:
-        #     print(i)
-        #     print(i.traits)
-        #     print(type(i))
-        #     break
         return queryList
 
 
@@ -219,6 +226,36 @@ def getMouth(request):
         mouth = [i[0] for i in list(mouth)]
         data = {
             "mouth": mouth,
+        }
+        return JsonResponse(data, status = 200)
+
+def getMatching(request):
+    print('get matching')
+    if request.method == "GET" and is_ajax(request):
+        # get all the varities from the database excluding
+        # null and blank values
+
+        matching = Image.objects.exclude(traits__matching="No").exclude(traits__matching_color__isnull=True).\
+        	exclude(traits__matching__exact='').exclude(traits__matching_color__icontains=',').\
+            order_by('traits__matching_color').values_list('traits__matching_color').distinct()
+        matching = [i[0] for i in list(matching)]
+        data = {
+            "matching": matching,
+        }
+        return JsonResponse(data, status = 200)
+
+def getCollections(request):
+    print('get collections')
+    if request.method == "GET" and is_ajax(request):
+        # get all the varities from the database excluding
+        # null and blank values
+
+        collections = Image.objects.exclude(traits__collections="No").exclude(traits__collections__isnull=True).\
+        	exclude(traits__collections='').exclude(traits__collections_name__icontains=',').\
+            order_by('traits__collections_name').values_list('traits__collections_name').distinct()
+        collections = [i[0] for i in list(collections)]
+        data = {
+            "collections": collections,
         }
         return JsonResponse(data, status = 200)
 

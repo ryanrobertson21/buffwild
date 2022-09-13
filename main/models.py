@@ -357,6 +357,8 @@ class Trait(models.Model):
 
     matching_dictionary=models.CharField(null=True, blank=True, max_length=200)
 
+    collections_dictionary=models.CharField(null=True, blank=True, max_length=200)
+
     def __str__(self):
         return '{}'.format(self.uniqueId)
 
