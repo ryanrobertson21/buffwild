@@ -9,7 +9,8 @@ def home(request):
     #sold = Image.objects.filter(~Q(ownerWallet='Locked'))
     #sold = round(sold.count() / 100, 2)
 
-    local_avail_buffs_path = "/Users/RyanRobertson21/PycharmProjects/xrd/12-automated_token_sale/availableBuffs.pickle"
+    old_local_avail_buffs_path = "/Users/RyanRobertson21/PycharmProjects/xrd/12-automated_token_sale/availableBuffs.pickle"
+    local_avail_buffs_path = "C:\\Users\\rtrob\\my_projects\\xrdPayment\\12-automated_token_sale\\availableBuffs.pickle"
     production_avail_buffs_path = "/home/RyanRobertson21/xrdPayment/12-automated_token_sale/availableBuffs.pickle"
 
     context = {}

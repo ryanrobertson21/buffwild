@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', "default_value")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['www.buffwildcrew.com', 'buffwildcrew.com']
+ALLOWED_HOSTS = ['www.buffwildcrew.com', 'buffwildcrew.com', '127.0.0.1']
 
 
 # Application definition
