@@ -77,41 +77,379 @@ class BuffListing(ListAPIView):
 
     def get_queryset(self):
         # filter the queryset based on the filters applied
-
-        queryList1 = Image.objects.filter(~Q(forSale='No'))
-        queryList2 = ImageTwo.objects.filter(~Q(forSale='No'))
+        queryList1 = Image.objects.filter(~Q(ownerWallet='Locked'))
+        queryList2 = ImageTwo.objects.filter(~Q(ownerWallet='Locked'))
         queryList = list(chain(queryList1, queryList2))
 
-        background = self.request.query_params.get('background', None)
-        fur = self.request.query_params.get('fur', None)
-        swag = self.request.query_params.get('swag', None)
-        horns = self.request.query_params.get('horns', None)
-        eyes = self.request.query_params.get('eyes', None)
-        mouth = self.request.query_params.get('mouth', None)
+        # filter_dict = {'background': ['atmospheric', 'colors', 'dimensions'],
+        #
+        #
+        # }
+        #
+        # def filterData(d):
+        #
+        #     for key, values in d.items():
+        #         category = self.request.query_params.getlist(key + '[]', None)
+        #         if category:
+        #             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+        #             queryList = filter(lambda x: eval('x.traits.' + key +'_feature') in category, queryList)
+        #         for value in values:
+        #             sub_category = self.request.query_params.getlist(key + '_specific_' + value + '[]', None)
+        #             if sub_category:
+        #                 print('it startrs now')
+        #                 print(sub_category)
+        #                 queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+        #                 print(queryList)
+        #                 for i in queryList:
+        #                     print(i)
+        #                 print('second one here')
+        #                 print('x.traits.' + key +'_specific')
+        #                 print(sub_category)
+        #                 queryList = filter(lambda x: eval('x.traits.' + key +'_specific') in sub_category, queryList)
+        #                 print(queryList)
+        #                 for i in queryList:
+        #                     print(i)
+        #     return list(queryList)
+        #
+        # queryList=filterData(filter_dict)
+
+        status = self.request.query_params.getlist('status', None)
+
+        series = self.request.query_params.getlist('series[]', None)
+        series_specific_faction_buffs = self.request.query_params.getlist('series_specific_faction_buffs[]', None)
+
+        price_min = self.request.query_params.get('min_price', None)
+        price_max = self.request.query_params.get('max_price', None)
+
+        score_min = self.request.query_params.get('min_score', None)
+        score_max = self.request.query_params.get('max_score', None)
+
+        background = self.request.query_params.getlist('background[]', None)
+        background_specific_atmospheric = self.request.query_params.getlist('background_specific_atmospheric[]', None)
+        background_specific_colors = self.request.query_params.getlist('background_specific_colors[]', None)
+        background_specific_dimensions = self.request.query_params.getlist('background_specific_dimensions[]', None)
+
+        fur = self.request.query_params.getlist('fur[]', None)
+        fur_specific_standard = self.request.query_params.getlist('fur_specific_standard[]', None)
+        fur_specific_animal = self.request.query_params.getlist('fur_specific_animal[]', None)
+        fur_specific_designer = self.request.query_params.getlist('fur_specific_designer[]', None)
+        fur_specific_the_risen = self.request.query_params.getlist('fur_specific_the_risen[]', None)
+        fur_specific_the_elders = self.request.query_params.getlist('fur_specific_the_elders[]', None)
+        fur_specific_the_demi_buff = self.request.query_params.getlist('fur_specific_the_demi_buff[]', None)
+        fur_specific_white_angel = self.request.query_params.getlist('fur_specific_white_angel[]', None)
+        fur_specific_devilish = self.request.query_params.getlist('fur_specific_devilish[]', None)
+
+        swag = self.request.query_params.getlist('swag[]', None)
+        swag_specific_standard = self.request.query_params.getlist('swag_specific_standard[]', None)
+        swag_specific_middle_class_fancy = self.request.query_params.getlist('swag_specific_middle_class_fancy[]', None)
+        swag_specific_premium_swag = self.request.query_params.getlist('swag_specific_premium_swag[]', None)
+        swag_specific_baby_buff = self.request.query_params.getlist('swag_specific_baby_buff[]', None)
+        swag_specific_premium_ink = self.request.query_params.getlist('swag_specific_premium_ink[]', None)
+        swag_specific_premium_weapons = self.request.query_params.getlist('swag_specific_premium_weapons[]', None)
+        swag_specific_bane_veins = self.request.query_params.getlist('swag_specific_bane_veins[]', None)
+        swag_specific_symbol = self.request.query_params.getlist('swag_specific_symbol[]', None)
+
+        horns = self.request.query_params.getlist('horns[]', None)
+        horns_specific_standard = self.request.query_params.getlist('horns_specific_standard[]', None)
+        horns_specific_standard_plus = self.request.query_params.getlist('horns_specific_standard_plus[]', None)
+        horns_specific_variant = self.request.query_params.getlist('horns_specific_variant[]', None)
+        horns_specific_baby_buff = self.request.query_params.getlist('horns_specific_baby_buff[]', None)
+        horns_specific_animal_horns = self.request.query_params.getlist('horns_specific_animal_horns[]', None)
+        horns_specific_halo = self.request.query_params.getlist('horns_specific_halo[]', None)
+        horns_specific_the_messiah = self.request.query_params.getlist('horns_specific_the_messiah[]', None)
+
+        eyes = self.request.query_params.getlist('eyes[]', None)
+        eyes_specific_standard = self.request.query_params.getlist('eyes_specific_standard[]', None)
+        eyes_specific_eyewear = self.request.query_params.getlist('eyes_specific_eyewear[]', None)
+        eyes_specific_impressionable = self.request.query_params.getlist('eyes_specific_impressionable[]', None)
+        eyes_specific_battle_ridden = self.request.query_params.getlist('eyes_specific_battle_ridden[]', None)
+        eyes_specific_beams = self.request.query_params.getlist('eyes_specific_beams[]', None)
+        eyes_specific_betrayer = self.request.query_params.getlist('eyes_specific_betrayer[]', None)
+
+        mouth = self.request.query_params.getlist('mouth[]', None)
+        mouth_specific_standard = self.request.query_params.getlist('mouth_specific_standard[]', None)
+        mouth_specific_kewl = self.request.query_params.getlist('mouth_specific_kewl[]', None)
+        mouth_specific_cool_guy = self.request.query_params.getlist('mouth_specific_cool_guy[]', None)
+        mouth_specific_bull_rings = self.request.query_params.getlist('mouth_specific_bull_rings[]', None)
+        mouth_specific_heated = self.request.query_params.getlist('mouth_specific_heated[]', None)
+        mouth_specific_prehistoric = self.request.query_params.getlist('mouth_specific_prehistoric[]', None)
+
+        smoking = self.request.query_params.getlist('smoking[]', None)
+        smoking_specific_yes = self.request.query_params.getlist('smoking_specific_yes[]', None)
+        smoking_specific_no = self.request.query_params.getlist('smoking_specific_no[]', None)
+
+        double_baby = self.request.query_params.getlist('double_baby[]', None)
+        double_baby_specific_yes = self.request.query_params.getlist('double_baby_specific_yes[]', None)
+        double_baby_specific_no = self.request.query_params.getlist('double_baby_specific_no[]', None)
+
+        collections = self.request.query_params.getlist('collections[]', None)
+        collections_specific_yes = self.request.query_params.getlist('collections_specific_yes[]', None)
+        collections_specific_no = self.request.query_params.getlist('collections_specific_no[]', None)
+
         matching = self.request.query_params.get('matching', None)
-        collections = self.request.query_params.get('collections', None)
+
         title = self.request.query_params.get('title', None)
         ownerWallet = self.request.query_params.get('ownerWallet', None)
         sort_by = self.request.query_params.get('sort_by', None)
 
-        if background:
+        buff_numbers = []
+
+        if 'All' in status:
+            queryList = queryList
+        if 'For Sale' in status:
+            queryList = queryList = filter(lambda x: x.forSale != "No", queryList)
+        if 'Not For Sale' in status:
+            queryList = queryList = filter(lambda x: x.forSale == "No", queryList)
+
+        if 'Faction_Buffs' in series and series_specific_faction_buffs == []:
+            series_specific_faction_buffs = ['Cyclops', 'Football', 'Ghost', 'Mummy', 'Pharaoh', 'Pirate', 'Buff Riders', 'La Bagarre Buff']
+        if 'Genesis_Collection_Buffs' in series:
+            buff_numbers.extend(range(1,9911))
+        if '1_of_1s' in series:
+            buff_numbers.extend(range(9911, 10001))
+        if 'Faction_Buffs' in series:
+            buff_numbers.extend(range(10001, 10278))
+        if 'Cyclops' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10001, 10007))
+        if 'Football' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10007, 10016))
+        if 'Ghost' in series_specific_faction_buffs:
+            buff_numbers.append(10016)
+        if 'Mummy' in series_specific_faction_buffs:
+            buff_numbers.append(10017)
+        if 'Pharaoh' in series_specific_faction_buffs:
+            buff_numbers.append(10018)
+        if 'Pirate' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10019, 10027))
+        if 'Buff Riders' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10027, 10259))
+        if 'La Bagarre Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10277)
+
+        print('buff nums')
+        print('buff numbers')
+
+        if len(buff_numbers) > 0:
+            print('we in buff numbers')
+            queryList = filter(lambda x: x.uniqueId in buff_numbers, queryList)
+
+
+        if price_min:
+            queryList = filter(lambda x: x.forSale != "No", queryList)
+            queryList = filter(lambda x: float(x.forSale) >= float(price_min), queryList)
+
+        if price_max:
+            queryList = filter(lambda x: x.forSale != "No", queryList)
+            queryList = filter(lambda x: float(x.forSale) <= float(price_max), queryList)
+
+        if score_min:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-            queryList = filter(lambda x: x.traits.background_feature == background, queryList)
-        if fur:
+            queryList = filter(lambda x: float(x.traits.total_buff_score) >= float(score_min), queryList)
+
+        if score_max:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-            queryList = filter(lambda x: x.traits.fur_feature == fur, queryList)
-        if swag:
+            queryList = filter(lambda x: float(x.traits.total_buff_score) >= float(score_max), queryList)
+
+
+
+
+
+        if 'Atmospheric' in background and background_specific_atmospheric == []:
+            background_specific_atmospheric = ["Starry Night", "Towards the Storm", "Tornado", "Highlands", "Graveyard", "Alien World"]
+        if 'Colors' in background and background_specific_colors == []:
+            background_specific_colors = ['Desert Yellow', 'Green', 'Grey', 'Gue Pink', 'Ice Blue', 'Purple', 'Red']
+        if 'Dimensions' in background and background_specific_dimensions == []:
+            background_specific_dimensions = ['Heaven', 'Hellfire', 'Trippy', 'Matrix']
+
+        if 'Standard' in fur and fur_specific_standard == []:
+            fur_specific_standard = ["Purple", "Base Buff", "Browny", "Ginger Snap", "Green", "Gue Pink", "Ice Blue", "War Paint Pink", "War Paint", "Trippy", "Trippy Red"]
+        if 'Animal' in fur and fur_specific_animal == []:
+            fur_specific_animal = ["Black Leopard", "Cheetah", "Cheetah Blue", "Leopard Green", "Reverse Zebra Blue", "Reverse Zebra Red", "Reverse Zebra", "Zebra", "Zebra Yellow"]
+        if 'Designer' in fur and fur_specific_designer == []:
+            fur_specific_designer = ["Static Noise", "Static Noise Blue", "80's Wave Freaking Me Out", "Heat Wave Freaking Me Out", "The Bas", "The Bas Yellow"]
+        if 'The_Risen' in fur and fur_specific_the_risen == []:
+            fur_specific_the_risen = ["Zombie", "Zombie Red"]
+        if 'The_Elders' in fur and fur_specific_the_elders == []:
+            fur_specific_the_elders = ["Braided", "Black Leopard War Paint"]
+        if 'The_Demi_Buff' in fur and fur_specific_the_demi_buff == []:
+            fur_specific_the_demi_buff = ["Black Angel"]
+        if 'White_Angel' in fur and fur_specific_white_angel == []:
+            fur_specific_white_angel = ["Angel"]
+        if 'Devilish' in fur and fur_specific_devilish == []:
+            fur_specific_devilish = ["Devil"]
+
+        if 'Standard' in swag and swag_specific_standard == []:
+            swag_specific_standard = ["Chadagonia Blue", "Chadagonia Yellow", "Chadagonia Red", "Chadagonia Green", "Chadagonia Black", "Ryan", "Easter Morning", "Super Hero", "Hippie Vest", "No Swag", "Don't Drop The Soap", "Hoodie Green", "Can't Swim Mom", "Floaty Blue", "Top Chef", "Beater", "Trouble Maker", "XSEED Tribute", "Mom", "Reaper"]
+        if 'Middle_Class_Fancy' in swag and swag_specific_middle_class_fancy == []:
+            swag_specific_middle_class_fancy = ["BAMF", "Bullet Proof Vest", "Thug Life", "Buff Athletics Blue", "Buff Athletics Green", "Buff Athletics Pink", "The Executioner", "Rough Rider", "Chain Mail", "The Bludgeoner", "The Staff", "Excalibur", "Pilgrim", "Radix", "Area 51"]
+        if 'Premium_Swag' in swag and swag_specific_premium_swag == []:
+            swag_specific_premium_swag = ["The Name's Buff, James Buff", "Dr. Buff", "Desert Walker", "Over 9000", "Jet Pack", "No. 1", "Wild West", "Red Rider", "Impaled", "Champ Champ", "Alchemist"]
+        if 'Baby_Buff' in swag and swag_specific_baby_buff == []:
+            swag_specific_baby_buff = ["Baby Buff Bag Hiding Brown", "Baby Buff Bag Hiding Green", "Baby Buff Bag Hiding Pink", "Young Padabuff", "Baby Buff Bag Peaking Blue"]
+        if 'Premium_Ink' in swag and swag_specific_premium_ink == []:
+            swag_specific_premium_ink = ["Skull Wings", "FuccBoi Buff", "Dragon Tattoo", "Island Bruh"]
+        if 'Premium_Weapons' in swag and swag_specific_premium_weapons == []:
+            swag_specific_premium_weapons = ["Chainmail with The Staff", "Chainmail Excalibur", "Not Since Nam", "Space Warrior"]
+        if 'Bane_Veins' in swag and swag_specific_bane_veins == []:
+            swag_specific_bane_veins = ["Veins", "Bane"]
+        if 'Symbol' in swag and swag_specific_symbol == []:
+            swag_specific_symbol = ["野牛"]
+
+        if 'Standard' in horns and horns_specific_standard == []:
+            horns_specific_standard = ["The Marley", "Mohawk", "Braided Head", "Bra and Panties", "Mardi Gras Beads", "Conical Hat", "Horn Piercing", "Farmer Tags", "Buff Horns", "Ball And Chain", "Alien Protection Tin", "Broken Horns", "Feather Earrings"]
+        if 'Standard_Plus' in horns and horns_specific_standard_plus == []:
+            horns_specific_standard_plus = ["Cowboy Hat", "Chieftan", "Toboggan", "Potara Earings", "Coo Coo Cachoo", "Green Snap Back", "Pink Snap Back", "No Horns", "Guzzler Helmet", "Bloody"]
+        if 'Variant' in horns and horns_specific_variant == []:
+            horns_specific_variant = ["White Black Fade", "White Horns", "Metallic Horns", "Golden Tips", "Black to Red Fade", "Tie Dyed Horns", "Large Horns", "The Splinter"]
+        if 'Baby_Buff' in horns and horns_specific_baby_buff == []:
+            horns_specific_baby_buff = ["Baby Buff Blue", "Baby Buff Pink", "Baby Buff Green", "Baby Buff Brown", "Demon Baby Buff"]
+        if 'Animal_Horns' in horns and horns_specific_animal_horns == []:
+            horns_specific_animal_horns = ["Moose Antlers", "Moose Antlers Black", "Deer Antlers", "Deer Antlers Black"]
+        if 'Halo' in horns and horns_specific_halo == []:
+            horns_specific_halo = ["Demon Horns", "Halo"]
+        if 'The_Messiah' in horns and horns_specific_the_messiah == []:
+            horns_specific_the_messiah = ["Messiah's Crown"]
+
+        if 'Standard' in eyes and eyes_specific_standard == []:
+            eyes_specific_standard = ["Bored Eyes", "Confused", "Cry Baby", "Ragin' Bull", "Green Eyes", "Purple Eyes", "Red Eyes", "Bloodshot", "Wide Eyes", "Squinty"]
+        if 'Eyewear' in eyes and eyes_specific_eyewear == []:
+            eyes_specific_eyewear = ["Aviators", "Dude Shades", "Morpheus", "Spectacles", "Monocle", "Scouter", "Cyborg"]
+        if 'Impressionable' in eyes and eyes_specific_impressionable == []:
+            eyes_specific_impressionable = ["Starry Eyes", "Dizzy", "Baked", "Radix Eyes", "Sleeping"]
+        if 'Battle_Ridden' in eyes and eyes_specific_battle_ridden == []:
+            eyes_specific_battle_ridden = ["Open Scar", "Closed Scar", "Danglin' Eyes", "Demon Eyes"]
+        if 'Beams' in eyes and eyes_specific_beams == []:
+            eyes_specific_beams = ["Red Beam", "Purple Beam", "Blue Beam"]
+        if 'Betrayer' in eyes and eyes_specific_betrayer == []:
+            eyes_specific_betrayer = ["Betrayer"]
+
+        if 'Standard' in mouth and mouth_specific_standard == []:
+            mouth_specific_standard = ["Befuddled", "Bored", "Clean", "Come at me bro", "Grinnin'", "HA HA", "Jovial", "Phoneme Vuh", "Sad", "Shocked", "Smirkin'", "Surprised", "Tired", "Wahhhh", "Whistlin' Dixie", "WOW", "Yikes!"]
+        if 'KEWL' in mouth and mouth_specific_kewl == []:
+            mouth_specific_kewl = ["BAMF GRILLZ", "PLAT GRILLZ", "RAINBOW GRILLZ", "GOLD GRILLZ", "Kazoo", "Pacifier", "Bloody Nose", "Baby Rattler", "Tongue Out", "Awooga!"]
+        if 'Cool_Guy' in mouth and mouth_specific_cool_guy == []:
+            mouth_specific_cool_guy = ["Ciggy", "The Don", "Toothpick", "Buff Chaw", "Cheesin'"]
+        if 'Bull_Rings' in mouth and mouth_specific_bull_rings == []:
+            mouth_specific_bull_rings = ["Gold", "Goth", "Purple", "Red"]
+        if 'Heated' in mouth and mouth_specific_heated == []:
+            mouth_specific_heated = ["Hot Tamale", "Hot Tamale Green", "Cheefin'"]
+        if 'Prehistoric' in mouth and mouth_specific_prehistoric == []:
+            mouth_specific_prehistoric = ["Troll Tusks", "Sabertooth"]
+
+        if 'Yes' in smoking and smoking_specific_yes == []:
+            smoking_specific_yes = ["The Don", "Ciggy"]
+        if 'No' in smoking and smoking_specific_no == []:
+            smoking_specific_no = ["Troll Tusks", "Sabertooth", "Hot Tamale", "Hot Tamale Green", "Cheefin'", "Gold", "Goth", "Purple", "Red", "Toothpick", "Buff Chaw", "Cheesin'", "BAMF GRILLZ", "PLAT GRILLZ", "RAINBOW GRILLZ", "GOLD GRILLZ", "Kazoo", "Pacifier", "Bloody Nose", "Baby Rattler", "Tongue Out", "Awooga!", "Befuddled", "Bored", "Clean", "Come at me bro", "Grinnin'", "HA HA", "Jovial", "Phoneme Vuh", "Sad", "Shocked", "Smirkin'", "Surprised", "Tired", "Wahhhh", "Whistlin' Dixie", "WOW", "Yikes!"]
+
+        if 'Yes' in double_baby and double_baby_specific_yes == []:
+            double_baby_specific_yes = ["Yes"]
+        if 'No' in double_baby and double_baby_specific_no == []:
+            double_baby_specific_no = ["No"]
+
+
+        if 'Yes' in collections and collections_specific_yes == []:
+            collections_specific_yes = ["Cyborg Set", "Cowboy", "DBZ", "Matrix", "NoNo", "Undead", "Albino", "Rice Farmer", "Super Hero", "Trippy", "Gentleman", "Joseph Smith",
+               "Day Walker", "Jordan", "Hells Kitchen", "Golded", "Girl", "Rasta", "Radix", "Bloody", "BAMF", "Frat Buff", "Demigod", "Regrets",
+              "Raver", "Kiddie Pool", "Mutated", "Half Dead", "Oversized", "Easter Celebration", "Brads And Chads",
+              "Chromed Out", "Natural Evolution", "Pride", "Buffs Mafia", "Family Guy", "Agent Zero", "Playboy", "Battle Hardened", "Fire"]
+        if 'No' in collections and collections_specific_no == []:
+            collections_specific_no = ["N/A"]
+
+
+
+        background_specific = background_specific_atmospheric + background_specific_colors + background_specific_dimensions
+        fur_specific = fur_specific_standard + fur_specific_animal + fur_specific_designer + fur_specific_the_risen + fur_specific_the_elders + fur_specific_the_demi_buff + fur_specific_white_angel + fur_specific_devilish
+        swag_specific = swag_specific_standard + swag_specific_middle_class_fancy + swag_specific_premium_swag + swag_specific_baby_buff + swag_specific_premium_ink + swag_specific_premium_weapons + swag_specific_bane_veins + swag_specific_symbol
+        horns_specific = horns_specific_standard + horns_specific_standard_plus + horns_specific_variant + horns_specific_baby_buff + horns_specific_animal_horns + horns_specific_halo + horns_specific_the_messiah
+        eyes_specific = eyes_specific_standard + eyes_specific_eyewear + eyes_specific_impressionable + eyes_specific_battle_ridden + eyes_specific_beams + eyes_specific_betrayer
+        mouth_specific = mouth_specific_standard + mouth_specific_kewl + mouth_specific_cool_guy + mouth_specific_bull_rings + mouth_specific_heated + mouth_specific_prehistoric
+        smoking_specific = smoking_specific_yes + smoking_specific_no
+        double_baby_specific = double_baby_specific_yes + double_baby_specific_no
+        collection_specific = collections_specific_yes + collections_specific_no
+
+
+
+        if background_specific:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-            queryList = filter(lambda x: x.traits.swag_feature == swag, queryList)
-        if horns:
+            queryList = filter(lambda x: x.traits.background_specific in background_specific, queryList)
+
+        if fur_specific:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-            queryList = filter(lambda x: x.traits.horns_feature == horns, queryList)
-        if eyes:
+            queryList = filter(lambda x: x.traits.fur_specific in fur_specific, queryList)
+
+        if swag_specific:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-            queryList = filter(lambda x: x.traits.eyes_feature == eyes, queryList)
-        if mouth:
+            queryList = filter(lambda x: x.traits.swag_specific in swag_specific, queryList)
+
+        if horns_specific:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-            queryList = filter(lambda x: x.traits.mouth_feature == mouth, queryList)
+            queryList = filter(lambda x: x.traits.horns_specific in horns_specific, queryList)
+
+        if eyes_specific:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: x.traits.eyes_specific in eyes_specific, queryList)
+
+        if mouth_specific:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: x.traits.mouth_specific in mouth_specific, queryList)
+
+        if smoking:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: x.traits.mouth_specific in smoking_specific, queryList)
+
+        if double_baby_specific:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: x.traits.double_baby_buff in double_baby_specific, queryList)
+
+
+        if collection_specific:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter([lambda x: x in collection_specific for x in x.traits.collections_name.split(', ')], queryList)
+
+
+
+
+        #
+        #
+        #
+        #     if background_specific:
+        #         queryList = filter(lambda x: x.traits.background_feature in background or x.traits.background_specific in background_specific, queryList)
+        #     else:
+        #         queryList = filter(lambda x: x.traits.background_feature in background, queryList)
+        # if background_specific:
+        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+        #     if background:
+        #         queryList = filter(lambda x: x.traits.background_feature in background or x.traits.background_specific in background_specific, queryList)
+        #     else:
+        #         queryList = filter(lambda x: x.traits.background_specific in background_specific, queryList)
+
+
+
+
+        # if background_specific_colors:
+        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+        #     queryList = filter(lambda x: x.traits.background_specific in background_specific_colors, queryList)
+        # if background_specific_dimensions:
+        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+        #     queryList = filter(lambda x: x.traits.background_specific in background_specific_dimensions, queryList)
+        # if fur:
+        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+        #     queryList = filter(lambda x: x.traits.fur_feature in fur, queryList)
+        # if fur_specific:
+        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+        #     queryList = filter(lambda x: x.traits.fur_specific in fur_specific, queryList)
+        # if swag:
+        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+        #     queryList = filter(lambda x: x.traits.swag_feature in swag, queryList)
+        # if swag_specific:
+        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+        #     queryList = filter(lambda x: x.traits.swag_specific in swag_specific, queryList)
+        # if eyes:
+        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+        #     queryList = filter(lambda x: x.traits.eyes_feature == eyes, queryList)
+        # if mouth:
+        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+        #     queryList = filter(lambda x: x.traits.mouth_feature == mouth, queryList)
         if matching:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
             queryList = filter(lambda x: matching in x.traits.matching_color, queryList)
@@ -132,8 +470,10 @@ class BuffListing(ListAPIView):
         elif sort_by == "uniqueId_descending":
             queryList.sort(key=lambda x: x.uniqueId, reverse=True)
         elif sort_by == "forSale_ascending":
+            queryList = list(filter(lambda x: x.forSale != "No", queryList))
             queryList.sort(key=lambda x: float(x.forSale))
         elif sort_by == "forSale_descending":
+            queryList = list(filter(lambda x: x.forSale != "No", queryList))
             queryList.sort(key=lambda x: float(x.forSale), reverse=True)
         elif sort_by == "buffScore_ascending":
             queryList.sort(key=lambda x: x.traits.total_buff_score if (x.uniqueId <= 9910) else 50)
@@ -143,91 +483,6 @@ class BuffListing(ListAPIView):
 
         return queryList
 
-
-def getBackground(request):
-    # get all the countreis from the database excluding
-    # null and blank values
-    print('get background')
-    if request.method == "GET" and is_ajax(request):
-        background = Image.objects.exclude(traits__background_feature__isnull=True).\
-            exclude(traits__background_feature__exact='').order_by('traits__background_feature').values_list('traits__background_feature').distinct()
-        background = [i[0] for i in list(background)]
-        data = {
-            "background": background,
-        }
-
-        return JsonResponse(data, status = 200)
-
-
-def getFur(request):
-    print('get fur')
-    if request.method == "GET" and is_ajax(request):
-        # get all the varities from the database excluding
-        # null and blank values
-
-        fur = Image.objects.exclude(traits__fur_feature__isnull=True).\
-        	exclude(traits__fur_feature__exact='').order_by('traits__fur_feature').values_list('traits__fur_feature').distinct()
-        fur = [i[0] for i in list(fur)]
-        data = {
-            "fur": fur,
-        }
-        return JsonResponse(data, status = 200)
-
-def getSwag(request):
-    print('get swag')
-    if request.method == "GET" and is_ajax(request):
-        # get all the varities from the database excluding
-        # null and blank values
-
-        swag = Image.objects.exclude(traits__swag_feature__isnull=True).\
-        	exclude(traits__swag_feature__exact='').order_by('traits__swag_feature').values_list('traits__swag_feature').distinct()
-        swag = [i[0] for i in list(swag)]
-        data = {
-            "swag": swag,
-        }
-        return JsonResponse(data, status = 200)
-
-def getHorns(request):
-    print('get horns')
-    if request.method == "GET" and is_ajax(request):
-        # get all the varities from the database excluding
-        # null and blank values
-
-        horns = Image.objects.exclude(traits__horns_feature__isnull=True).\
-        	exclude(traits__horns_feature__exact='').order_by('traits__horns_feature').values_list('traits__horns_feature').distinct()
-        horns = [i[0] for i in list(horns)]
-        data = {
-            "horns": horns,
-        }
-        return JsonResponse(data, status = 200)
-
-def getEyes(request):
-    print('get eyes')
-    if request.method == "GET" and is_ajax(request):
-        # get all the varities from the database excluding
-        # null and blank values
-
-        eyes = Image.objects.exclude(traits__eyes_feature__isnull=True).\
-        	exclude(traits__eyes_feature__exact='').order_by('traits__eyes_feature').values_list('traits__eyes_feature').distinct()
-        eyes = [i[0] for i in list(eyes)]
-        data = {
-            "eyes": eyes,
-        }
-        return JsonResponse(data, status = 200)
-
-def getMouth(request):
-    print('get eyes')
-    if request.method == "GET" and is_ajax(request):
-        # get all the varities from the database excluding
-        # null and blank values
-
-        mouth = Image.objects.exclude(traits__mouth_feature__isnull=True).\
-        	exclude(traits__mouth_feature__exact='').order_by('traits__mouth_feature').values_list('traits__mouth_feature').distinct()
-        mouth = [i[0] for i in list(mouth)]
-        data = {
-            "mouth": mouth,
-        }
-        return JsonResponse(data, status = 200)
 
 def getMatching(request):
     print('get matching')
@@ -258,63 +513,6 @@ def getCollections(request):
             "collections": collections,
         }
         return JsonResponse(data, status = 200)
-
-def getTitle(request):
-    if request.method == "GET" and is_ajax(request):
-        # get all the varities from the database excluding
-        # null and blank values
-        title = request.GET.get('title')
-        title = Image.objects.exclude(title__isnull=True).\
-        	exclude(title__exact='').order_by('title').values_list('title').distinct()
-        title = [i[0] for i in list(title)]
-        data = {
-            "title": title,
-        }
-        return JsonResponse(data, status = 200)
-
-def getownerWallet(request):
-    if request.method == "GET" and is_ajax(request):
-        # get all the varities from the database excluding
-        # null and blank values
-
-        ownerWallet = Image.objects.exclude(ownerWallet__isnull=True).\
-        	exclude(ownerWallet__exact='').order_by('ownerWallet').values_list('ownerWallet').distinct()
-        ownerWallet = [i[0] for i in list(ownerWallet)]
-        data = {
-            "ownerWallet": ownerWallet,
-        }
-        return JsonResponse(data, status = 200)
-
-
-# def getTitle(request):
-#     # get the provinces for given country from the
-#     # database excluding null and blank values
-#
-#     if request.method == "GET" and request.is_ajax():
-#         title = request.GET.get('title')
-#         title = Wine.objects.filter(country = country).\
-#             	exclude(province__isnull=True).exclude(province__exact='').\
-#             	order_by('province').values_list('province').distinct()
-#         province = [i[0] for i in list(province)]
-#         data = {
-#             "province": province,
-#         }
-#         return JsonResponse(data, status = 200)
-#
-#
-# def getRegion(request):
-#     # get the regions for given province from the
-#     # database excluding null and blank values
-#
-#     if request.method == "GET" and request.is_ajax():
-#         province = request.GET.get('province')
-#         region = Wine.objects.filter(province = province).\
-#                 exclude(region__isnull=True).exclude(region__exact='').values_list('region').distinct()
-#         region = [i[0] for i in list(region)]
-#         data = {
-#             "region": region,
-#         }
-#         return JsonResponse(data, status = 200)
 
 def collection(request):
     images = Image.objects.all()
