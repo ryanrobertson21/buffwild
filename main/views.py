@@ -81,42 +81,19 @@ class BuffListing(ListAPIView):
         queryList2 = ImageTwo.objects.filter(~Q(ownerWallet='Locked'))
         queryList = list(chain(queryList1, queryList2))
 
-        # filter_dict = {'background': ['atmospheric', 'colors', 'dimensions'],
-        #
-        #
-        # }
-        #
-        # def filterData(d):
-        #
-        #     for key, values in d.items():
-        #         category = self.request.query_params.getlist(key + '[]', None)
-        #         if category:
-        #             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-        #             queryList = filter(lambda x: eval('x.traits.' + key +'_feature') in category, queryList)
-        #         for value in values:
-        #             sub_category = self.request.query_params.getlist(key + '_specific_' + value + '[]', None)
-        #             if sub_category:
-        #                 print('it startrs now')
-        #                 print(sub_category)
-        #                 queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-        #                 print(queryList)
-        #                 for i in queryList:
-        #                     print(i)
-        #                 print('second one here')
-        #                 print('x.traits.' + key +'_specific')
-        #                 print(sub_category)
-        #                 queryList = filter(lambda x: eval('x.traits.' + key +'_specific') in sub_category, queryList)
-        #                 print(queryList)
-        #                 for i in queryList:
-        #                     print(i)
-        #     return list(queryList)
-        #
-        # queryList=filterData(filter_dict)
+        if self.request.query_params.get('search_bar', None):
+            search = self.request.query_params.get('search_bar')
+            try:
+                if int(search) <= 10277:
+                    queryList = filter(lambda x: x.uniqueId == int(search), queryList)
+            except ValueError: ## This prevents someone who searches for anything but a number from breaking the page
+                queryList = filter(lambda x: x.ownerWallet == search, queryList)
 
         status = self.request.query_params.getlist('status', None)
 
         series = self.request.query_params.getlist('series[]', None)
         series_specific_faction_buffs = self.request.query_params.getlist('series_specific_faction_buffs[]', None)
+        series_specific_one_of_ones = self.request.query_params.getlist('series_specific_one_of_ones[]', None)
 
         price_min = self.request.query_params.get('min_price', None)
         price_max = self.request.query_params.get('max_price', None)
@@ -179,17 +156,18 @@ class BuffListing(ListAPIView):
         smoking_specific_no = self.request.query_params.getlist('smoking_specific_no[]', None)
 
         double_baby = self.request.query_params.getlist('double_baby[]', None)
-        double_baby_specific_yes = self.request.query_params.getlist('double_baby_specific_yes[]', None)
         double_baby_specific_no = self.request.query_params.getlist('double_baby_specific_no[]', None)
+        double_baby_specific_swag = self.request.query_params.getlist('double_baby_specific_swag[]', None)
+        double_baby_specific_horns = self.request.query_params.getlist('double_baby_specific_horns[]', None)
 
         collections = self.request.query_params.getlist('collections[]', None)
         collections_specific_yes = self.request.query_params.getlist('collections_specific_yes[]', None)
         collections_specific_no = self.request.query_params.getlist('collections_specific_no[]', None)
 
-        matching = self.request.query_params.get('matching', None)
+        matching = self.request.query_params.getlist('matching[]', None)
+        matching_specific_yes = self.request.query_params.getlist('matching_specific_yes[]', None)
+        matching_specific_no = self.request.query_params.getlist('matching_specific_no[]', None)
 
-        title = self.request.query_params.get('title', None)
-        ownerWallet = self.request.query_params.get('ownerWallet', None)
         sort_by = self.request.query_params.get('sort_by', None)
 
         buff_numbers = []
@@ -201,14 +179,17 @@ class BuffListing(ListAPIView):
         if 'Not For Sale' in status:
             queryList = queryList = filter(lambda x: x.forSale == "No", queryList)
 
+        # faction buffs
         if 'Faction_Buffs' in series and series_specific_faction_buffs == []:
             series_specific_faction_buffs = ['Cyclops', 'Football', 'Ghost', 'Mummy', 'Pharaoh', 'Pirate', 'Buff Riders', 'La Bagarre Buff']
+
         if 'Genesis_Collection_Buffs' in series:
             buff_numbers.extend(range(1,9911))
         if '1_of_1s' in series:
             buff_numbers.extend(range(9911, 10001))
         if 'Faction_Buffs' in series:
             buff_numbers.extend(range(10001, 10278))
+
         if 'Cyclops' in series_specific_faction_buffs:
             buff_numbers.extend(range(10001, 10007))
         if 'Football' in series_specific_faction_buffs:
@@ -226,8 +207,62 @@ class BuffListing(ListAPIView):
         if 'La Bagarre Buff' in series_specific_faction_buffs:
             buff_numbers.append(10277)
 
-        print('buff nums')
-        print('buff numbers')
+        # 1 of 1 buffs
+        if '1_of_1s' in series and series_specific_one_of_ones == []:
+            series_specific_one_of_ones = ['Angel Buff', 'Battle Buff', 'Buff God', 'Buff Ball Z', 'Bunny Buff', 'Cowboy', 'Demon Buff', 'Extinct Buff',
+             'Coyote', 'Marley Buff', 'Mono Blue', 'Mono Cyan', 'Mono Green', 'Mono Orange', 'Mono Pink', 'Mono Red', 'Mono Yellow', 'Nacho Buff', 'Pixel Buff',
+             'Safe Word Buff', 'Shadow Buff', 'Trippy', 'Wolf', 'Wooly', 'Zombie Buff']
+
+        if 'Angel Buff' in series_specific_one_of_ones:
+            buff_numbers.append(9911)
+        if 'Battle Buff' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9912, 9920))
+        if 'Buff God' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9920, 9930))
+        if 'Buff Ball Z' in series_specific_one_of_ones:
+            buff_numbers.append(9930)
+        if 'Bunny Buff' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9931, 9934))
+        if 'Cowboy' in series_specific_one_of_ones:
+            buff_numbers.append(9934)
+        if 'Demon Buff' in series_specific_one_of_ones:
+            buff_numbers.append(9935)
+        if 'Extinct Buff' in series_specific_one_of_ones:
+            buff_numbers.append(9936)
+        if 'Coyote' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9937, 9947))
+        if 'Marley Buff' in series_specific_one_of_ones:
+            buff_numbers.append(9947)
+        if 'Mono Blue' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9948, 9950))
+        if 'Mono Cyan' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9951, 9953))
+        if 'Mono Green' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9954, 9957))
+        if 'Mono Orange' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9957, 9960))
+        if 'Mono Pink' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9960, 9963))
+        if 'Mono Red' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9963, 9966))
+        if 'Mono Yellow' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9966, 9969))
+        if 'Nacho Buff' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9969, 9972))
+        if 'Pixel Buff' in series_specific_one_of_ones:
+            buff_numbers.append(9972)
+        if 'Safe Word Buff' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9973, 9976))
+        if 'Shadow Buff' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9976, 9984))
+        if 'Trippy' in series_specific_one_of_ones:
+            buff_numbers.append(9984)
+        if 'Wolf' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9985, 9995))
+        if 'Wooly' in series_specific_one_of_ones:
+            buff_numbers.extend(range(9995, 10000))
+        if 'Zombie Buff' in series_specific_one_of_ones:
+            buff_numbers.append(10000)
 
         if len(buff_numbers) > 0:
             print('we in buff numbers')
@@ -248,7 +283,7 @@ class BuffListing(ListAPIView):
 
         if score_max:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-            queryList = filter(lambda x: float(x.traits.total_buff_score) >= float(score_max), queryList)
+            queryList = filter(lambda x: float(x.traits.total_buff_score) <= float(score_max), queryList)
 
 
 
@@ -341,8 +376,10 @@ class BuffListing(ListAPIView):
         if 'No' in smoking and smoking_specific_no == []:
             smoking_specific_no = ["Troll Tusks", "Sabertooth", "Hot Tamale", "Hot Tamale Green", "Cheefin'", "Gold", "Goth", "Purple", "Red", "Toothpick", "Buff Chaw", "Cheesin'", "BAMF GRILLZ", "PLAT GRILLZ", "RAINBOW GRILLZ", "GOLD GRILLZ", "Kazoo", "Pacifier", "Bloody Nose", "Baby Rattler", "Tongue Out", "Awooga!", "Befuddled", "Bored", "Clean", "Come at me bro", "Grinnin'", "HA HA", "Jovial", "Phoneme Vuh", "Sad", "Shocked", "Smirkin'", "Surprised", "Tired", "Wahhhh", "Whistlin' Dixie", "WOW", "Yikes!"]
 
-        if 'Yes' in double_baby and double_baby_specific_yes == []:
-            double_baby_specific_yes = ["Yes"]
+        if 'Yes' in double_baby and double_baby_specific_swag == []:
+            double_baby_specific_swag = ["Baby Buff Bag Hiding Brown", "Baby Buff Bag Hiding Green", "Baby Buff Bag Hiding Pink", "Young Padabuff", "Baby Buff Bag Peaking Blue"]
+        if 'Yes' in double_baby and double_baby_specific_horns == []:
+            double_baby_specific_horns = ["Baby Buff Blue", "Baby Buff Pink", "Baby Buff Green", "Baby Buff Brown", "Demon Baby Buff"]
         if 'No' in double_baby and double_baby_specific_no == []:
             double_baby_specific_no = ["No"]
 
@@ -355,6 +392,11 @@ class BuffListing(ListAPIView):
         if 'No' in collections and collections_specific_no == []:
             collections_specific_no = ["N/A"]
 
+        if 'Yes' in matching and matching_specific_yes == []:
+            matching_specific_yes = ["Black", "Blue", "Brown", "Green", "Orange", "Pink", "Purple", "Red", "Yellow"]
+        if 'No' in matching and matching_specific_no == []:
+            matching_specific_no = ["No"]
+
 
 
         background_specific = background_specific_atmospheric + background_specific_colors + background_specific_dimensions
@@ -364,10 +406,9 @@ class BuffListing(ListAPIView):
         eyes_specific = eyes_specific_standard + eyes_specific_eyewear + eyes_specific_impressionable + eyes_specific_battle_ridden + eyes_specific_beams + eyes_specific_betrayer
         mouth_specific = mouth_specific_standard + mouth_specific_kewl + mouth_specific_cool_guy + mouth_specific_bull_rings + mouth_specific_heated + mouth_specific_prehistoric
         smoking_specific = smoking_specific_yes + smoking_specific_no
-        double_baby_specific = double_baby_specific_yes + double_baby_specific_no
+        double_baby_specific = double_baby_specific_swag + double_baby_specific_horns + double_baby_specific_no
         collection_specific = collections_specific_yes + collections_specific_no
-
-
+        matching_specific = matching_specific_yes + matching_specific_no
 
         if background_specific:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
@@ -397,72 +438,26 @@ class BuffListing(ListAPIView):
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
             queryList = filter(lambda x: x.traits.mouth_specific in smoking_specific, queryList)
 
-        if double_baby_specific:
+        if double_baby_specific_swag:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-            queryList = filter(lambda x: x.traits.double_baby_buff in double_baby_specific, queryList)
-
+            queryList = filter(lambda x: x.traits.swag_specific in double_baby_specific_swag and x.traits.double_baby_buff == "Yes", queryList)
+        if double_baby_specific_horns:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: x.traits.horns_specific in double_baby_specific_horns and x.traits.double_baby_buff == "Yes", queryList)
+        if double_baby_specific_no:
+            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
+            queryList = filter(lambda x: x.traits.double_baby_buff == "No", queryList)
 
         if collection_specific:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-            queryList = filter([lambda x: x in collection_specific for x in x.traits.collections_name.split(', ')], queryList)
+            queryList = filter(lambda x: any(item in x.traits.collections_name for item in collection_specific), queryList)
 
-
-
-
-        #
-        #
-        #
-        #     if background_specific:
-        #         queryList = filter(lambda x: x.traits.background_feature in background or x.traits.background_specific in background_specific, queryList)
-        #     else:
-        #         queryList = filter(lambda x: x.traits.background_feature in background, queryList)
-        # if background_specific:
-        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-        #     if background:
-        #         queryList = filter(lambda x: x.traits.background_feature in background or x.traits.background_specific in background_specific, queryList)
-        #     else:
-        #         queryList = filter(lambda x: x.traits.background_specific in background_specific, queryList)
-
-
-
-
-        # if background_specific_colors:
-        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-        #     queryList = filter(lambda x: x.traits.background_specific in background_specific_colors, queryList)
-        # if background_specific_dimensions:
-        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-        #     queryList = filter(lambda x: x.traits.background_specific in background_specific_dimensions, queryList)
-        # if fur:
-        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-        #     queryList = filter(lambda x: x.traits.fur_feature in fur, queryList)
-        # if fur_specific:
-        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-        #     queryList = filter(lambda x: x.traits.fur_specific in fur_specific, queryList)
-        # if swag:
-        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-        #     queryList = filter(lambda x: x.traits.swag_feature in swag, queryList)
-        # if swag_specific:
-        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-        #     queryList = filter(lambda x: x.traits.swag_specific in swag_specific, queryList)
-        # if eyes:
-        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-        #     queryList = filter(lambda x: x.traits.eyes_feature == eyes, queryList)
-        # if mouth:
-        #     queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-        #     queryList = filter(lambda x: x.traits.mouth_feature == mouth, queryList)
-        if matching:
+        if matching_specific:
             queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-            queryList = filter(lambda x: matching in x.traits.matching_color, queryList)
-        if collections:
-            queryList = filter(lambda x: x.uniqueId <= 9910, queryList)
-            queryList = filter(lambda x: collections in x.traits.collections_name, queryList)
-        if title:
-            queryList = filter(lambda x: x.title == title, queryList)
-        if ownerWallet:
-            queryList = filter(lambda x: x.ownerWallet == ownerWallet, queryList)
+            queryList = filter(lambda x: any(item in x.traits.matching_color for item in matching_specific), queryList)
+
 
         # sort it if applied on based on price/points
-
         queryList=list(queryList)
 
         if sort_by == "uniqueId_ascending":

@@ -443,6 +443,10 @@ td {
   border-bottom: 0.5px solid grey;
 }
 
+.keep-open {
+  border-bottom: 0px !important;
+}
+
 .form-check {
   color: #FFFFFF;
   font-size: 24px;
@@ -453,7 +457,7 @@ td {
 }
 
 span > label {
-  color: #000000 !important;
+  color: #FFFFFF !important;
   font-size: 18px;
 }
 
@@ -468,8 +472,8 @@ span > label {
 }
 
 .multiselect-container {
-  background-color: #000000;
-  color: #FFFFFF;
+  background-color: #000000 !important;
+  color: #000000;
 }
 
 .btn-group > .show {
@@ -507,8 +511,60 @@ input[id=max_score] {
   height:28px;
 }
 
+.btn-outline-primary {
+  background-color: #000000;
+  border-top-color: #E1DA22;
+  border-right-color: #E1DA22;
+  border-left-color: #E1DA22;
+  border-bottom-color: #E1DA22;
+}
+
+.btn-check:checked+.btn-outline-primary {
+    background-color: #E1DA22;
+    border-color: #E1DA22;
+}
+
+.series-group {
+  padding-bottom: 5px;
+}
 
 
+.dropdown-menu {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.form-check-input[type=checkbox]:checked {
+    background-color: #000000 !important;
+    border-color: #E1DA22 !important;
+}
+
+.numsearch {
+  margin-left: 0px !important;;
+  margin-right: 0px !important;;
+  text-align: center !important;
+}
+
+.selectpicker {
+  min-height: calc(2.08rem + 2px);
+  height: calc(2.08rem + 2px);
+  padding-top: 0.27rem;
+  padding-bottom: 0.27rem;
+  transition: all .2s linear;
+}
+
+[class*=btn-outline-] {
+  padding-bottom: 0.1rem;
+}
+
+.search-col {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.reset-col {
+  text-align: end;
+}
 
 
 
@@ -520,9 +576,6 @@ button[title="Graveyard"] {
   width: 64px;
   height: 32px;
 }
-
-
-
 
 
 
@@ -2908,6 +2961,28 @@ $(document).ready(function () {
         getAPIData();
       });
 
+      $('[name=collections_feature]').click(function() {
+        let l = []
+          $('input[name="collections_feature"]').each(function() {
+            if ( $(this).is(':checked')) {
+              l.push(this.value);
+            }
+          });
+        send_data['collections'] = l;
+        getAPIData();
+      });
+
+      $('[name=matching_feature]').click(function() {
+        let l = []
+          $('input[name="matching_feature"]').each(function() {
+            if ( $(this).is(':checked')) {
+              l.push(this.value);
+            }
+          });
+        send_data['matching'] = l;
+        getAPIData();
+      });
+
       $('[name=All]').click(function() {
         console.log('we in all status');
         send_data['status'] = 'All'
@@ -2940,6 +3015,16 @@ $(document).ready(function () {
         getAPIData();
       });
 
+      $('[id=search-bar]').click(function() {
+        var val = $('#search-value').val();
+        console.log('vallll!');
+        console.log(val);
+        send_data['search_bar'] = val;
+
+
+        getAPIData();
+      });
+
       $('[id=buff_score_apply]').click(function() {
         var min = $('#min_score').val();
         var max = $('#max_score').val();
@@ -2953,7 +3038,7 @@ $(document).ready(function () {
         getAPIData();
       });
 
-    function onChange(feature, parent) {
+    function onChange(feature, parent, forYes) {
       let l = [];
       var values = $('#' + feature).val();
       for (var v in values) {
@@ -2964,7 +3049,12 @@ $(document).ready(function () {
       if (parent) {
         console.log('default worked');
         console.log(parent)
-        var chk = $("input[type='checkbox'][value=" + parent + "]");
+        if (forYes) {
+          var chk = $("input[type='checkbox'][id=" + forYes + "][value=" + parent + "]");
+        }
+        else {
+          var chk = $("input[type='checkbox'][value=" + parent + "]");
+        }
         console.log(chk);
         chk.prop("checked", true);
       }
@@ -2977,6 +3067,9 @@ $(document).ready(function () {
 
     $('#series_specific_faction_buffs').on('change', function () {
       onChange('series_specific_faction_buffs', 'Faction_Buffs');
+    });
+    $('#series_specific_one_of_ones').on('change', function () {
+      onChange('series_specific_one_of_ones', '1_of_1s');
     });
 
     $('#background_specific_atmospheric').on('change', function () {
@@ -2999,7 +3092,7 @@ $(document).ready(function () {
       onChange('fur_specific_devilish', 'Devilish');
     });
     $('#fur_specific_standard').on('change', function () {
-      onChange('fur_specific_standard', 'Standard');
+      onChange('fur_specific_standard', 'Standard', 'fur_feature');
     });
     $('#fur_specific_the_elders').on('change', function () {
       onChange('fur_specific_the_elders', 'The_Elders');
@@ -3015,7 +3108,7 @@ $(document).ready(function () {
     });
 
     $('#swag_specific_standard').on('change', function () {
-      onChange('swag_specific_standard', 'Standard');
+      onChange('swag_specific_standard', 'Standard', 'swag_feature');
     });
     $('#swag_specific_middle_class_fancy').on('change', function () {
       onChange('swag_specific_middle_class_fancy', 'Middle_Class_Fancy');
@@ -3024,7 +3117,7 @@ $(document).ready(function () {
       onChange('swag_specific_premium_swag', 'Premium_Swag');
     });
     $('#swag_specific_baby_buff').on('change', function () {
-      onChange('swag_specific_baby_buff', 'Baby_Buff');
+      onChange('swag_specific_baby_buff', 'Baby_Buff', 'swag_feature');
     });
     $('#swag_specific_premium_ink').on('change', function () {
       onChange('swag_specific_premium_ink', 'Premium_Ink');
@@ -3040,7 +3133,7 @@ $(document).ready(function () {
     });
 
     $('#horns_specific_standard').on('change', function () {
-      onChange('horns_specific_standard', 'Standard');
+      onChange('horns_specific_standard', 'Standard', 'horns_feature');
     });
     $('#horns_specific_standard_plus').on('change', function () {
       onChange('horns_specific_standard_plus', 'Standard_Plus');
@@ -3049,20 +3142,20 @@ $(document).ready(function () {
       onChange('horns_specific_variant', 'Variant');
     });
     $('#horns_specific_baby_buff').on('change', function () {
-      onChange('horns_specific_baby_buff', 'Baby_Buff');
+      onChange('horns_specific_baby_buff', 'Baby_Buff', 'horns_feature');
     });
     $('#horns_specific_animal_horns').on('change', function () {
       onChange('horns_specific_animal_horns', 'Animal_Horns');
     });
     $('#horns_specific_halo').on('change', function () {
-      onChange('horns_specific_halo', 'Halo');
+      onChange('horns_specific_halo', 'Halo', 'horns_feature');
     });
     $('#horns_specific_the_messiah').on('change', function () {
       onChange('horns_specific_the_messiah', 'The_Messiah');
     });
 
     $('#eyes_specific_standard').on('change', function () {
-      onChange('eyes_specific_standard', 'Standard');
+      onChange('eyes_specific_standard', 'Standard', 'eyes_feature');
     });
     $('#eyes_specific_eyewear').on('change', function () {
       onChange('eyes_specific_eyewear', 'Eyewear');
@@ -3081,7 +3174,7 @@ $(document).ready(function () {
     });
 
     $('#mouth_specific_standard').on('change', function () {
-      onChange('mouth_specific_standard', 'Standard');
+      onChange('mouth_specific_standard', 'Standard', 'mouth_feature');
     });
     $('#mouth_specific_kewl').on('change', function () {
       onChange('mouth_specific_kewl', 'KEWL');
@@ -3100,17 +3193,31 @@ $(document).ready(function () {
     });
 
     $('#smoking_specific_yes').on('change', function () {
-      onChange('smoking_specific_yes', 'Yes');
+      onChange('smoking_specific_yes', 'Yes', 'smoking_feature');
     });
     $('#smoking_specific_no').on('change', function () {
-      onChange('smoking_specific_no', 'No');
+      onChange('smoking_specific_no', 'No', 'smoking_feature');
     });
 
-    $('#double_baby_specific_yes').on('change', function () {
-      onChange('double_baby_specific_yes', 'Yes');
+    $('#double_baby_specific_swag').on('change', function () {
+      onChange('double_baby_specific_swag', 'Yes', 'double_baby_feature');
     });
-    $('#double_baby_specific_no').on('change', function () {
-      onChange('double_baby_specific_no', 'No');
+    $('#double_baby_specific_horns').on('change', function () {
+      onChange('double_baby_specific_horns', 'Yes', 'double_baby_feature');
+    });
+
+    $('#collections_specific_yes').on('change', function () {
+      onChange('collections_specific_yes', 'Yes', 'collections_feature');
+    });
+    $('#collections_specific_no').on('change', function () {
+      onChange('collections_specific_no', 'No', 'collections_feature');
+    });
+
+    $('#matching_specific_yes').on('change', function () {
+      onChange('matching_specific_yes', 'Yes', 'matching_feature');
+    });
+    $('#matching_specific_no').on('change', function () {
+      onChange('matching_specific_no', 'No', 'matching_feature');
     });
 
     // $('#swag').on('change', function () {
@@ -3240,6 +3347,7 @@ function resetFilters() {
 
     $("#series").val("all");
     $("#series_specific_faction_buffs").val("all");
+    $("#series_specific_one_of_ones").val("all");
 
     $("#background").val("all");
     $("#background_specific_atmospheric").val("all");
@@ -3296,14 +3404,19 @@ function resetFilters() {
     $("#smoking_specific_no").val("all");
 
     $("#double_baby").val("all");
-    $("#double_baby_specific_yes").val("all");
-    $("#double_baby_specific_no").val("all");
+    $("#double_baby_specific_swag").val("all");
+    $("#double_baby_specific_horns").val("all");
+
+    $("#collections").val("all");
+    $("#collections_specific_yes").val("all");
+    $("#collections_specific_no").val("all");
 
     $("#matching").val("all");
-    $("#collections").val("all");
+    $("#matching_specific_yes").val("all");
+    $("#matching_specific_no").val("all");
+
     $("#title").val("all");
     $("#ownerWallet").val("all");
-    $("#sort_by").val("none");
 
     //clearing up the province and region select box
 
@@ -3311,7 +3424,7 @@ function resetFilters() {
 
     send_data['series'] = '';
     send_data['series_specific_faction_buffs'] = '';
-
+    send_data['series_specific_one_of_ones'] = '';
 
     send_data['background'] = '';
     send_data['background_specific_atmospheric'] = '';
@@ -3372,11 +3485,17 @@ function resetFilters() {
     send_data['smoking_specific_no'] = '';
 
     send_data['double_baby'] = '';
-    send_data['double_baby_specific_yes'] = '';
-    send_data['double_baby_specific_no'] = '';
+    send_data['double_baby_specific_swag'] = '';
+    send_data['double_baby_specific_horns'] = '';
+
+    send_data['collections'] = '';
+    send_data['collections_specific_yes'] = '';
+    send_data['collections_specific_no'] = '';
+
 
     send_data['matching'] = '';
-    send_data['collections'] = '';
+    send_data['matching_specific_yes'] = '';
+
     send_data['title'] = '';
     send_data['ownerWallet'] = '';
     send_data["sort_by"] = '',
@@ -3435,9 +3554,9 @@ function putTableData(result) {
                   matching += "<tr> \
                     <th scope='row'>Matching</th> \
                     <td>" + key + "</td> \
-                    <td>" + d[key][0] + " matches</td> \
+                    <td>" + d[key][1] + " matches</td> \
                     <td>N/A</td> \
-                    <td>" + d[key][2] + "</td> \
+                    <td>" + d[key][3] + "</td> \
                   </tr> "
                 }
               }
@@ -3625,7 +3744,7 @@ function putTableData(result) {
     else{
         // if no result found for the given filter, then display no result
 
-        $("#no_results h5").html("No results found");
+        $("#no_results h5").html("No Buffs found");
         $("#list_data").hide();
         $("#no_results").show();
     }
@@ -3809,6 +3928,7 @@ $(function () {
     $(document).ready(function() {
         $('#series').multiselect();
         $('#series_specific_faction_buffs').multiselect();
+        $('#series_specific_one_of_ones').multiselect();
         $('#background').multiselect();
         $('#background_specific_atmospheric').multiselect();
         $('#background_specific_colors').multiselect();
@@ -3857,8 +3977,10 @@ $(function () {
         $('#smoking_specific_yes').multiselect();
         $('#smoking_specific_no').multiselect();
         $('#double_baby').multiselect();
-        $('#double_baby_specific_yes').multiselect();
-        $('#double_baby_specific_no').multiselect();
+        $('#double_baby_specific_swag').multiselect();
+        $('#double_baby_specific_horns').multiselect();
+        $('#collections_specific_yes').multiselect();
+        $('#matching_specific_yes').multiselect();
 
     });
 
@@ -3919,7 +4041,32 @@ $(function () {
     </div>
 
   </div> -->
+  <div class="row">
+    <div class="col-2 reset-col">
+              <a class="btn btn-secondary" id="display_all">Reset Filter</a>
+    </div>
+    <div class="col-8 d-flex justify-content-center search-col">
+      <div class="container-sm numsearch">
+      <div class="input-group">
+        <input type="search" id="search-value" class="form-control rounded" placeholder="Search Wallet Address or Buff Mint Number" name="searchNum" aria-label="Search" aria-describedby="search-addon" />
+        <button type="submit" id="search-bar" class="btn btn-outline-primary">search</button>
+      </div>
+      </div>
+    </div>
+    <div class="col-2">
 
+              <select class="selectpicker rounded" id="sort_by">
+                  <option value='uniqueId_ascending' selected>Mint Number: Low to High</option>
+                  <option value='uniqueId_descending'>Mint Number: High to Low</option>
+                  <option value='forSale_ascending'>Price: Low to High</option>
+                  <option value='forSale_descending'>Price: High to Low</option>
+                  <option value='buffScore_ascending'>Buff Score: Low to High</option>
+                  <option value='buffScore_descending'>Buff Score: High to Low</option>
+              </select>
+
+
+    </div>
+  </div>
   <div class="big-box container-fluid">
     <div class="container-fluid">
       <div class="row">
@@ -3930,29 +4077,19 @@ $(function () {
           <div class="col-12">
 
             <div class="status-box">
-              <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Status">Status</button>
-              <div id="Status" class="trait-category collapse">
+              <button type="button" class="btn-block collapsible-link keep-open" aria-expanded="true" data-toggle="collapse" data-target="#Status">Status</button>
+              <div id="Status" class="trait-category collapse show">
                 <div class="row trait-feature-row">
                   <div class="col-12">
-                <div class="form-check">
+                    <div class="btn-group series-group" role="group" aria-label="Basic radio toggle button group">
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                  <label class="btn btn-outline-primary" value="All" name="All" for="btnradio1">All</label>
 
-                  <button class="btn btn-primary">
-                    <span class="btn-label" value="All" name="All">All</span>
-                  </button>
-                  <button class="btn btn-secondary">
-                    <span class="btn-label" value="For Sale" name="For_Sale">For Sale</span>
-                  </button>
-                  <button class="btn">
-                    <span class="btn-label" value="Not For Sale" name="Not_For_Sale">Not For Sale</span>
-                  </button>
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                  <label class="btn btn-outline-primary" value="For Sale" name="For_Sale" for="btnradio2">For Sale</label>
 
-
-                  <!-- <input class="form-check-input" type="checkbox" value="Yes" id="double_baby_feature" name="double_baby_feature">
-                  <label class="form-check-label" for="flexCheckDefault">
-                    Yes
-                  </label> -->
-
-
+                  <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                  <label class="btn btn-outline-primary" value="Not For Sale" name="Not_For_Sale" for="btnradio3">Not For Sale</label>
                 </div>
                 </div>
                 </div>
@@ -3963,7 +4100,7 @@ $(function () {
               <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Series">Series</button>
               <div id="Series" class="trait-category collapse">
                 <div class="row trait-feature-row">
-                  <div class="col-6">
+                  <div class="col-8">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Genesis_Collection_Buffs" id="series_feature" name="series_feature">
                   <label class="form-check-label" for="flexCheckDefault">
@@ -3973,7 +4110,7 @@ $(function () {
                 </div>
                 </div>
                 <div class="row trait-feature-row">
-                  <div class="col-6">
+                  <div class="col-8">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="1_of_1s" id="series_feature" name="series_feature">
                   <label class="form-check-label" for="flexCheckDefault">
@@ -3981,9 +4118,40 @@ $(function () {
                   </label>
                 </div>
                 </div>
+                <div class="col-4">
+                  <div class="col-sm-2 col-2">
+                    <select id="series_specific_one_of_ones" multiple="multiple">
+                        <option value="Angel Buff">Angel Buff</option>
+                        <option value="Battle Buff">Battle Buff</option>
+                        <option value="Buff God">Buff God</option>
+                        <option value="Buff Ball Z">Buff Ball Z</option>
+                        <option value="Bunny Buff">Bunny Buff</option>
+                        <option value="Cowboy">Cowboy</option>
+                        <option value="Demon Buff">Demon Buff</option>
+                        <option value="Extinct Buff">Extinct Buff</option>
+                        <option value="Coyote">Coyote</option>
+                        <option value="Marley Buff">Marley Buff</option>
+                        <option value="Mono Blue">Mono Blue</option>
+                        <option value="Mono Cyan">Mono Cyan</option>
+                        <option value="Mono Green">Mono Green</option>
+                        <option value="Mono Orange">Mono Orange</option>
+                        <option value="Mono Pink">Mono Pink</option>
+                        <option value="Mono Red">Mono Red</option>
+                        <option value="Mono Yellow">Mono Yellow</option>
+                        <option value="Nacho Buff">Nacho Buff</option>
+                        <option value="Pixel Buff">Pixel Buff</option>
+                        <option value="Safe Word Buff">Safe Word Buff</option>
+                        <option value="Shadow Buff">Shadow Buff</option>
+                        <option value="Trippy">Trippy</option>
+                        <option value="Wolf">Wolf</option>
+                        <option value="Wooly">Wooly</option>
+                        <option value="Zombie Buff">Zombie Buff</option>
+                      </select>
+                  </div>
+                </div>
                 </div>
                 <div class="row trait-feature-row">
-                  <div class="col-6">
+                  <div class="col-8">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Faction_Buffs" id="series_feature"  name="series_feature">
                   <label class="form-check-label" for="flexCheckDefault">
@@ -3991,7 +4159,7 @@ $(function () {
                   </label>
                 </div>
                 </div>
-              <div class="col-6">
+              <div class="col-4">
                 <div class="col-sm-2 col-2">
                   <select id="series_specific_faction_buffs" multiple="multiple">
                       <option value="Cyclops">Cyclops</option>
@@ -4013,6 +4181,7 @@ $(function () {
             <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Price">Price</button>
             <div id="Price" class="trait-category collapse">
                   <div class="row trait-feature-row">
+                    <div class="row">
                     <div class="col-2">
                       <input type="number" class="form-control" min="0" id="min_num" placeholder="Min">
                     </div>
@@ -4028,6 +4197,7 @@ $(function () {
                     <button type="submit" class="btn-block" id="price_apply">Apply</button>
                     </div>
                   </div>
+                  </div>
           </div>
           </div>
 
@@ -4035,6 +4205,7 @@ $(function () {
             <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Buff_Score">Buff Score</button>
             <div id="Buff_Score" class="trait-category collapse">
                   <div class="row trait-feature-row">
+                    <div class="row">
                     <div class="col-2">
                       <input type="number" class="form-control" min="0" max="50" id="min_score" placeholder="Min">
                     </div>
@@ -4050,6 +4221,7 @@ $(function () {
                     <button type="submit" class="btn-block" id="buff_score_apply">Apply</button>
                     </div>
                   </div>
+                  </div>
           </div>
           </div>
 
@@ -4057,7 +4229,7 @@ $(function () {
               <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Background">Background</button>
               <div id="Background" class="trait-category collapse">
                 <div class="row trait-feature-row">
-                  <div class="col-6">
+                  <div class="col-8">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Atmospheric" id="background_feature" name="background_feature">
                   <label class="form-check-label" for="flexCheckDefault">
@@ -4065,7 +4237,7 @@ $(function () {
                   </label>
                 </div>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                   <div class="col-sm-2 col-2">
                     <select id="background_specific_atmospheric" multiple="multiple">
                   <option value="Starry Night">Starry Night</option>
@@ -4079,7 +4251,7 @@ $(function () {
                 </div>
                 </div>
                 <div class="row trait-feature-row">
-                  <div class="col-6">
+                  <div class="col-8">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Colors" id="background_feature" name="background_feature">
                   <label class="form-check-label" for="tester">
@@ -4087,7 +4259,7 @@ $(function () {
                   </label>
                 </div>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                   <div class="col-sm-2 col-2">
                     <select id="background_specific_colors" multiple="multiple">
                         <option value="Desert Yellow">Desert Yellow</option>
@@ -4102,7 +4274,7 @@ $(function () {
                 </div>
                 </div>
                 <div class="row trait-feature-row">
-                  <div class="col-6">
+                  <div class="col-8">
                 <div class="form-check">
                   <input class="form-check-input" type="checkbox" value="Dimensions" id="background_feature"  name="background_feature">
                   <label class="form-check-label" for="flexCheckDefault">
@@ -4110,7 +4282,7 @@ $(function () {
                   </label>
                 </div>
                 </div>
-              <div class="col-6">
+              <div class="col-4">
                 <div class="col-sm-2 col-2">
                   <select id="background_specific_dimensions" multiple="multiple">
                       <option value="Heaven">Heaven</option>
@@ -4128,7 +4300,7 @@ $(function () {
             <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Fur">Fur</button>
             <div id="Fur" class="trait-category collapse">
               <div class="row trait-feature-row">
-                <div class="col-6">
+                <div class="col-8">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="Animal" id="fur_feature" name="fur_feature">
                 <label class="form-check-label" for="flexCheckDefault">
@@ -4136,7 +4308,7 @@ $(function () {
                 </label>
               </div>
               </div>
-              <div class="col-6">
+              <div class="col-4">
                 <div class="col-sm-2 col-2">
                   <select id="fur_specific_animal" multiple="multiple">
                 <option value="Black Leopard">Black Leopard</option>
@@ -4153,7 +4325,7 @@ $(function () {
               </div>
               </div>
               <div class="row trait-feature-row">
-                <div class="col-6">
+                <div class="col-8">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="Designer" id="fur_feature" name="fur_feature">
                 <label class="form-check-label" for="flexCheckDefault">
@@ -4161,7 +4333,7 @@ $(function () {
                 </label>
               </div>
               </div>
-              <div class="col-6">
+              <div class="col-4">
                 <div class="col-sm-2 col-2">
                   <select id="fur_specific_designer" multiple="multiple">
                       <option value="Static Noise">Static Noise</option>
@@ -4175,7 +4347,7 @@ $(function () {
               </div>
               </div>
               <div class="row trait-feature-row">
-                <div class="col-6">
+                <div class="col-8">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="Devilish" id="fur_feature"  name="fur_feature">
                 <label class="form-check-label" for="flexCheckDefault">
@@ -4183,7 +4355,7 @@ $(function () {
                 </label>
               </div>
               </div>
-            <div class="col-6">
+            <div class="col-4">
               <div class="col-sm-2 col-2">
                 <select id="fur_specific_devilish" multiple="multiple">
                     <option value="Devilish">Devil</option>
@@ -4192,7 +4364,7 @@ $(function () {
             </div>
             </div>
             <div class="row trait-feature-row">
-              <div class="col-6">
+              <div class="col-8">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="Standard" id="fur_feature"  name="fur_feature">
               <label class="form-check-label" for="flexCheckDefault">
@@ -4200,7 +4372,7 @@ $(function () {
               </label>
             </div>
             </div>
-          <div class="col-6">
+          <div class="col-4">
             <div class="col-sm-2 col-2">
               <select id="fur_specific_standard" multiple="multiple">
                   <option value="Purple">Purple</option>
@@ -4219,7 +4391,7 @@ $(function () {
           </div>
           </div>
           <div class="row trait-feature-row">
-            <div class="col-6">
+            <div class="col-8">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="The_Demi_Buff" id="fur_feature"  name="fur_feature">
             <label class="form-check-label" for="flexCheckDefault">
@@ -4227,7 +4399,7 @@ $(function () {
             </label>
           </div>
           </div>
-        <div class="col-6">
+        <div class="col-4">
           <div class="col-sm-2 col-2">
             <select id="fur_specific_the_demi_buff" multiple="multiple">
                 <option value="Black Angel">Black Angel</option>
@@ -4236,7 +4408,7 @@ $(function () {
         </div>
         </div>
         <div class="row trait-feature-row">
-          <div class="col-6">
+          <div class="col-8">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="The_Elders" id="fur_feature"  name="fur_feature">
           <label class="form-check-label" for="flexCheckDefault">
@@ -4244,7 +4416,7 @@ $(function () {
           </label>
         </div>
         </div>
-      <div class="col-6">
+      <div class="col-4">
         <div class="col-sm-2 col-2">
           <select id="fur_specific_the_elders" multiple="multiple">
               <option value="Braided">Braided</option>
@@ -4254,7 +4426,7 @@ $(function () {
       </div>
       </div>
       <div class="row trait-feature-row">
-        <div class="col-6">
+        <div class="col-8">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="The_Risen" id="fur_feature"  name="fur_feature">
         <label class="form-check-label" for="flexCheckDefault">
@@ -4262,7 +4434,7 @@ $(function () {
         </label>
       </div>
       </div>
-    <div class="col-6">
+    <div class="col-4">
       <div class="col-sm-2 col-2">
         <select id="fur_specific_the_risen" multiple="multiple">
             <option value="Zombie">Zombie</option>
@@ -4272,7 +4444,7 @@ $(function () {
     </div>
     </div>
     <div class="row trait-feature-row">
-      <div class="col-6">
+      <div class="col-8">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" value="White_Angel" id="fur_feature"  name="fur_feature">
       <label class="form-check-label" for="flexCheckDefault">
@@ -4280,7 +4452,7 @@ $(function () {
       </label>
     </div>
     </div>
-  <div class="col-6">
+  <div class="col-4">
     <div class="col-sm-2 col-2">
       <select id="fur_specific_white_angel" multiple="multiple">
           <option value="Angel">Angel</option>
@@ -4295,7 +4467,7 @@ $(function () {
           <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Swag">Swag</button>
           <div id="Swag" class="trait-category collapse">
             <div class="row trait-feature-row">
-              <div class="col-6">
+              <div class="col-8">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="Baby_Buff" id="swag_feature" name="swag_feature">
               <label class="form-check-label" for="flexCheckDefault">
@@ -4303,7 +4475,7 @@ $(function () {
               </label>
             </div>
             </div>
-            <div class="col-6">
+            <div class="col-4">
               <div class="col-sm-2 col-2">
                 <select id="swag_specific_baby_buff" multiple="multiple">
               <option value="Baby Buff Bag Hiding Brown">Baby Buff Bag Hiding Brown</option>
@@ -4316,7 +4488,7 @@ $(function () {
             </div>
             </div>
             <div class="row trait-feature-row">
-              <div class="col-6">
+              <div class="col-8">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="Bane_Veins" id="swag_feature" name="swag_feature">
               <label class="form-check-label" for="flexCheckDefault">
@@ -4324,7 +4496,7 @@ $(function () {
               </label>
             </div>
             </div>
-            <div class="col-6">
+            <div class="col-4">
               <div class="col-sm-2 col-2">
                 <select id="swag_specific_bane_veins" multiple="multiple">
                     <option value="Veins">Veins</option>
@@ -4334,7 +4506,7 @@ $(function () {
             </div>
             </div>
             <div class="row trait-feature-row">
-              <div class="col-6">
+              <div class="col-8">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="Middle_Class_Fancy" id="swag_feature"  name="swag_feature">
               <label class="form-check-label" for="flexCheckDefault">
@@ -4342,7 +4514,7 @@ $(function () {
               </label>
             </div>
             </div>
-          <div class="col-6">
+          <div class="col-4">
             <div class="col-sm-2 col-2">
               <select id="swag_specific_middle_class_fancy" multiple="multiple">
                   <option value="BAMF">BAMF</option>
@@ -4365,7 +4537,7 @@ $(function () {
           </div>
           </div>
           <div class="row trait-feature-row">
-            <div class="col-6">
+            <div class="col-8">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="Premium_Ink" id="swag_feature"  name="swag_feature">
             <label class="form-check-label" for="flexCheckDefault">
@@ -4373,7 +4545,7 @@ $(function () {
             </label>
           </div>
           </div>
-        <div class="col-6">
+        <div class="col-4">
           <div class="col-sm-2 col-2">
             <select id="swag_specific_premium_ink" multiple="multiple">
                 <option value="Skull Wing">Skull Wing</option>
@@ -4385,7 +4557,7 @@ $(function () {
         </div>
         </div>
           <div class="row trait-feature-row">
-            <div class="col-6">
+            <div class="col-8">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="Premium_Swag" id="swag_feature"  name="swag_feature">
             <label class="form-check-label" for="flexCheckDefault">
@@ -4393,7 +4565,7 @@ $(function () {
             </label>
           </div>
           </div>
-        <div class="col-6">
+        <div class="col-4">
           <div class="col-sm-2 col-2">
             <select id="swag_specific_premium_swag" multiple="multiple">
                 <option value="The Name's Buff, James Buff">The Name's Buff, James Buff</option>
@@ -4412,7 +4584,7 @@ $(function () {
         </div>
         </div>
         <div class="row trait-feature-row">
-          <div class="col-6">
+          <div class="col-8">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="Premium_Weapons" id="swag_feature"  name="swag_feature">
           <label class="form-check-label" for="flexCheckDefault">
@@ -4420,7 +4592,7 @@ $(function () {
           </label>
         </div>
         </div>
-      <div class="col-6">
+      <div class="col-4">
         <div class="col-sm-2 col-2">
           <select id="swag_specific_premium_weapons" multiple="multiple">
               <option value="Chainmail with The Staff">Chainmail with The Staff</option>
@@ -4432,7 +4604,7 @@ $(function () {
       </div>
       </div>
     <div class="row trait-feature-row">
-      <div class="col-6">
+      <div class="col-8">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" value="Standard" id="swag_feature"  name="swag_feature">
       <label class="form-check-label" for="flexCheckDefault">
@@ -4440,7 +4612,7 @@ $(function () {
       </label>
     </div>
     </div>
-  <div class="col-6">
+  <div class="col-4">
     <div class="col-sm-2 col-2">
       <select id="swag_specific_standard" multiple="multiple">
           <option value="Chadagonia Blue">Chadagonia Blue</option>
@@ -4468,7 +4640,7 @@ $(function () {
   </div>
   </div>
   <div class="row trait-feature-row">
-    <div class="col-6">
+    <div class="col-8">
   <div class="form-check">
     <input class="form-check-input" type="checkbox" value="Symbol" id="swag_feature"  name="swag_feature">
     <label class="form-check-label" for="flexCheckDefault">
@@ -4476,7 +4648,7 @@ $(function () {
     </label>
   </div>
   </div>
-<div class="col-6">
+<div class="col-4">
   <div class="col-sm-2 col-2">
     <select id="swag_specific_symbol" multiple="multiple">
         <option value="野牛">野牛</option>
@@ -4491,7 +4663,7 @@ $(function () {
         <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Horns">Horns</button>
         <div id="Horns" class="trait-category collapse">
           <div class="row trait-feature-row">
-            <div class="col-6">
+            <div class="col-8">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="Animal_Horns" id="horns_feature" name="horns_feature">
             <label class="form-check-label" for="flexCheckDefault">
@@ -4499,7 +4671,7 @@ $(function () {
             </label>
           </div>
           </div>
-          <div class="col-6">
+          <div class="col-4">
             <div class="col-sm-2 col-2">
               <select id="horns_specific_animal_horns" multiple="multiple">
             <option value="Moose Antlers">Moose Antlers</option>
@@ -4511,7 +4683,7 @@ $(function () {
           </div>
           </div>
           <div class="row trait-feature-row">
-            <div class="col-6">
+            <div class="col-8">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="Baby_Buff" id="horns_feature" name="horns_feature">
             <label class="form-check-label" for="flexCheckDefault">
@@ -4519,7 +4691,7 @@ $(function () {
             </label>
           </div>
           </div>
-          <div class="col-6">
+          <div class="col-4">
             <div class="col-sm-2 col-2">
               <select id="horns_specific_baby_buff" multiple="multiple">
                   <option value="Baby Buff Blue">Baby Buff Blue</option>
@@ -4532,7 +4704,7 @@ $(function () {
           </div>
           </div>
           <div class="row trait-feature-row">
-            <div class="col-6">
+            <div class="col-8">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="Halo" id="horns_feature"  name="horns_feature">
             <label class="form-check-label" for="flexCheckDefault">
@@ -4540,7 +4712,7 @@ $(function () {
             </label>
           </div>
           </div>
-        <div class="col-6">
+        <div class="col-4">
           <div class="col-sm-2 col-2">
             <select id="horns_specific_halo" multiple="multiple">
                 <option value="Demon Horns">Demon Horns</option>
@@ -4550,7 +4722,7 @@ $(function () {
         </div>
         </div>
         <div class="row trait-feature-row">
-          <div class="col-6">
+          <div class="col-8">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="Standard" id="horns_feature"  name="horns_feature">
           <label class="form-check-label" for="flexCheckDefault">
@@ -4558,7 +4730,7 @@ $(function () {
           </label>
         </div>
         </div>
-      <div class="col-6">
+      <div class="col-4">
         <div class="col-sm-2 col-2">
           <select id="horns_specific_standard" multiple="multiple">
               <option value="The Marley">The Marley</option>
@@ -4579,7 +4751,7 @@ $(function () {
       </div>
       </div>
         <div class="row trait-feature-row">
-          <div class="col-6">
+          <div class="col-8">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="Standard_Plus" id="horns_feature"  name="horns_feature">
           <label class="form-check-label" for="flexCheckDefault">
@@ -4587,7 +4759,7 @@ $(function () {
           </label>
         </div>
         </div>
-      <div class="col-6">
+      <div class="col-4">
         <div class="col-sm-2 col-2">
           <select id="horns_specific_standard_plus" multiple="multiple">
               <option value="Cowboy Hat">Cowboy Hat</option>
@@ -4605,7 +4777,7 @@ $(function () {
       </div>
       </div>
       <div class="row trait-feature-row">
-        <div class="col-6">
+        <div class="col-8">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="The_Messiah" id="horns_feature"  name="horns_feature">
         <label class="form-check-label" for="flexCheckDefault">
@@ -4613,7 +4785,7 @@ $(function () {
         </label>
       </div>
       </div>
-    <div class="col-6">
+    <div class="col-4">
       <div class="col-sm-2 col-2">
         <select id="horns_specific_the_messiah" multiple="multiple">
             <option value="Messiah's Crown">Messiah's Crown</option>
@@ -4622,7 +4794,7 @@ $(function () {
     </div>
     </div>
   <div class="row trait-feature-row">
-    <div class="col-6">
+    <div class="col-8">
   <div class="form-check">
     <input class="form-check-input" type="checkbox" value="Variant" id="horns_feature"  name="horns_feature">
     <label class="form-check-label" for="flexCheckDefault">
@@ -4630,7 +4802,7 @@ $(function () {
     </label>
   </div>
   </div>
-<div class="col-6">
+<div class="col-4">
   <div class="col-sm-2 col-2">
     <select id="horns_specific_variant" multiple="multiple">
         <option value="White Black Fade">White Black Fade</option>
@@ -4652,7 +4824,7 @@ $(function () {
       <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Eyes">Eyes</button>
       <div id="Eyes" class="trait-category collapse">
         <div class="row trait-feature-row">
-          <div class="col-6">
+          <div class="col-8">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="Battle_Ridden" id="eyes_feature" name="eyes_feature">
           <label class="form-check-label" for="flexCheckDefault">
@@ -4660,7 +4832,7 @@ $(function () {
           </label>
         </div>
         </div>
-        <div class="col-6">
+        <div class="col-4">
           <div class="col-sm-2 col-2">
             <select id="eyes_specific_battle_ridden" multiple="multiple">
           <option value="Open Scar">Open Scar</option>
@@ -4672,7 +4844,7 @@ $(function () {
         </div>
         </div>
         <div class="row trait-feature-row">
-          <div class="col-6">
+          <div class="col-8">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="Beams" id="eyes_feature" name="eyes_feature">
           <label class="form-check-label" for="flexCheckDefault">
@@ -4680,7 +4852,7 @@ $(function () {
           </label>
         </div>
         </div>
-        <div class="col-6">
+        <div class="col-4">
           <div class="col-sm-2 col-2">
             <select id="eyes_specific_beams" multiple="multiple">
                 <option value="Red Beam">Red Beam</option>
@@ -4691,7 +4863,7 @@ $(function () {
         </div>
         </div>
         <div class="row trait-feature-row">
-          <div class="col-6">
+          <div class="col-8">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="Betrayer" id="eyes_feature"  name="eyes_feature">
           <label class="form-check-label" for="flexCheckDefault">
@@ -4699,7 +4871,7 @@ $(function () {
           </label>
         </div>
         </div>
-      <div class="col-6">
+      <div class="col-4">
         <div class="col-sm-2 col-2">
           <select id="eyes_specific_betrayer" multiple="multiple">
               <option value="Betrayer">Betrayer</option>
@@ -4708,7 +4880,7 @@ $(function () {
       </div>
       </div>
       <div class="row trait-feature-row">
-        <div class="col-6">
+        <div class="col-8">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="Eyewear" id="eyes_feature"  name="eyes_feature">
         <label class="form-check-label" for="flexCheckDefault">
@@ -4716,7 +4888,7 @@ $(function () {
         </label>
       </div>
       </div>
-    <div class="col-6">
+    <div class="col-4">
       <div class="col-sm-2 col-2">
         <select id="eyes_specific_eyewear" multiple="multiple">
             <option value="Aviators">Aviators</option>
@@ -4731,7 +4903,7 @@ $(function () {
     </div>
     </div>
       <div class="row trait-feature-row">
-        <div class="col-6">
+        <div class="col-8">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="Impressionable" id="eyes_feature"  name="eyes_feature">
         <label class="form-check-label" for="flexCheckDefault">
@@ -4739,7 +4911,7 @@ $(function () {
         </label>
       </div>
       </div>
-    <div class="col-6">
+    <div class="col-4">
       <div class="col-sm-2 col-2">
         <select id="eyes_specific_impressionable" multiple="multiple">
             <option value="Starry Eyes">Starry Eyes</option>
@@ -4752,7 +4924,7 @@ $(function () {
     </div>
     </div>
     <div class="row trait-feature-row">
-      <div class="col-6">
+      <div class="col-8">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" value="Standard" id="eyes_feature"  name="eyes_feature">
       <label class="form-check-label" for="flexCheckDefault">
@@ -4760,7 +4932,7 @@ $(function () {
       </label>
     </div>
     </div>
-  <div class="col-6">
+  <div class="col-4">
     <div class="col-sm-2 col-2">
       <select id="eyes_specific_standard" multiple="multiple">
           <option value="Bored Eyes">Bored Eyes</option>
@@ -4784,7 +4956,7 @@ $(function () {
     <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Mouth">Mouth</button>
     <div id="Mouth" class="trait-category collapse">
       <div class="row trait-feature-row">
-        <div class="col-6">
+        <div class="col-8">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="Bull_Rings" id="mouth_feature" name="mouth_feature">
         <label class="form-check-label" for="flexCheckDefault">
@@ -4792,7 +4964,7 @@ $(function () {
         </label>
       </div>
       </div>
-      <div class="col-6">
+      <div class="col-4">
         <div class="col-sm-2 col-2">
           <select id="mouth_specific_bull_rings" multiple="multiple">
         <option value="Gold">Gold</option>
@@ -4804,7 +4976,7 @@ $(function () {
       </div>
       </div>
       <div class="row trait-feature-row">
-        <div class="col-6">
+        <div class="col-8">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="Cool_Guy" id="mouth_feature" name="mouth_feature">
         <label class="form-check-label" for="flexCheckDefault">
@@ -4812,7 +4984,7 @@ $(function () {
         </label>
       </div>
       </div>
-      <div class="col-6">
+      <div class="col-4">
         <div class="col-sm-2 col-2">
           <select id="mouth_specific_cool_guy" multiple="multiple">
               <option value="Ciggy">Ciggy</option>
@@ -4825,7 +4997,7 @@ $(function () {
       </div>
       </div>
       <div class="row trait-feature-row">
-        <div class="col-6">
+        <div class="col-8">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="Heated" id="mouth_feature"  name="mouth_feature">
         <label class="form-check-label" for="flexCheckDefault">
@@ -4833,7 +5005,7 @@ $(function () {
         </label>
       </div>
       </div>
-    <div class="col-6">
+    <div class="col-4">
       <div class="col-sm-2 col-2">
         <select id="mouth_specific_heated" multiple="multiple">
             <option value="Hot Tamale">Hot Tamale</option>
@@ -4844,7 +5016,7 @@ $(function () {
     </div>
     </div>
     <div class="row trait-feature-row">
-      <div class="col-6">
+      <div class="col-8">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" value="KEWL" id="mouth_feature"  name="mouth_feature">
       <label class="form-check-label" for="flexCheckDefault">
@@ -4852,7 +5024,7 @@ $(function () {
       </label>
     </div>
     </div>
-  <div class="col-6">
+  <div class="col-4">
     <div class="col-sm-2 col-2">
       <select id="mouth_specific_kewl" multiple="multiple">
           <option value="BAMF GRILLZ">BAMF GRILLZ</option>
@@ -4870,7 +5042,7 @@ $(function () {
   </div>
   </div>
     <div class="row trait-feature-row">
-      <div class="col-6">
+      <div class="col-8">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" value="Prehistoric" id="mouth_feature"  name="mouth_feature">
       <label class="form-check-label" for="flexCheckDefault">
@@ -4878,7 +5050,7 @@ $(function () {
       </label>
     </div>
     </div>
-  <div class="col-6">
+  <div class="col-4">
     <div class="col-sm-2 col-2">
       <select id="mouth_specific_prehistoric" multiple="multiple">
           <option value="Troll Tusks">Troll Tusks</option>
@@ -4888,7 +5060,7 @@ $(function () {
   </div>
   </div>
   <div class="row trait-feature-row">
-    <div class="col-6">
+    <div class="col-8">
   <div class="form-check">
     <input class="form-check-input" type="checkbox" value="Standard" id="mouth_feature"  name="mouth_feature">
     <label class="form-check-label" for="flexCheckDefault">
@@ -4896,7 +5068,7 @@ $(function () {
     </label>
   </div>
   </div>
-<div class="col-6">
+<div class="col-4">
   <div class="col-sm-2 col-2">
     <select id="mouth_specific_standard" multiple="multiple">
         <option value="Befuddled">Befuddled</option>
@@ -4927,7 +5099,7 @@ $(function () {
   <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Smoking">Smoking</button>
   <div id="Smoking" class="trait-category collapse">
     <div class="row trait-feature-row">
-      <div class="col-6">
+      <div class="col-8">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" value="Yes" id="smoking_feature" name="smoking_feature">
       <label class="form-check-label" for="flexCheckDefault">
@@ -4935,7 +5107,7 @@ $(function () {
       </label>
     </div>
     </div>
-    <div class="col-6">
+    <div class="col-4">
       <div class="col-sm-2 col-2">
         <select id="smoking_specific_yes" multiple="multiple">
       <option value="Ciggy">Ciggy</option>
@@ -4945,7 +5117,7 @@ $(function () {
     </div>
     </div>
     <div class="row trait-feature-row">
-      <div class="col-6">
+      <div class="col-8">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" value="No" id="smoking_feature" name="smoking_feature">
       <label class="form-check-label" for="flexCheckDefault">
@@ -4953,7 +5125,7 @@ $(function () {
       </label>
     </div>
     </div>
-    <div class="col-6">
+    <div class="col-4">
     </div>
     </div>
 </div>
@@ -4963,7 +5135,7 @@ $(function () {
   <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Double_Baby">Double Baby</button>
   <div id="Double_Baby" class="trait-category collapse">
     <div class="row trait-feature-row">
-      <div class="col-6">
+      <div class="col-4">
     <div class="form-check">
       <input class="form-check-input" type="checkbox" value="Yes" id="double_baby_feature" name="double_baby_feature">
       <label class="form-check-label" for="flexCheckDefault">
@@ -4971,7 +5143,27 @@ $(function () {
       </label>
     </div>
     </div>
-    <div class="col-6">
+    <div class="col-4">
+      <div class="col-sm-2 col-2">
+        <select id="double_baby_specific_swag" multiple="multiple">
+            <option value="Baby Buff Bag Peaking Blue">Baby Buff Bag Peaking Blue</option>
+            <option value="Baby Buff Bag Hiding Brown">Baby Buff Bag Hiding Brown</option>
+            <option value="Baby Buff Bag Hiding Green">Baby Buff Bag Hiding Green</option>
+            <option value="Baby Buff Bag Hiding Pink">Baby Buff Bag Hiding Pink</option>
+            <option value="Young Padabuff">Young Padabuff</option>
+          </select>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="col-sm-2 col-2">
+        <select id="double_baby_specific_horns" multiple="multiple">
+            <option value="Baby Buff Blue">Baby Buff Blue</option>
+            <option value="Baby Buff Brown">Baby Buff Brown</option>
+            <option value="Baby Buff Green">Baby Buff Green</option>
+            <option value="Baby Buff Pink">Baby Buff Pink</option>
+            <option value="Demon Baby Buff">Demon Baby Buff</option>
+          </select>
+      </div>
     </div>
     </div>
     <div class="row trait-feature-row">
@@ -4989,85 +5181,125 @@ $(function () {
 </div>
 </div>
 
+<div class="collections-box">
+  <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Collections">Collections</button>
+  <div id="Collections" class="trait-category collapse">
+    <div class="row trait-feature-row">
+      <div class="col-8">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="Yes" id="collections_feature" name="collections_feature">
+      <label class="form-check-label" for="flexCheckDefault">
+        Yes
+      </label>
+    </div>
+    </div>
+    <div class="col-4">
+      <div class="col-sm-2 col-2">
+        <select id="collections_specific_yes" multiple="multiple">
+      <option value="Cyborg Set">Cyborg Set</option>
+      <option value="Cowboy">Cowboy</option>
+      <option value="DBZ">DBZ</option>
+      <option value="Matrix">Matrix</option>
+      <option value="NoNo">NoNo</option>
+      <option value="Undead">Undead</option>
+      <option value="Albino">Albino</option>
+      <option value="Rice Farmer">Rice Farmer</option>
+      <option value="Super Hero">Super Hero</option>
+      <option value="Trippy">Trippy</option>
+      <option value="Gentleman">Gentleman</option>
+      <option value="Joseph Smith">Joseph Smith</option>
+      <option value="Day Walker">Day Walker</option>
+      <option value="Jordan">Jordan</option>
+      <option value="Hells Kitchen">Hells Kitchen</option>
+      <option value="Golded">Golded</option>
+      <option value="Girl">Girl</option>
+      <option value="Rasta">Rasta</option>
+      <option value="Radix">Radix</option>
+      <option value="Bloody">Bloody</option>
+      <option value="BAMF">BAMF</option>
+      <option value="Frat Buff">Frat Buff</option>
+      <option value="Demigod">Demigod</option>
+      <option value="Regrets">Regrets</option>
+      <option value="Raver">Raver</option>
+      <option value="Kiddie Pool">Kiddie Pool</option>
+      <option value="Mutated">Mutated</option>
+      <option value="Half Dead">Half Dead</option>
+      <option value="Oversized">Oversized</option>
+      <option value="Easter Celebration">Easter Celebration</option>
+      <option value="Brads And Chads">Brads And Chads</option>
+      <option value="Chromed Out">Chromed Out</option>
+      <option value="Natural Evolution">Natural Evolution</option>
+      <option value="Pride">Pride</option>
+      <option value="Buffs Mafia">Buffs Mafia</option>
+      <option value="Family Guy">Family Guy</option>
+      <option value="Agent Zero">Agent Zero</option>
+      <option value="Playboy">Playboy</option>
+      <option value="Battle Hardened">Battle Hardened</option>
+      <option value="Fire">Fire</option>
+    </select>
+</div>
+    </div>
+    </div>
+    <div class="row trait-feature-row">
+      <div class="col-8">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="No" id="collections_feature" name="collections_feature">
+      <label class="form-check-label" for="flexCheckDefault">
+        No
+      </label>
+    </div>
+    </div>
+    <div class="col-4">
+    </div>
+    </div>
+</div>
+</div>
 
-            <!-- <div class="col-sm-2 col-2">
-              <label for="background">Background</label>
-              <select data-toggle="collapse" id="background" multiple="multiple">
-                  <option value="Atmospheric">Atmospheric</option>
-                  <option value="Colors">Colors</option>
-                  <option value="Dimensions">Dimensions</option>
-                </select>
-            </div> -->
+<div class="matching-box">
+  <button type="button" class="btn-block collapsible-link collapsed" data-toggle="collapse" data-target="#Matching">Matching</button>
+  <div id="Matching" class="trait-category collapse">
+    <div class="row trait-feature-row">
+      <div class="col-8">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="Yes" id="matching_feature" name="matching_feature">
+      <label class="form-check-label" for="flexCheckDefault">
+        Yes
+      </label>
+    </div>
+    </div>
+    <div class="col-4">
+      <div class="col-sm-2 col-2">
+        <select id="matching_specific_yes" multiple="multiple">
+      <option value="Black">Black</option>
+      <option value="Blue">Blue</option>
+      <option value="Brown">Brown</option>
+      <option value="Green">Green</option>
+      <option value="Orange">Orange</option>
+      <option value="Pink">Pink</option>
+      <option value="Purple">Purple</option>
+      <option value="Red">Red</option>
+      <option value="Yellow">Yellow</option>
+    </select>
+</div>
+    </div>
+    </div>
+    <div class="row trait-feature-row">
+      <div class="col-8">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="No" id="matching_feature" name="matching_feature">
+      <label class="form-check-label" for="flexCheckDefault">
+        No
+      </label>
+    </div>
+    </div>
+    <div class="col-4">
+    </div>
+    </div>
+</div>
+</div>
 
-            <!-- <div class="col-sm-2 col-2">
-              <label for="fur">Fur</label>
-              <select id="fur" multiple="multiple">
-                  <option value="Standard">Standard</option>
-                  <option value="Animal">Animal</option>
-                  <option value="Designer">Designer</option>
-                  <option value="The Risen">The Risen</option>
-                  <option value="The Elders">The Elders</option>
-                  <option value="The Demi Buff">The Demi Buff</option>
-                  <option value="White Angel">White Angel</option>
-                  <option value="Devilish">Devilish</option>
-                </select>
-            </div>
-            <div class="col-sm-2 col-2">
-              <label for="fur_specific">Fur Specific</label>
-              <select id="fur_specific" multiple="multiple">
-                <optgroup label="Standard">
-                  <option value="Purple">Purple</option>
-                  <option value="Base Buff">Base Buff</option>
-                  <option value="Browny">Browny</option>
-                  <option value="Ginger Snap">Ginger Snap</option>
-                </optgroup>
-                <optgroup label="Animal">
-                  <option value="Black Leopard">Black Leopard</option>
-                  <option value="Cheetah">Cheetah</option>
-                  <option value="Cheetah Blue">Cheetah Blue</option>
-                  <option value="Leopard Green">Leopard Green</option>
-                </optgroup>
-              </select>
-            </div> -->
 
-            <div class="col-sm-2 col-2">
-                <div class="form-group">
-                    <label for="matching">Matching Colors</label>
-                    <select class="form-control" id="matching"
-                        url = "{%url 'main:get_matching' %}">
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-2 col-2">
-                <div class="form-group">
-                    <label for="collections">Collections</label>
-                    <select class="form-control" id="collections"
-                        url = "{%url 'main:get_collections' %}">
-                    </select>
-                </div>
-            </div>
 
-            <div class="col-sm-2 col-2">
-                <div class="form-group">
-                    <label for="sort_by">Sort By</label>
-                    <select class="form-control" id="sort_by">
-                        <option selected="true"
-                        disabled="disabled" value = "none">Choose option</option>
-                        <option value='uniqueId_ascending'>Mint Number: Low to High</option>
-                        <option value='uniqueId_descending'>Mint Number: High to Low</option>
-                        <option value='forSale_ascending'>Price: Low to High</option>
-                        <option value='forSale_descending'>Price: High to Low</option>
-                        <option value='buffScore_ascending'>Buff Score: Low to High</option>
-                        <option value='buffScore_descending'>Buff Score: High to Low</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-2 col-2">
-                <div class="row justify-content-center align-self-center"
-                    style="color:white; margin-top:30px;">
-                    <a class="btn btn-secondary" id="display_all">Display all</a>
-                </div>
-            </div>
         </div>
       </section>
       </div>
@@ -5077,11 +5309,11 @@ $(function () {
 <section>
     <div class="container-fluid">
         <div id = "result-count" class="text-right">
-            <span class='font-weight-bold'></span> results found.
+            <span class='font-weight-bold'></span> Buffs found.
         </div>
         <div class="row properties_table justify-content-center">
             <div id = "no_results">
-                <h5>No results found</h5>
+                <h5>No Buffs found</h5>
             </div>
             <div class="album py-5">
               <div class="container-fluid buff-results" id="list_data" url = "{% url 'main:listing' %}">
@@ -5109,5 +5341,4 @@ $(function () {
 </div>
 </div>
 </main>
-<script>
 {% endblock %}
