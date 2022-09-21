@@ -51,7 +51,7 @@ class Image(models.Model):
 
 
 class ImageTwo(models.Model):
-    id=models.IntegerField(blank=True)
+    id=models.IntegerField(blank=True, null=True)
     title=models.CharField(null=True, blank=True, max_length=200)
     ownerWallet=models.CharField(default='Locked', max_length=200)
     forSale=models.CharField(default='No', max_length=200)
