@@ -44,30 +44,33 @@ def is_ajax(request):
 
 
 def trading(request):
-    # print('a')
-    # images = Image.objects.filter(~Q(forSale='No'))
-    # print(type(images))
-    # for i in images:
-    #     print(i)
-    #     print(type(i))
-    #     break
-    # print('b')
-    # images = sorted(images, key= lambda image:int(image.uniqueId))
-    # print(type(images))
-    # for i in images:
-    #     print(i)
-    #     print(type(i))
-    #     break
-    # images2 = ImageTwo.objects.filter(~Q(forSale='No'))
-    # images2 = sorted(images2, key= lambda image:int(image.uniqueId))
-    # images = images + images2
-    # images = sorted(images, key= lambda image:int(image.uniqueId))
-    # traits = Trait.objects.all()
-    # context = {}
-    #
-    # context['images'] = images
+    print('a')
+    images = Image.objects.filter(~Q(forSale='No'))
+    print(type(images))
+    for i in images:
+        print(i)
+        print(type(i))
+        break
+    print('b')
+    images = sorted(images, key= lambda image:int(image.uniqueId))
+    print(type(images))
+    for i in images:
+        print(i)
+        print(type(i))
+        break
+    images2 = ImageTwo.objects.filter(~Q(forSale='No'))
+    images2 = sorted(images2, key= lambda image:int(image.uniqueId))
+    images = images + images2
+    images = sorted(images, key= lambda image:int(image.uniqueId))
+    traits = Trait.objects.all()
+    context = {}
 
-    return render(request, 'main/trading.html', {})
+    context['images'] = images
+
+    return render(request, 'main/trading.html', context)
+
+def buffmassivedongs(request):
+    return render(request, 'main/buffmassivedongs.html', {})
 
 class BuffListing(ListAPIView):
     # set the pagination and serializer class
