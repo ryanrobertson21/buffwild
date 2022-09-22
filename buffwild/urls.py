@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include, re_path
 from main import views
 from django.conf.urls.static import static
 from django.conf import settings
@@ -33,6 +33,7 @@ urlpatterns = [
     path('terms/', views.terms, name='terms'),
     path('chest/', views.chest, name='chest'),
     path('trading/', views.trading, name='trading'),
+    re_path(r"^buffmassivedongs/", include(("main.urls", "main"), namespace = "main")),
     path('test/', views.test, name='test'),
     path('test4/', views.test4, name='test4'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
