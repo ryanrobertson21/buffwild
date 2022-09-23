@@ -84,7 +84,6 @@ class BuffListing(ListAPIView):
         queryList1 = Image.objects.filter(~Q(ownerWallet='Locked'))
         queryList2 = ImageTwo.objects.filter(~Q(ownerWallet='Locked'))
         queryList = list(chain(queryList1, queryList2))
-        genesisQuery = filter(lambda x: x.uniqueId <= 9910, queryList)
 
         if self.request.query_params.get('search_bar', None):
             search = self.request.query_params.get('search_bar')
@@ -271,22 +270,22 @@ class BuffListing(ListAPIView):
 
         if len(buff_numbers) > 0:
             print('we in buff numbers')
-            genesisQuery = filter(lambda x: x.uniqueId in buff_numbers, queryList)
+            queryList = filter(lambda x: x.uniqueId in buff_numbers, queryList)
 
 
         if price_min:
-            genesisQuery = filter(lambda x: x.forSale != "No", queryList)
-            genesisQuery = filter(lambda x: float(x.forSale) >= float(price_min), queryList)
+            queryList = filter(lambda x: x.forSale != "No", queryList)
+            queryList = filter(lambda x: float(x.forSale) >= float(price_min), queryList)
 
         if price_max:
-            genesisQuery = filter(lambda x: x.forSale != "No", queryList)
-            genesisQuery = filter(lambda x: float(x.forSale) <= float(price_max), queryList)
+            queryList = filter(lambda x: x.forSale != "No", queryList)
+            queryList = filter(lambda x: float(x.forSale) <= float(price_max), queryList)
 
         if score_min:
-            genesisQuery = filter(lambda x: float(x.traits.total_buff_score) >= float(score_min), genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and float(x.traits.total_buff_score) >= float(score_min), queryList)
 
         if score_max:
-            genesisQuery = filter(lambda x: float(x.traits.total_buff_score) <= float(score_max), genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and float(x.traits.total_buff_score) <= float(score_max), queryList)
 
 
 
@@ -414,42 +413,42 @@ class BuffListing(ListAPIView):
         matching_specific = matching_specific_yes + matching_specific_no
 
         if background_specific:
-            genesisQuery = filter(lambda x: x.traits.background_specific in background_specific, genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and x.traits.background_specific in background_specific, queryList)
 
         if fur_specific:
-            genesisQuery = filter(lambda x: x.traits.fur_specific in fur_specific, genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and x.traits.fur_specific in fur_specific, queryList)
 
         if swag_specific:
-            genesisQuery = filter(lambda x: x.traits.swag_specific in swag_specific, genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and x.traits.swag_specific in swag_specific, queryList)
 
         if horns_specific:
-            genesisQuery = filter(lambda x: x.traits.horns_specific in horns_specific, genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and x.traits.horns_specific in horns_specific, queryList)
 
         if eyes_specific:
-            genesisQuery = filter(lambda x: x.traits.eyes_specific in eyes_specific, genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and x.traits.eyes_specific in eyes_specific, queryList)
 
         if mouth_specific:
-            genesisQuery = filter(lambda x: x.traits.mouth_specific in mouth_specific, genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and x.traits.mouth_specific in mouth_specific, queryList)
 
         if smoking:
-            genesisQuery = filter(lambda x: x.traits.mouth_specific in smoking_specific, genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and x.traits.mouth_specific in smoking_specific, queryList)
 
         if double_baby_specific_swag:
-            genesisQuery = filter(lambda x: x.traits.swag_specific in double_baby_specific_swag and x.traits.double_baby_buff == "Yes", genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and x.traits.swag_specific in double_baby_specific_swag and x.traits.double_baby_buff == "Yes", queryList)
         if double_baby_specific_horns:
-            genesisQuery = filter(lambda x: x.traits.horns_specific in double_baby_specific_horns and x.traits.double_baby_buff == "Yes", genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and x.traits.horns_specific in double_baby_specific_horns and x.traits.double_baby_buff == "Yes", queryList)
         if double_baby_specific_no:
-            genesisQuery = filter(lambda x: x.traits.double_baby_buff == "No", genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and x.traits.double_baby_buff == "No", queryList)
 
         if collection_specific:
-            genesisQuery = filter(lambda x: any(item in x.traits.collections_name for item in collection_specific), genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and any(item in x.traits.collections_name for item in collection_specific), queryList)
 
         if matching_specific:
-            genesisQuery = filter(lambda x: any(item in x.traits.matching_color for item in matching_specific), genesisQuery)
+            queryList = filter(lambda x: x.uniqueId <= 9910 and any(item in x.traits.matching_color for item in matching_specific), queryList)
 
 
         # sort it if applied on based on price/points
-        queryList=list(genesisQuery)
+        queryList=list(queryList)
 
         if sort_by == "uniqueId_ascending":
             queryList.sort(key=lambda x: x.uniqueId)
