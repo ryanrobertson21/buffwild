@@ -13,15 +13,6 @@ class TraitSerializer(serializers.ModelSerializer):
         'mouth_feature', 'mouth_feature_rarity', 'mouth_specific', 'mouth_buff_score',
         'smoking', 'smoking_rarity', 'smoking_buff_score',
         'double_baby_buff', 'double_baby_buff_rarity', 'double_baby_buff_buff_score',
-        'green', 'green_num', 'green_rarity', 'green_buff_score',
-        'red', 'red_num', 'red_rarity', 'red_buff_score',
-        'purple', 'purple_num', 'purple_rarity', 'purple_buff_score',
-        'blue', 'blue_num', 'blue_rarity', 'blue_buff_score',
-        'pink', 'pink_num', 'pink_rarity', 'pink_buff_score',
-        'yellow', 'yellow_num', 'yellow_rarity', 'yellow_buff_score',
-        'brown', 'brown_num', 'brown_rarity', 'brown_buff_score',
-        'black', 'black_num', 'black_rarity', 'black_buff_score',
-        'orange', 'orange_num', 'orange_rarity', 'orange_buff_score',
         'matching', 'matching_color', 'matching_rarity', 'matching_buff_score', "matching_dictionary",
         'collections', 'collections_name', 'collections_rarity', 'collections_buff_score', "collections_dictionary"
 ]
