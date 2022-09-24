@@ -81,9 +81,10 @@ class BuffListing(ListAPIView):
 
     def get_queryset(self):
         # filter the queryset based on the filters applied
-        queryList1 = Image.objects.filter(~Q(ownerWallet='Locked'))
+        queryList1 = Image.objects.select_related('traits').filter(~Q(ownerWallet='Locked'))
         queryList2 = ImageTwo.objects.filter(~Q(ownerWallet='Locked'))
         queryList = list(chain(queryList1, queryList2))
+        print('HERE 1')
 
         if self.request.query_params.get('search_bar', None):
             search = self.request.query_params.get('search_bar')
@@ -92,7 +93,7 @@ class BuffListing(ListAPIView):
                     queryList = filter(lambda x: x.uniqueId == int(search), queryList)
             except ValueError: ## This prevents someone who searches for anything but a number from breaking the page
                 queryList = filter(lambda x: x.ownerWallet == search, queryList)
-
+        print('HERE 2')
         status = self.request.query_params.getlist('status', None)
 
         series = self.request.query_params.getlist('series[]', None)
@@ -173,7 +174,7 @@ class BuffListing(ListAPIView):
         matching_specific_no = self.request.query_params.getlist('matching_specific_no[]', None)
 
         sort_by = self.request.query_params.get('sort_by', None)
-
+        print('HERE 3')
         buff_numbers = []
 
         if 'All' in status:
@@ -399,7 +400,7 @@ class BuffListing(ListAPIView):
         if 'No' in matching and matching_specific_no == []:
             matching_specific_no = ["No"]
 
-
+        print('HERE 4')
 
         background_specific = background_specific_atmospheric + background_specific_colors + background_specific_dimensions
         fur_specific = fur_specific_standard + fur_specific_animal + fur_specific_designer + fur_specific_the_risen + fur_specific_the_elders + fur_specific_the_demi_buff + fur_specific_white_angel + fur_specific_devilish
@@ -411,6 +412,8 @@ class BuffListing(ListAPIView):
         double_baby_specific = double_baby_specific_swag + double_baby_specific_horns + double_baby_specific_no
         collection_specific = collections_specific_yes + collections_specific_no
         matching_specific = matching_specific_yes + matching_specific_no
+
+        print('HERE 5')
 
         if background_specific:
             queryList = filter(lambda x: x.uniqueId <= 9910 and x.traits.background_specific in background_specific, queryList)
@@ -446,6 +449,7 @@ class BuffListing(ListAPIView):
         if matching_specific:
             queryList = filter(lambda x: x.uniqueId <= 9910 and any(item in x.traits.matching_color for item in matching_specific), queryList)
 
+        print('HERE 6')
 
         # sort it if applied on based on price/points
         queryList=list(queryList)
@@ -464,7 +468,9 @@ class BuffListing(ListAPIView):
             queryList.sort(key=lambda x: x.traits.total_buff_score if (x.uniqueId <= 9910) else 50)
         elif sort_by == "buffScore_descending":
             queryList.sort(key=lambda x: x.traits.total_buff_score if (x.uniqueId <= 9910) else 50, reverse=True)
+        print('HERE b')
         queryList=list(queryList)
+        print('HERE 7')
 
         return queryList
 
