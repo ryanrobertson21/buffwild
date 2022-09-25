@@ -15,22 +15,24 @@ class TraitSerializer(serializers.ModelSerializer):
         'double_baby_buff', 'double_baby_buff_rarity', 'double_baby_buff_buff_score',
         'matching', 'matching_color', 'matching_rarity', 'matching_buff_score', "matching_dictionary",
         'collections', 'collections_name', 'collections_rarity', 'collections_buff_score', "collections_dictionary"
-]
+        ]
+        read_only_fields = fields
 
 class BuffSerializer(serializers.ModelSerializer):
     traits = TraitSerializer(read_only=True)
 
     class Meta:
-	    model = Image
-	    fields = ('title', 'ownerWallet', 'forSale', 'uniqueId', 'tradeId', 'date_created',
-	    		'last_updated', 'img_photo', 'img_url', 'traits')
+        model = Image
+        fields = ('title', 'ownerWallet', 'forSale', 'uniqueId', 'tradeId', 'date_created', 'last_updated', 'img_photo', 'img_url', 'traits')
+        read_only_fields = fields
 
 
 class BuffSerializerTwo(serializers.ModelSerializer):
     class Meta:
-	    model = ImageTwo
-	    fields = ('title', 'ownerWallet', 'forSale', 'uniqueId', 'tradeId', 'date_created',
+        model = ImageTwo
+        fields = ('title', 'ownerWallet', 'forSale', 'uniqueId', 'tradeId', 'date_created',
 	    		'last_updated', 'img_photo', 'img_url')
+        read_only_fields = fields
 
 class SummarySerializer(serializers.Serializer):
 
