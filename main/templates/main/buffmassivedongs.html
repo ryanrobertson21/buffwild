@@ -3069,7 +3069,7 @@ $(document).ready(function () {
     // bring all the data without any filters
     console.log('hello there 2');
     getAPIData();
-    console.log('ok here now');
+
 
     $('[name=series_feature]').click(function() {
       let l = []
@@ -3208,6 +3208,7 @@ $(document).ready(function () {
       $('[name=Not_For_Sale]').click(function() {
         console.log('we in not status');
         send_data['status'] = 'Not For Sale'
+
         getAPIData();
       });
 
@@ -3219,6 +3220,8 @@ $(document).ready(function () {
         console.log(max);
         send_data['min_price'] = min;
         send_data['max_price'] = max;
+
+
         getAPIData();
       });
 
@@ -3238,9 +3241,10 @@ $(document).ready(function () {
         console.log(max);
         send_data['min_score'] = min;
         send_data['max_score'] = max;
+
+
         getAPIData();
       });
-      console.log('all click functions out of the way');
 
     function onChange(feature, parent, forYes) {
       let l = [];
@@ -3423,7 +3427,58 @@ $(document).ready(function () {
     $('#matching_specific_no').on('change', function () {
       onChange('matching_specific_no', 'No', 'matching_feature');
     });
-    console.log('first on change out of the way');
+
+    // $('#swag').on('change', function () {
+    //     // get the api data of updated variety
+    //     var values = $('#swag').val();
+    //     let l = []
+    //     for (var v in values) {
+    //       l.push(values[v]);
+    //     }
+    //     send_data['swag'] = l;
+    //     getAPIData();
+    // });
+    //
+    // $('#swag_specific').on('change', function () {
+    //     // get the api data of updated variety
+    //     var values = $('#swag_specific').val();
+    //     let l = []
+    //     for (var v in values) {
+    //       l.push(values[v]);
+    //     }
+    //     send_data['swag_specific'] = l;
+    //     getAPIData();
+    // });
+
+    // $('#horns').on('change', function () {
+    //     // get the api data of updated variety
+    //
+    //     if(this.value == "all")
+    //         send_data['horns'] = "";
+    //     else
+    //         send_data['horns'] = this.value;
+    //     getAPIData();
+    // });
+
+    // $('#eyes').on('change', function () {
+    //     // get the api data of updated variety
+    //
+    //     if(this.value == "all")
+    //         send_data['eyes'] = "";
+    //     else
+    //         send_data['eyes'] = this.value;
+    //     getAPIData();
+    // });
+    //
+    // $('#mouth').on('change', function () {
+    //     // get the api data of updated variety
+    //
+    //     if(this.value == "all")
+    //         send_data['mouth'] = "";
+    //     else
+    //         send_data['mouth'] = this.value;
+    //     getAPIData();
+    // });
 
     $('#matching').on('change', function () {
         // get the api data of updated variety
@@ -3482,8 +3537,7 @@ $(document).ready(function () {
     $("#display_all").click(function(){
         resetFilters();
         getAPIData();
-    });
-    console.log('second on change out of the way');
+    })
 })
 
 
@@ -3670,7 +3724,7 @@ function putTableData(result) {
     console.log(' here is te result');
     console.log(result);
     if(result["results"].length > 0){
-        console.log('pit stop');
+        console.log('pit swtop');
         $("#no_results").hide();
         $("#list_data").show();
         $("#listing").html("");
@@ -3908,28 +3962,28 @@ function putTableData(result) {
     }
     // setting previous and next page url for the given result
 
-    // let prev_url = result["previous"];
-    // let next_url = result["next"];
+    let prev_url = result["previous"];
+    let next_url = result["next"];
     // disabling-enabling button depending on existence of next/prev page.
 
-    // if (prev_url === null) {
-    //     $("#previous").addClass("disabled");
-    //     $("#previous").prop('disabled', true);
-    // } else {
-    //     $("#previous").removeClass("disabled");
-    //     $("#previous").prop('disabled', false);
-    // }
-    // if (next_url === null) {
-    //     $("#next").addClass("disabled");
-    //     $("#next").prop('disabled', true);
-    // } else {
-    //     $("#next").removeClass("disabled");
-    //     $("#next").prop('disabled', false);
-    // }
-    // // setting the url
-    //
-    // $("#previous").attr("url", result["previous"]);
-    // $("#next").attr("url", result["next"]);
+    if (prev_url === null) {
+        $("#previous").addClass("disabled");
+        $("#previous").prop('disabled', true);
+    } else {
+        $("#previous").removeClass("disabled");
+        $("#previous").prop('disabled', false);
+    }
+    if (next_url === null) {
+        $("#next").addClass("disabled");
+        $("#next").prop('disabled', true);
+    } else {
+        $("#next").removeClass("disabled");
+        $("#next").prop('disabled', false);
+    }
+    // setting the url
+
+    $("#previous").attr("url", result["previous"]);
+    $("#next").attr("url", result["next"]);
     // displaying result count
 
     $("#result-count span").html(result["count"]);
@@ -3958,6 +4012,106 @@ function getAPIData() {
     console.log('end get api data')
 }
 
+function getMatching() {
+    // fill the options of varities by making ajax call
+
+    // obtain the url from the varities select input attribute
+
+    let url = $("#matching").attr("url");
+    // makes request to getvariety(request) method in views
+    console.log('hi im matching');
+    $.ajax({
+        method: 'GET',
+        url: url,
+        data: {},
+        success: function (result) {
+
+            matching_options = "<option value='all' selected>All Colors</option>";
+            $.each(result["matching"], function (a, b) {
+                matching_options += "<option>" + b + "</option>"
+            });
+            $("#matching").html(matching_options)
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+}
+
+function getCollections() {
+    // fill the options of varities by making ajax call
+
+    // obtain the url from the varities select input attribute
+
+    let url = $("#collections").attr("url");
+    // makes request to getvariety(request) method in views
+    console.log('hi im matching');
+    $.ajax({
+        method: 'GET',
+        url: url,
+        data: {},
+        success: function (result) {
+
+            collections_options = "<option value='all' selected>All Collections</option>";
+            $.each(result["collections"], function (a, b) {
+                collections_options += "<option>" + b + "</option>"
+            });
+            $("#collections").html(collections_options)
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+}
+
+
+$("#next").click(function () {
+    // load the next page data and
+
+    // put the result to the table body
+
+    // by making ajax call to next available url
+
+    let url = $(this).attr("url");
+    if (!url)
+        $(this).prop('all', true);
+
+    $(this).prop('all', false);
+    $.ajax({
+        method: 'GET',
+        url: url,
+        success: function (result) {
+            putTableData(result);
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+})
+
+$("#previous").click(function () {
+    // load the previous page data and
+
+    // put the result to the table body
+
+    // by making ajax call to previous available url
+
+    let url = $(this).attr("url");
+    if (!url)
+        $(this).prop('all', true);
+
+    $(this).prop('all', false);
+    $.ajax({
+        method: 'GET',
+        url: url,
+        success: function (result) {
+            putTableData(result);
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+})
 $(function () {
   $('select[data-toggle="collapse"]').on('click',function(){
 
@@ -4056,7 +4210,54 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
   </div>
 <main>
 <div class="cover-container d-inline-flex h-100 w-100 p-3 mt-2 mb-0 mx-auto flex-column">
+  <!-- <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Buffs for Sale</h1>
+        <p class="lead text-muted"></p>
+        <div class="row row-cols-1 row-cols-md-3 g-3 gy-3 buttonrow">
+          <div class="col buffbutton">
+            <a href="{% url 'walletLookup' %}" class="btn btn-lg btn-block" role="button">My Buffs</a>
+          </div>
+          <div class="col buffbutton">
+            <a href="{% url 'collection' %}" class="btn btn-info btn-lg btn-block" role="button">Collection</a>
+          </div>
+          <div class="col buffbutton">
+            <a href="{% url 'chest' %}" class="btn btn-lg btn-block" role="button">Faction Chest</a>
+          </div>
+        </div>
+    </div>
+  </section> -->
+<!--
+  <div class="col text-center">
+    <div class="row text-center">
+      <h2>TRADING INSTRUCTIONS</h2>
+    </div>
 
+    <div class="row text-center">
+      <p1>WALLET</p1>
+      <p>The wallet is rdx1qsp0ez9yxa0l5qwf6fz93tda6842fft3cqr44ak3mgjtn9p4eme8wrccm4922 (The same as the minting wallet)</p>
+      <p1>SELLING</p1>
+      <p>The minimum sales price is 50 xrd. To sell your buff send the appropriate token to our wallet along with the <span style="color: #EEDC5B">sell code</span> and your asking price as the message, like this <span style="color: #EEDC5B">S439PGU</span>-500 to sell for 500 XRD. All sales are subject to a 10% royalty</p>
+      <p1>BUYING</p1>
+      <p>To buy a buff, simply send the amount of xrd the seller is requesting to our wallet along with the <span style="color: #0000FF">buy code</span> as the message</p>
+      <p1>TO CANCEL A SALES LISTING</p1>
+      <p>If you would like to cancel your listing send 3 xrd to the wallet along with the <span style="color: #FF0000">cancel code</span> as the message</p>
+      <p1>SEQUESTERED TOKENS</p1>
+      <p>your token will be sequestered if:</p>
+      <p>-You sent a buff token when you should’ve sent a buff1 token, or visa versa</p>
+      <p>-You try to sell someone elses buff</p>
+      <p>-You have a buff currently listed for sale and try to list it for sale again without cancelling first</p>
+      <p>-You try to sell for below the minimum sales price</p>
+      <p>-You try to send a sales price with too many decimal places, we accept 6 decimal places max</p>
+      <p>-You send an invalid sales price (we only accept numbers)</p>
+      <p1>Rescuing a sequestered token</p1>
+      <p>To rescue a sequestered token send 3 xrd to the wallet along with SOS as the message</p>
+      <br>
+      <br>
+    </div>
+
+  </div> -->
   <div class="row">
     <div class="col-md-3 reset-col-big">
               <a class="btn btn-secondary desktop-button" id="display_all">Reset Filter</a>
@@ -5342,7 +5543,7 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
             </div>
 
         </div>
-        <!-- <div class="row justify-content-center">
+        <div class="row justify-content-center">
             <nav aria-label="navigation">
                 <ul class="pagination">
                     <li class="page-item">
@@ -5353,7 +5554,7 @@ if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
                     </li>
                 </ul>
             </nav>
-        </div> -->
+        </div>
     </div>
 </section>
 </div>
