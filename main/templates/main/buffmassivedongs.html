@@ -3069,7 +3069,7 @@ $(document).ready(function () {
     // bring all the data without any filters
     console.log('hello there 2');
     getAPIData();
-
+    console.log('ok here now');
 
     $('[name=series_feature]').click(function() {
       let l = []
@@ -3240,6 +3240,7 @@ $(document).ready(function () {
         send_data['max_score'] = max;
         getAPIData();
       });
+      console.log('all click functions out of the way');
 
     function onChange(feature, parent, forYes) {
       let l = [];
@@ -3422,7 +3423,7 @@ $(document).ready(function () {
     $('#matching_specific_no').on('change', function () {
       onChange('matching_specific_no', 'No', 'matching_feature');
     });
-
+    console.log('first on change out of the way');
 
     $('#matching').on('change', function () {
         // get the api data of updated variety
@@ -3481,7 +3482,8 @@ $(document).ready(function () {
     $("#display_all").click(function(){
         resetFilters();
         getAPIData();
-    })
+    });
+    console.log('second on change out of the way');
 })
 
 
