@@ -6,9 +6,12 @@ from . models import *
 import pickle
 from django.http import JsonResponse
 from rest_framework.generics import ListAPIView
-from .serializers import SummarySerializer
+from rest_framework.response import Response
+from .serializers import SummarySerializer, BuffPlainSerializer
 from .pagination import StandardResultsSetPagination
 from itertools import chain
+
+from django.views.generic import View, TemplateView
 
 def home(request):
     #sold = Image.objects.filter(~Q(ownerWallet='Locked'))
@@ -73,108 +76,128 @@ def trading(request):
 def buffmassivedongs(request):
     return render(request, 'main/buffmassivedongs.html', {})
 
-class BuffListing(ListAPIView):
-    # set the pagination and serializer class
 
-    pagination_class = StandardResultsSetPagination
+class MainView(TemplateView):
+    template_name = 'main/bufflist.html'
+
+class PostJsonListView(View):
     serializer_class = SummarySerializer
+    plain_serializer_class = BuffPlainSerializer
 
-    def get_queryset(self):
+    def get(self, *args, **kwargs):
+        print('kwargs here')
+        print(kwargs)
+        upper = kwargs.get('num_posts')
+        lower = ""
+        restart = self.request.GET.get('start', None)
+        loaded = self.request.GET.get('loaded', None)
+        if restart:
+            print('yes')
+            print(restart)
+            lower = int(restart)
+        else:
+            lower = upper - 120
+        #lower = 0;
+        print('here is start followed by lower')
+        print(restart)
+        print(lower)
+
         # filter the queryset based on the filters applied
         queryList1 = Image.objects.select_related('traits').filter(~Q(ownerWallet='Locked'))
         queryList2 = ImageTwo.objects.filter(~Q(ownerWallet='Locked'))
         queryList = list(chain(queryList1, queryList2))
         print('HERE 1')
 
-        if self.request.query_params.get('search_bar', None):
-            search = self.request.query_params.get('search_bar')
+        if self.request.GET.get('search_bar', None):
+            search = self.request.GET.get('search_bar')
             try:
                 if int(search) <= 10277:
                     queryList = filter(lambda x: x.uniqueId == int(search), queryList)
             except ValueError: ## This prevents someone who searches for anything but a number from breaking the page
                 queryList = filter(lambda x: x.ownerWallet == search, queryList)
         print('HERE 2')
-        status = self.request.query_params.getlist('status', None)
+        status = self.request.GET.getlist('status', None)
 
-        series = self.request.query_params.getlist('series[]', None)
-        series_specific_faction_buffs = self.request.query_params.getlist('series_specific_faction_buffs[]', None)
-        series_specific_one_of_ones = self.request.query_params.getlist('series_specific_one_of_ones[]', None)
+        series = self.request.GET.getlist('series[]', None)
+        series_specific_faction_buffs = self.request.GET.getlist('series_specific_faction_buffs[]', None)
+        series_specific_one_of_ones = self.request.GET.getlist('series_specific_one_of_ones[]', None)
+        print(series)
+        print(series_specific_faction_buffs)
+        price_min = self.request.GET.get('min_price', None)
+        price_max = self.request.GET.get('max_price', None)
 
-        price_min = self.request.query_params.get('min_price', None)
-        price_max = self.request.query_params.get('max_price', None)
+        score_min = self.request.GET.get('min_score', None)
+        score_max = self.request.GET.get('max_score', None)
 
-        score_min = self.request.query_params.get('min_score', None)
-        score_max = self.request.query_params.get('max_score', None)
+        background = self.request.GET.getlist('background[]', None)
+        background_specific_atmospheric = self.request.GET.getlist('background_specific_atmospheric[]', None)
+        background_specific_colors = self.request.GET.getlist('background_specific_colors[]', None)
+        background_specific_dimensions = self.request.GET.getlist('background_specific_dimensions[]', None)
 
-        background = self.request.query_params.getlist('background[]', None)
-        background_specific_atmospheric = self.request.query_params.getlist('background_specific_atmospheric[]', None)
-        background_specific_colors = self.request.query_params.getlist('background_specific_colors[]', None)
-        background_specific_dimensions = self.request.query_params.getlist('background_specific_dimensions[]', None)
+        fur = self.request.GET.getlist('fur[]', None)
+        fur_specific_standard = self.request.GET.getlist('fur_specific_standard[]', None)
+        fur_specific_animal = self.request.GET.getlist('fur_specific_animal[]', None)
+        fur_specific_designer = self.request.GET.getlist('fur_specific_designer[]', None)
+        fur_specific_the_risen = self.request.GET.getlist('fur_specific_the_risen[]', None)
+        fur_specific_the_elders = self.request.GET.getlist('fur_specific_the_elders[]', None)
+        fur_specific_the_demi_buff = self.request.GET.getlist('fur_specific_the_demi_buff[]', None)
+        fur_specific_white_angel = self.request.GET.getlist('fur_specific_white_angel[]', None)
+        fur_specific_devilish = self.request.GET.getlist('fur_specific_devilish[]', None)
 
-        fur = self.request.query_params.getlist('fur[]', None)
-        fur_specific_standard = self.request.query_params.getlist('fur_specific_standard[]', None)
-        fur_specific_animal = self.request.query_params.getlist('fur_specific_animal[]', None)
-        fur_specific_designer = self.request.query_params.getlist('fur_specific_designer[]', None)
-        fur_specific_the_risen = self.request.query_params.getlist('fur_specific_the_risen[]', None)
-        fur_specific_the_elders = self.request.query_params.getlist('fur_specific_the_elders[]', None)
-        fur_specific_the_demi_buff = self.request.query_params.getlist('fur_specific_the_demi_buff[]', None)
-        fur_specific_white_angel = self.request.query_params.getlist('fur_specific_white_angel[]', None)
-        fur_specific_devilish = self.request.query_params.getlist('fur_specific_devilish[]', None)
+        swag = self.request.GET.getlist('swag[]', None)
+        swag_specific_standard = self.request.GET.getlist('swag_specific_standard[]', None)
+        swag_specific_middle_class_fancy = self.request.GET.getlist('swag_specific_middle_class_fancy[]', None)
+        swag_specific_premium_swag = self.request.GET.getlist('swag_specific_premium_swag[]', None)
+        swag_specific_baby_buff = self.request.GET.getlist('swag_specific_baby_buff[]', None)
+        swag_specific_premium_ink = self.request.GET.getlist('swag_specific_premium_ink[]', None)
+        swag_specific_premium_weapons = self.request.GET.getlist('swag_specific_premium_weapons[]', None)
+        swag_specific_bane_veins = self.request.GET.getlist('swag_specific_bane_veins[]', None)
+        swag_specific_symbol = self.request.GET.getlist('swag_specific_symbol[]', None)
 
-        swag = self.request.query_params.getlist('swag[]', None)
-        swag_specific_standard = self.request.query_params.getlist('swag_specific_standard[]', None)
-        swag_specific_middle_class_fancy = self.request.query_params.getlist('swag_specific_middle_class_fancy[]', None)
-        swag_specific_premium_swag = self.request.query_params.getlist('swag_specific_premium_swag[]', None)
-        swag_specific_baby_buff = self.request.query_params.getlist('swag_specific_baby_buff[]', None)
-        swag_specific_premium_ink = self.request.query_params.getlist('swag_specific_premium_ink[]', None)
-        swag_specific_premium_weapons = self.request.query_params.getlist('swag_specific_premium_weapons[]', None)
-        swag_specific_bane_veins = self.request.query_params.getlist('swag_specific_bane_veins[]', None)
-        swag_specific_symbol = self.request.query_params.getlist('swag_specific_symbol[]', None)
+        horns = self.request.GET.getlist('horns[]', None)
+        horns_specific_standard = self.request.GET.getlist('horns_specific_standard[]', None)
+        horns_specific_standard_plus = self.request.GET.getlist('horns_specific_standard_plus[]', None)
+        horns_specific_variant = self.request.GET.getlist('horns_specific_variant[]', None)
+        horns_specific_baby_buff = self.request.GET.getlist('horns_specific_baby_buff[]', None)
+        horns_specific_animal_horns = self.request.GET.getlist('horns_specific_animal_horns[]', None)
+        horns_specific_halo = self.request.GET.getlist('horns_specific_halo[]', None)
+        horns_specific_the_messiah = self.request.GET.getlist('horns_specific_the_messiah[]', None)
 
-        horns = self.request.query_params.getlist('horns[]', None)
-        horns_specific_standard = self.request.query_params.getlist('horns_specific_standard[]', None)
-        horns_specific_standard_plus = self.request.query_params.getlist('horns_specific_standard_plus[]', None)
-        horns_specific_variant = self.request.query_params.getlist('horns_specific_variant[]', None)
-        horns_specific_baby_buff = self.request.query_params.getlist('horns_specific_baby_buff[]', None)
-        horns_specific_animal_horns = self.request.query_params.getlist('horns_specific_animal_horns[]', None)
-        horns_specific_halo = self.request.query_params.getlist('horns_specific_halo[]', None)
-        horns_specific_the_messiah = self.request.query_params.getlist('horns_specific_the_messiah[]', None)
+        eyes = self.request.GET.getlist('eyes[]', None)
+        eyes_specific_standard = self.request.GET.getlist('eyes_specific_standard[]', None)
+        eyes_specific_eyewear = self.request.GET.getlist('eyes_specific_eyewear[]', None)
+        eyes_specific_impressionable = self.request.GET.getlist('eyes_specific_impressionable[]', None)
+        eyes_specific_battle_ridden = self.request.GET.getlist('eyes_specific_battle_ridden[]', None)
+        eyes_specific_beams = self.request.GET.getlist('eyes_specific_beams[]', None)
+        eyes_specific_betrayer = self.request.GET.getlist('eyes_specific_betrayer[]', None)
 
-        eyes = self.request.query_params.getlist('eyes[]', None)
-        eyes_specific_standard = self.request.query_params.getlist('eyes_specific_standard[]', None)
-        eyes_specific_eyewear = self.request.query_params.getlist('eyes_specific_eyewear[]', None)
-        eyes_specific_impressionable = self.request.query_params.getlist('eyes_specific_impressionable[]', None)
-        eyes_specific_battle_ridden = self.request.query_params.getlist('eyes_specific_battle_ridden[]', None)
-        eyes_specific_beams = self.request.query_params.getlist('eyes_specific_beams[]', None)
-        eyes_specific_betrayer = self.request.query_params.getlist('eyes_specific_betrayer[]', None)
+        mouth = self.request.GET.getlist('mouth[]', None)
+        mouth_specific_standard = self.request.GET.getlist('mouth_specific_standard[]', None)
+        mouth_specific_kewl = self.request.GET.getlist('mouth_specific_kewl[]', None)
+        mouth_specific_cool_guy = self.request.GET.getlist('mouth_specific_cool_guy[]', None)
+        mouth_specific_bull_rings = self.request.GET.getlist('mouth_specific_bull_rings[]', None)
+        mouth_specific_heated = self.request.GET.getlist('mouth_specific_heated[]', None)
+        mouth_specific_prehistoric = self.request.GET.getlist('mouth_specific_prehistoric[]', None)
 
-        mouth = self.request.query_params.getlist('mouth[]', None)
-        mouth_specific_standard = self.request.query_params.getlist('mouth_specific_standard[]', None)
-        mouth_specific_kewl = self.request.query_params.getlist('mouth_specific_kewl[]', None)
-        mouth_specific_cool_guy = self.request.query_params.getlist('mouth_specific_cool_guy[]', None)
-        mouth_specific_bull_rings = self.request.query_params.getlist('mouth_specific_bull_rings[]', None)
-        mouth_specific_heated = self.request.query_params.getlist('mouth_specific_heated[]', None)
-        mouth_specific_prehistoric = self.request.query_params.getlist('mouth_specific_prehistoric[]', None)
+        smoking = self.request.GET.getlist('smoking[]', None)
+        smoking_specific_yes = self.request.GET.getlist('smoking_specific_yes[]', None)
+        smoking_specific_no = self.request.GET.getlist('smoking_specific_no[]', None)
 
-        smoking = self.request.query_params.getlist('smoking[]', None)
-        smoking_specific_yes = self.request.query_params.getlist('smoking_specific_yes[]', None)
-        smoking_specific_no = self.request.query_params.getlist('smoking_specific_no[]', None)
+        double_baby = self.request.GET.getlist('double_baby[]', None)
+        double_baby_specific_no = self.request.GET.getlist('double_baby_specific_no[]', None)
+        double_baby_specific_swag = self.request.GET.getlist('double_baby_specific_swag[]', None)
+        double_baby_specific_horns = self.request.GET.getlist('double_baby_specific_horns[]', None)
 
-        double_baby = self.request.query_params.getlist('double_baby[]', None)
-        double_baby_specific_no = self.request.query_params.getlist('double_baby_specific_no[]', None)
-        double_baby_specific_swag = self.request.query_params.getlist('double_baby_specific_swag[]', None)
-        double_baby_specific_horns = self.request.query_params.getlist('double_baby_specific_horns[]', None)
+        collections = self.request.GET.getlist('collections[]', None)
+        collections_specific_yes = self.request.GET.getlist('collections_specific_yes[]', None)
+        collections_specific_no = self.request.GET.getlist('collections_specific_no[]', None)
 
-        collections = self.request.query_params.getlist('collections[]', None)
-        collections_specific_yes = self.request.query_params.getlist('collections_specific_yes[]', None)
-        collections_specific_no = self.request.query_params.getlist('collections_specific_no[]', None)
+        matching = self.request.GET.getlist('matching[]', None)
+        matching_specific_yes = self.request.GET.getlist('matching_specific_yes[]', None)
+        matching_specific_no = self.request.GET.getlist('matching_specific_no[]', None)
 
-        matching = self.request.query_params.getlist('matching[]', None)
-        matching_specific_yes = self.request.query_params.getlist('matching_specific_yes[]', None)
-        matching_specific_no = self.request.query_params.getlist('matching_specific_no[]', None)
+        sort_by = self.request.GET.get('sort_by', None)
 
-        sort_by = self.request.query_params.get('sort_by', None)
-        print('HERE 3')
         buff_numbers = []
 
         if 'All' in status:
@@ -186,15 +209,14 @@ class BuffListing(ListAPIView):
 
         # faction buffs
         if 'Faction_Buffs' in series and series_specific_faction_buffs == []:
-            series_specific_faction_buffs = ['Cyclops', 'Football', 'Ghost', 'Mummy', 'Pharaoh', 'Pirate', 'Buff Riders', 'La Bagarre Buff']
+            series_specific_faction_buffs = ['Cyclops', 'Football', 'Ghost', 'Mummy', 'Pharaoh', 'Pirate', 'Buff Riders', 'La Bagarre Buff', 'Gnome Buff', 'German Buff']
 
         if 'Genesis_Collection_Buffs' in series:
             buff_numbers.extend(range(1,9911))
-        if '1_of_1s' in series:
+        if '1_of_1s' in series and series_specific_one_of_ones == []:
             buff_numbers.extend(range(9911, 10001))
-        if 'Faction_Buffs' in series:
+        if 'Faction_Buffs' in series and series_specific_faction_buffs == []:
             buff_numbers.extend(range(10001, 10278))
-
         if 'Cyclops' in series_specific_faction_buffs:
             buff_numbers.extend(range(10001, 10007))
         if 'Football' in series_specific_faction_buffs:
@@ -211,6 +233,10 @@ class BuffListing(ListAPIView):
             buff_numbers.extend(range(10027, 10259))
         if 'La Bagarre Buff' in series_specific_faction_buffs:
             buff_numbers.append(10277)
+        if 'Gnome Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10278)
+        if 'German Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10279)
 
         # 1 of 1 buffs
         if '1_of_1s' in series and series_specific_one_of_ones == []:
@@ -268,9 +294,11 @@ class BuffListing(ListAPIView):
             buff_numbers.extend(range(9995, 10000))
         if 'Zombie Buff' in series_specific_one_of_ones:
             buff_numbers.append(10000)
-
+        print('buff numbs')
+        print(buff_numbers)
         if len(buff_numbers) > 0:
             print('we in buff numbers')
+
             queryList = filter(lambda x: x.uniqueId in buff_numbers, queryList)
 
 
@@ -465,66 +493,103 @@ class BuffListing(ListAPIView):
             queryList = list(filter(lambda x: x.forSale != "No", queryList))
             queryList.sort(key=lambda x: float(x.forSale), reverse=True)
         elif sort_by == "buffScore_ascending":
-            queryList.sort(key=lambda x: x.traits.total_buff_score if (x.uniqueId <= 9910) else 50)
+            queryList = list(filter(lambda x: x.uniqueId <= 9910, queryList))
+            queryList.sort(key=lambda x: x.traits.total_buff_score)
         elif sort_by == "buffScore_descending":
-            queryList.sort(key=lambda x: x.traits.total_buff_score if (x.uniqueId <= 9910) else 50, reverse=True)
+            queryList = list(filter(lambda x: x.uniqueId <= 9910, queryList))
+            queryList.sort(key=lambda x: x.traits.total_buff_score, reverse=True)
+
         print('HERE b')
-        queryList=list(queryList)
+        buffs_size = len(queryList)
+        print(buffs_size)
+        max_size = True if upper >= buffs_size else False
+        if max_size:
+            print('was max size')
+            upper = buffs_size
+        #print(queryList)
+        print('wut')
+        #print(queryList[0:5])
+        print('lower')
+        print(lower)
+        print('upper')
+        print(upper)
+        queryList=list(queryList[lower:upper])
+        data = self.plain_serializer_class.serialize_data(queryList)
+
+        print(type(data))
         print('HERE 7')
+        print(data)
+        #queryList = {'results': queryList, 'total_count': total_count}
+        #results = {'data':queryList, 'total_data':total_count}
+        return JsonResponse({'data': data, 'max': max_size, 'total_count': buffs_size}, safe=False)
 
-        return queryList
+    # def list(self, request, *args, **kwargs):
+    #     queryset = self.get_queryset()
+    #     queryset["results"] = queryset["results"][0:120]
+    #     data = self.plain_serializer_class.serialize_data(queryset)
+    #     return Response(data)
+
+def load_more(request):
+    print('list more rang')
+    queryset = BuffListing.get_queryset
+    offset = BuffListing.get_start
+    print(offset)
+    limit = BuffListing.buff_per_page_limit
+    queryset["results"] = queryset["results"][offset:offset+limit]
+    #data = self.plain_serializer_class.serialize_data(queryset)
+    return Response(data)
 
 
-def getMatching(request):
-    print('get matching')
-    if request.method == "GET" and is_ajax(request):
-        # get all the varities from the database excluding
-        # null and blank values
-
-        matching = Image.objects.exclude(traits__matching="No").exclude(traits__matching_color__isnull=True).\
-        	exclude(traits__matching__exact='').exclude(traits__matching_color__icontains=',').\
-            order_by('traits__matching_color').values_list('traits__matching_color').distinct()
-        matching = [i[0] for i in list(matching)]
-        data = {
-            "matching": matching,
-        }
-        return JsonResponse(data, status = 200)
-
-def getCollections(request):
-    print('get collections')
-    if request.method == "GET" and is_ajax(request):
-        # get all the varities from the database excluding
-        # null and blank values
-
-        collections = Image.objects.exclude(traits__collections="No").exclude(traits__collections__isnull=True).\
-        	exclude(traits__collections='').exclude(traits__collections_name__icontains=',').\
-            order_by('traits__collections_name').values_list('traits__collections_name').distinct()
-        collections = [i[0] for i in list(collections)]
-        data = {
-            "collections": collections,
-        }
-        return JsonResponse(data, status = 200)
+# def getMatching(request):
+#     print('get matching')
+#     if request.method == "GET" and is_ajax(request):
+#         # get all the varities from the database excluding
+#         # null and blank values
+#
+#         matching = Image.objects.exclude(traits__matching="No").exclude(traits__matching_color__isnull=True).\
+#         	exclude(traits__matching__exact='').exclude(traits__matching_color__icontains=',').\
+#             order_by('traits__matching_color').values_list('traits__matching_color').distinct()
+#         matching = [i[0] for i in list(matching)]
+#         data = {
+#             "matching": matching,
+#         }
+#         return JsonResponse(data, status = 200)
+#
+# def getCollections(request):
+#     print('get collections')
+#     if request.method == "GET" and is_ajax(request):
+#         # get all the varities from the database excluding
+#         # null and blank values
+#
+#         collections = Image.objects.exclude(traits__collections="No").exclude(traits__collections__isnull=True).\
+#         	exclude(traits__collections='').exclude(traits__collections_name__icontains=',').\
+#             order_by('traits__collections_name').values_list('traits__collections_name').distinct()
+#         collections = [i[0] for i in list(collections)]
+#         data = {
+#             "collections": collections,
+#         }
+#         return JsonResponse(data, status = 200)
 
 def collection(request):
     images = Image.objects.all()
     images= sorted(images, key= lambda image:int(image.uniqueId))
 
-    if request.GET.get('unlocked'):
+    if self.request.GET.get('unlocked'):
         print('here 1')
         images = Image.objects.filter(~Q(ownerWallet='Locked'))
         images= sorted(images, key=lambda image:int(image.uniqueId))
 
-    if request.GET.get('1of1'):
+    if self.request.GET.get('1of1'):
         print('here 2')
         images = Image.objects.filter(uniqueId__gte=9910)
         images= sorted(images, key=lambda image:int(image.uniqueId))
 
-    if request.GET.get('1of1') and request.GET.get('unlocked'):
+    if self.request.GET.get('1of1') and self.request.GET.get('unlocked'):
         print('here 3')
         images = Image.objects.filter(~Q(ownerWallet='Locked'), uniqueId__gte=9910)
         images= sorted(images, key=lambda image:int(image.uniqueId))
 
-    page = request.GET.get('page', 1)
+    page = self.request.GET.get('page', 1)
     paginator = Paginator(images, 200)
 
     try:
@@ -696,16 +761,16 @@ def test4(request):
 
 def walletLookup(request):
     images=None
-    if request.GET.get('searchWal'):
-        search = request.GET.get('searchWal')
+    if self.request.GET.get('searchWal'):
+        search = self.request.GET.get('searchWal')
         images = Image.objects.filter(ownerWallet=search)
         images= sorted(images, key=lambda image:int(image.uniqueId))
         images2 = ImageTwo.objects.filter(ownerWallet=search)
         images2= sorted(images2, key=lambda image:int(image.uniqueId))
         images = images + images2
     try:
-        if request.GET.get('searchNum'):
-            search = request.GET.get('searchNum')
+        if self.request.GET.get('searchNum'):
+            search = self.request.GET.get('searchNum')
             if int(search) > 10000:
                 images = ImageTwo.objects.filter(uniqueId=search.lstrip('0'))
                 images= sorted(images, key= lambda image:int(image.uniqueId))

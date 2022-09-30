@@ -19,6 +19,8 @@ from main import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+from main.views import MainView, PostJsonListView
+
 
 handler404 = 'main.views.error_404_view'
 handler500 = 'main.views.error_500_view'
@@ -33,7 +35,8 @@ urlpatterns = [
     path('terms/', views.terms, name='terms'),
     path('chest/', views.chest, name='chest'),
     path('trading/', views.trading, name='trading'),
-    re_path(r"^buffmassivedongs/", include(("main.urls", "main"), namespace = "main")),
+    path('bufflist/', MainView.as_view(), name = 'main-view'),
+    path('posts-json/<int:num_posts>', PostJsonListView.as_view(), name='posts-json-view'),
     path('test/', views.test, name='test'),
     path('test4/', views.test4, name='test4'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
