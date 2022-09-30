@@ -723,7 +723,9 @@ ul.social-network li {
   }
 
   .nav-links-col {
-    width: 45% !important;
+    width: 42.5% !important;
+    margin-left: 10px;
+    padding-right: 0px !important;
   }
 
   .social-circle {
