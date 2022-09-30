@@ -2417,10 +2417,10 @@ span.multiselect-native-select select {
 <div class="col-9">
 <section>
     <div class="container-fluid see-more">
-        Showing <div id = "current-display"><span class = 'font-weight-bold'></span> of</div>
-        <div id = "result-count" class="text-right">
+        Showing <span id = "current-display"><span class = 'font-weight-bold'></span> of</span>
+        <span id = "result-count" class="text-right">
             <span class='font-weight-bold'></span> Buffs found
-          </div>
+          </span>
         <div class="row properties_table justify-content-center">
             <div id = "no_results">
                 <h5>No Buffs found</h5>
@@ -5087,6 +5087,8 @@ $(document).ready(function () {
     $("#display_all").click(function(){
         document.getElementById("sort_by").value = document.getElementById("sort_by").options[0].value;
         send_data['start'] = 0;
+        send_data['search_bar'] = "";
+        visible = 120;
         resetFilters();
         getAPIData();
     })
@@ -5114,6 +5116,7 @@ function resetFilters() {
     console.log("reseting filters");
     $('input[type="checkbox"]:checked').prop('checked',false);
     $("#sort_by").val("uniqueId_ascending").change();
+    $("#search-value").val("").change();
 
     $("#status").val("All");
 
@@ -5629,9 +5632,13 @@ function putTableData(result, b=false) {
     // displaying result count
 
     $("#result-count span").html(result["total_count"]);
-    $("#current-display span").html(visible);
-    console.log(result["max"])
-    console.log('now its done')
+
+    if (result["total_count"] < visible) {
+      $("#current-display span").html(result["total_count"]);
+    }
+    else {
+      $("#current-display span").html(visible);
+    }
 }
 const buffBox = $('#listing');
 const spinnerBox = $('#spinner-box');
@@ -5666,6 +5673,7 @@ function getAPIData(a=false) {
             }, 250)
             if (max_size){
               console.log('DONE');
+              loadBox.html("<h4>No More Buffs to Load</h4>");
             }
             let b = true;
             if (a) {
