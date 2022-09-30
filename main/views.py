@@ -574,22 +574,22 @@ def collection(request):
     images = Image.objects.all()
     images= sorted(images, key= lambda image:int(image.uniqueId))
 
-    if self.request.GET.get('unlocked'):
+    if request.GET.get('unlocked'):
         print('here 1')
         images = Image.objects.filter(~Q(ownerWallet='Locked'))
         images= sorted(images, key=lambda image:int(image.uniqueId))
 
-    if self.request.GET.get('1of1'):
+    if request.GET.get('1of1'):
         print('here 2')
         images = Image.objects.filter(uniqueId__gte=9910)
         images= sorted(images, key=lambda image:int(image.uniqueId))
 
-    if self.request.GET.get('1of1') and self.request.GET.get('unlocked'):
+    if request.GET.get('1of1') and request.GET.get('unlocked'):
         print('here 3')
         images = Image.objects.filter(~Q(ownerWallet='Locked'), uniqueId__gte=9910)
         images= sorted(images, key=lambda image:int(image.uniqueId))
 
-    page = self.request.GET.get('page', 1)
+    page = request.GET.get('page', 1)
     paginator = Paginator(images, 200)
 
     try:
