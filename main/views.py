@@ -761,16 +761,16 @@ def test4(request):
 
 def walletLookup(request):
     images=None
-    if self.request.GET.get('searchWal'):
-        search = self.request.GET.get('searchWal')
+    if request.GET.get('searchWal'):
+        search = request.GET.get('searchWal')
         images = Image.objects.filter(ownerWallet=search)
         images= sorted(images, key=lambda image:int(image.uniqueId))
         images2 = ImageTwo.objects.filter(ownerWallet=search)
         images2= sorted(images2, key=lambda image:int(image.uniqueId))
         images = images + images2
     try:
-        if self.request.GET.get('searchNum'):
-            search = self.request.GET.get('searchNum')
+        if request.GET.get('searchNum'):
+            search = request.GET.get('searchNum')
             if int(search) > 10000:
                 images = ImageTwo.objects.filter(uniqueId=search.lstrip('0'))
                 images= sorted(images, key= lambda image:int(image.uniqueId))
