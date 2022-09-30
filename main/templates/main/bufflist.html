@@ -1162,7 +1162,7 @@ span.multiselect-native-select select {
       </div>
     </div>
     <div class="col-6 col-md-3 reset-col-small">
-      <a class="btn btn-secondary btn-reset-filter mobile-button" id="display_all">Reset Filter</a>
+      <a class="btn btn-secondary btn-reset-filter mobile-button" id="display_all_mobile">Reset Filter</a>
     </div>
     <div class="col-6 col-md-3">
 
@@ -5089,6 +5089,14 @@ $(document).ready(function () {
     // display the results after reseting the filters
 
     $("#display_all").click(function(){
+        document.getElementById("sort_by").value = document.getElementById("sort_by").options[0].value;
+        send_data['start'] = 0;
+        send_data['search_bar'] = "";
+        visible = 120;
+        resetFilters();
+        getAPIData();
+    })
+    $("#display_all_mobile").click(function(){
         document.getElementById("sort_by").value = document.getElementById("sort_by").options[0].value;
         send_data['start'] = 0;
         send_data['search_bar'] = "";
