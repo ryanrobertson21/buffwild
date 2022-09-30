@@ -169,6 +169,18 @@
       color: #618A5A
     }
 
+    .btn-secondary:active {
+      color: transparent !important;
+    }
+
+    .btn-light:active {
+      background-color: transparent !important;
+    }
+
+    .btn-primary:active {
+      background-color: #000000 !important;
+    }
+
     .form-check {
       text-align: center !important;
     }
@@ -242,15 +254,27 @@
           font-size: 3.5rem;
         }
       }
+
+
       .reset-col-small {
         text-align: start !important;
+        padding-left: 24px;
       }
       .btn-reset-filter {
         margin-left: 25px;
       }
+
       .card {
-        height: 336px;
-        width: 280px;
+        height: 300px;
+        width: 250px;
+      }
+      .card-full {
+        width: 250px;
+        color: transparent;
+        padding-left: auto;
+        padding-right: auto;
+        margin-left: auto;
+        margin-right: auto;
       }
 
       .reset-col-big {
@@ -265,9 +289,9 @@
       }
       .table {
         position: absolute;
-        top: 120px !important;
-        left: 15px;
-        width: 89%;
+        top: 110px !important;
+        left: 13px;
+        width: 89.5%;
       }
       /** TABLE STUFF BELOW **/
         .buff-num {
@@ -294,20 +318,35 @@
         height: 5vh;
       }
 
+      .listing {
+        margin-right: 0px;
+      }
+
+      .buff-results {
+        margin-right: 0;
+        margin-left: 0;
+        width: 95%;
+      }
+
+      .sort-col {
+        text-align: end;
+        padding-right: 24px;
+      }
+
 
        p-num {
          color: #C0A86D;
          position: absolute;
-         top: 22%;
-         left: 33%;
+         top: 21%;
+         left: 31%;
          font-size: 2rem
        }
 
        p-score {
          color: #C0A86D;
          position: absolute;
-         top: 84%;
-         left: 17.5%;
+         top: 83%;
+         left: 12.5%;
          font-size: 2rem
        }
        .thead-light {
@@ -456,7 +495,11 @@
       /** TABLE STUFF ABOVE **/
 
       @media (min-width: 768px) {
-
+        .sort-col {
+          text-align: start;
+          padding-right: 12px;
+        }
+        
         .col-5 {
           width: 41.66666667%;
           font-size: 16px;
@@ -721,10 +764,6 @@
       color: transparent;
     }
 
-    .card-full {
-      color: transparent;
-      width: 300px;
-    }
 
     .card .back {
       transform: rotateX(0deg) rotateY(180deg);
@@ -788,8 +827,6 @@
 
 
 
-
-
 .buff-info {
   padding-top: 5px;
 }
@@ -810,10 +847,6 @@
   margin-left: 0;
 }
 
-.buff-results {
-  margin-right: 0;
-  margin-left: 0;
-}
 
 .not-visible {
   display: none;
@@ -1185,7 +1218,7 @@ span.multiselect-native-select select {
     <div class="col-6 col-md-3 reset-col-small">
       <a class="btn btn-secondary btn-reset-filter mobile-button" id="display_all_mobile">Reset Filter</a>
     </div>
-    <div class="col-6 col-md-3">
+    <div class="col-6 col-md-3 sort-col">
 
               <select class="selectpicker rounded mobile-button desktop-button sort-picker" id="sort_by">
                   <option value='uniqueId_ascending' selected>Mint Number: Low to High</option>
@@ -2452,7 +2485,7 @@ span.multiselect-native-select select {
             </div>
             <div class="album py-5">
               <div class="container-fluid buff-results" id="list_data">
-                <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 g-3" id="listing" data-toggle="table">
+                <div class="row row-cols-1 row-cols-md-3 row-cols-sm-2 g-3 listing" id="listing" data-toggle="table">
                 </div>
               </div>
             </div>
@@ -5481,7 +5514,7 @@ function putTableData(result, b=false) {
                               </tr>"
               }
 
-              row = "<div class='col'> \
+              row = "<div class='col text-center'> \
                   <div class='card-full shadow-sm'> \
                     <div class='card'> \
                       <div class='face front card-img'> \
@@ -5588,7 +5621,7 @@ function putTableData(result, b=false) {
                 </div>"
             }
             else {
-              row = "<div class='col'> \
+              row = "<div class='col text-center'> \
                         <div class='card-full shadow-sm'> \
                           <div class='card'> \
                               <img loading='lazy' class='card-img' src=" + b.img_url + " alt='Buff Wild Crew NFT Card Front'> \
