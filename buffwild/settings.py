@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "rest_framework",
     'main',
-    'compressor',
 ]
 
 MIDDLEWARE = [
@@ -127,16 +126,6 @@ STATIC_URL = '/static/'
 #STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'sass_processor.finders.CssFinder',
-    'compressor.finders.CompressorFinder',
-]
-
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
 
 
 STATIC_ROOT = BASE_DIR / 'static'
