@@ -29,19 +29,18 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.cover, name='cover'),
     path('home/', views.home, name='home'),
-    path('collection/', views.collection, name='collection'),
-    path('collection/walletLookup/', views.walletLookup, name='walletLookup'),
+    path('collection/', MainView.as_view(), name = 'main-view'),
     path('instructions/', views.instructions, name='instructions'),
     path('terms/', views.terms, name='terms'),
-    path('chest/', views.chest, name='chest'),
-    path('trading/', views.trading, name='trading'),
-    path('bufflist/', MainView.as_view(), name = 'main-view'),
     path('posts-json/<int:num_posts>', PostJsonListView.as_view(), name='posts-json-view'),
     path('test/', views.test, name='test'),
     path('test4/', views.test4, name='test4'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-
+    #path('collection/walletLookup/', views.walletLookup, name='walletLookup'),
+    #path('chest/', views.chest, name='chest'),
+    #path('trading/', views.trading, name='trading'),
+    #path('bufflist/', MainView.as_view(), name = 'main-view'),
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

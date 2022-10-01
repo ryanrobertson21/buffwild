@@ -78,7 +78,7 @@ def buffmassivedongs(request):
 
 
 class MainView(TemplateView):
-    template_name = 'main/bufflist.html'
+    template_name = 'main/collection.html'
 
 class PostJsonListView(View):
     serializer_class = SummarySerializer
@@ -96,7 +96,7 @@ class PostJsonListView(View):
             print(restart)
             lower = int(restart)
         else:
-            lower = upper - 120
+            lower = upper - 60
         #lower = 0;
         print('here is start followed by lower')
         print(restart)
@@ -111,7 +111,7 @@ class PostJsonListView(View):
         if self.request.GET.get('search_bar', None):
             search = self.request.GET.get('search_bar')
             try:
-                if int(search) <= 10277:
+                if int(search) <= 10286:
                     queryList = filter(lambda x: x.uniqueId == int(search), queryList)
             except ValueError: ## This prevents someone who searches for anything but a number from breaking the page
                 queryList = filter(lambda x: x.ownerWallet == search, queryList)
@@ -209,7 +209,7 @@ class PostJsonListView(View):
 
         # faction buffs
         if 'Faction_Buffs' in series and series_specific_faction_buffs == []:
-            series_specific_faction_buffs = ['Cyclops', 'Football', 'Ghost', 'Mummy', 'Pharaoh', 'Pirate', 'Buff Riders', 'La Bagarre Buff', 'Gnome Buff', 'German Buff']
+            series_specific_faction_buffs = ['Cyclops', 'Football', 'Ghost', 'Mummy', 'Pharaoh', 'Pirate', 'Buff Riders', 'La Bagarre Buff', 'Gnome Buff', 'German Buff', 'Community Buffs', 'Faction Buffs', 'British Buff']
 
         if 'Genesis_Collection_Buffs' in series:
             buff_numbers.extend(range(1,9911))
@@ -237,6 +237,12 @@ class PostJsonListView(View):
             buff_numbers.append(10278)
         if 'German Buff' in series_specific_faction_buffs:
             buff_numbers.append(10279)
+        if 'Community Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10280, 10282))
+        if 'Faction Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10282, 10286))
+        if 'British Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10286)
 
         # 1 of 1 buffs
         if '1_of_1s' in series and series_specific_one_of_ones == []:
@@ -416,13 +422,12 @@ class PostJsonListView(View):
 
 
         if 'Yes' in collections and collections_specific_yes == []:
-            collections_specific_yes = ["Cyborg Set", "Cowboy", "DBZ", "Matrix", "NoNo", "Undead", "Albino", "Rice Farmer", "Super Hero", "Trippy", "Gentleman", "Joseph Smith",
-               "Day Walker", "Jordan", "Hells Kitchen", "Golded", "Girl", "Rasta", "Radix", "Bloody", "BAMF", "Frat Buff", "Demigod", "Regrets",
+            collections_specific_yes = ["Cyborg Set", "Cowboy", "Dbz", "Matrix", "NoNo", "Undead", "Albino", "Rice Farmer", "Super Hero", "Trippy", "Gentleman", "Joseph Smith",
+               "Day Walker", "Jordan", "Hells Kitchen", "Golded", "Girl", "Rasta", "Radix", "Bamf", "Frat Buff", "Demigod", "Regrets",
               "Raver", "Kiddie Pool", "Mutated", "Half Dead", "Oversized", "Easter Celebration", "Brads And Chads",
               "Chromed Out", "Natural Evolution", "Pride", "Buffs Mafia", "Family Guy", "Agent Zero", "Playboy", "Battle Hardened", "Fire"]
         if 'No' in collections and collections_specific_no == []:
             collections_specific_no = ["N/A"]
-
         if 'Yes' in matching and matching_specific_yes == []:
             matching_specific_yes = ["Black", "Blue", "Brown", "Green", "Orange", "Pink", "Purple", "Red", "Yellow"]
         if 'No' in matching and matching_specific_no == []:
@@ -472,6 +477,8 @@ class PostJsonListView(View):
             queryList = filter(lambda x: x.uniqueId <= 9910 and x.traits.double_baby_buff == "No", queryList)
 
         if collection_specific:
+            print('try here')
+            print(collection_specific)
             queryList = filter(lambda x: x.uniqueId <= 9910 and any(item in x.traits.collections_name for item in collection_specific), queryList)
 
         if matching_specific:
