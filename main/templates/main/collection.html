@@ -18,6 +18,10 @@
         pointer-events: all;
       }
 
+      .finished-box {
+        display: none !important;
+      }
+
       .card-full {
         max-width: 100% !important;
       }
@@ -2768,6 +2772,9 @@ span.multiselect-native-select select {
                     </div>
                     <li class="page-item pull-right" id="loading-box">
                         <button class="btn btn-primary page-link" id="load-btn">Load More Buffs</button>
+                    </li>
+                    <li class="page-item pull-right finished-box" id="finished-box">
+                        <h4>All Buff results currently displayed</h4>
                     </li>
                 </ul>
             </nav>
@@ -5868,6 +5875,8 @@ const buffBox = $('#listing');
 const spinnerBox = $('#spinner-box');
 const loadBtn = $('#load-btn');
 const loadBox = $('#loading-box');
+const finishedBox = $('#finished-box');
+
 console.log('spinnerbox');
 console.log(spinnerBox)
 let visible = 60;
@@ -5897,7 +5906,18 @@ function getAPIData(a=false) {
             }, 250)
             if (max_size){
               console.log('DONE');
-              loadBox.html("<h4>All Buff results currently displayed</h4>");
+              console.log('it says we are at max size');
+              //loadBox.html("<h4>All Buff results currently displayed</h4>");
+              loadBox.hide();
+              finishedBox.removeClass("finished-box");
+            }
+            else {
+              console.log("here is the current html");
+              console.log(loadBox.html());
+              finishedBox.addClass("finished-box");
+              loadBox.show();
+
+              //loadBox.html('<button class="btn btn-primary page-link" id="load-btn">Load More Buffs</button>');
             }
             let b = true;
             if (a) {
