@@ -26,6 +26,7 @@ class Image(models.Model):
 
     img_photo=models.ImageField(upload_to='unlocked_buffs/', null=True, blank=True)
     img_url=models.CharField(null=True, blank=True, max_length=100)
+    date_listed=models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return '{}'.format(self.uniqueId)
@@ -71,6 +72,7 @@ class ImageTwo(models.Model):
 
     img_photo=models.ImageField(upload_to='unlocked_buffs/', null=True, blank=True)
     img_url=models.CharField(null=True, blank=True, max_length=100)
+    date_listed=models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return '{}'.format(self.uniqueId)
