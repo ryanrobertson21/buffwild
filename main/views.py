@@ -523,9 +523,9 @@ class PostJsonListView(View):
         queryList=list(queryList[lower:upper])
         data = self.plain_serializer_class.serialize_data(queryList)
 
-        print(type(data))
-        print('HERE 7')
-        print(data)
+        #print(type(data))
+        #print('HERE 7')
+        #print(data)
         #queryList = {'results': queryList, 'total_count': total_count}
         #results = {'data':queryList, 'total_data':total_count}
         return JsonResponse({'data': data, 'max': max_size, 'total_count': buffs_size}, safe=False)
