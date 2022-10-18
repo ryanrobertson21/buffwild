@@ -32,6 +32,25 @@
         position: relative !important;
       }
 
+      .cover-container {
+        padding-top: 0px !important;
+        margin-top: 0px !important;
+      }
+
+      .trade-stats {
+        color: #FFFFFF;
+        padding-bottom: 15px;
+        font-size: 1vw;
+      }
+
+      .trade-stats .font-weight-bold {
+        padding-right: 15px;
+
+        color: #E1DA22
+      }
+
+
+
       .form-check {
         align-items: end;
       }
@@ -110,6 +129,7 @@
       .py-lg-5 {
         padding-top: 0px !important;
         padding-bottom: 0px !important;
+        margin0
       }
 
       .buffbutton {
@@ -1470,6 +1490,34 @@ span.multiselect-native-select select {
   </div>
 <main>
 <div class="cover-container d-inline-flex h-100 w-100 p-3 mt-2 mb-0 mx-auto flex-column">
+  <div class="row trade-stats-row">
+
+  <div id="Trade-stats" class="trade-stats justify-content-center" style="text-align:center">
+    <span id = "genesis-items" class="text-right">
+      Genesis Items: <span class='font-weight-bold'></span>
+    </span>
+    <span id = "genesis-reserved" class="text-right">
+      Genesis Reserved: <span class='font-weight-bold'></span>
+    </span>
+    <span id = "num_owners" class="text-right">
+      Owners: <span class='font-weight-bold'></span>
+    </span>
+    <span id = "floor" class="text-right">
+      Trade Floor: <span class='font-weight-bold'></span>
+    </span>
+    <span id = "volume" class="text-right">
+      Volume: <span class='font-weight-bold'></span>
+    </span>
+    <span id = "num_trades" class="text-right">
+      Number of Trades: <span class='font-weight-bold'></span>
+    </span>
+    <span id = "highest_trade" class="text-right">
+      Highest Trade: <span class='font-weight-bold'></span>
+    </span>
+  </div>
+  </div>
+
+
 
   <div class="row">
     <div class="col-md-3 reset-col-big">
@@ -2736,9 +2784,6 @@ span.multiselect-native-select select {
     </div>
 </div>
 </div>
-
-
-
         </div>
       </section>
       </div>
@@ -5884,6 +5929,14 @@ function putTableData(result, b=false) {
 
 
     $("#result-count span").html(result["total_count"]);
+
+    $("#genesis-items span").html(result["genesis_items"]);
+    $("#genesis-reserved span").html(result["genesis_reserved"]);
+    $("#floor span").html(result["floor"]);
+    $("#volume span").html(result["volume"]);
+    $("#num_trades span").html(result["num_trades"]);
+    $("#highest_trade span").html(result["highest_trade"]);
+    $("#num_owners span").html(result["num_owners"]);
 
     if (result["total_count"] < visible) {
       $("#current-display span").html(result["total_count"]);

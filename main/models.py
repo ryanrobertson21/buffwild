@@ -5,6 +5,12 @@ from uuid import uuid4
 import shortuuid
 from django.urls import reverse
 
+class TradeStats(models.Model):
+    manual_volume=models.IntegerField(null=True, blank=True)
+    automated_volume=models.IntegerField(null=True, blank=True)
+    manual_number_trades=models.IntegerField(null=True, blank=True)
+    automated_number_trades=models.IntegerField(null=True, blank=True)
+    highest_trade=models.IntegerField(null=True, blank=True)
 
 class Image(models.Model):
     title=models.CharField(null=True, blank=True, max_length=200)
