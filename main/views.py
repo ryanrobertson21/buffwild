@@ -488,6 +488,7 @@ class PostJsonListView(View):
 
         # sort it if applied on based on price/points
         queryList=list(queryList)
+        from datetime import datetime
 
         if sort_by == "uniqueId_ascending":
             queryList.sort(key=lambda x: x.uniqueId)
@@ -505,6 +506,15 @@ class PostJsonListView(View):
         elif sort_by == "buffScore_descending":
             queryList = list(filter(lambda x: x.uniqueId <= 9910, queryList))
             queryList.sort(key=lambda x: x.traits.total_buff_score, reverse=True)
+        elif sort_by == "date_listed_ascending":
+            queryList = list(filter(lambda x: x.forSale != "No", queryList))
+            queryList.sort(key=lambda x: x.date_listed, reverse=True)
+            print('ascending list')
+            print(queryList)
+        elif sort_by == "date_listed_descending":
+            queryList = list(filter(lambda x: x.forSale != "No", queryList))
+            queryList.sort(key=lambda x: x.date_listed)
+
 
         print('HERE b')
         buffs_size = len(queryList)
