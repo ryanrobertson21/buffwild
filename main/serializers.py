@@ -24,14 +24,14 @@ class BuffSerializer(serializers.ModelSerializer):
     class Meta:
 	    model = Image
 	    fields = ('title', 'ownerWallet', 'forSale', 'uniqueId', 'tradeId', 'date_created',
-	    		'last_updated', 'img_photo', 'img_url', 'traits')
+	    		'last_updated', 'img_photo', 'img_url', 'traits', 'date_listed')
 
 
 class BuffSerializerTwo(serializers.ModelSerializer):
     class Meta:
 	    model = ImageTwo
 	    fields = ('title', 'ownerWallet', 'forSale', 'uniqueId', 'tradeId', 'date_created',
-	    		'last_updated', 'img_photo', 'img_url')
+	    		'last_updated', 'img_photo', 'img_url', 'date_listed')
 
 class SummarySerializer(serializers.Serializer):
 
@@ -64,6 +64,7 @@ class BuffPlainSerializer(object):
                         "tradeId": entry.tradeId,
                         "ownerWallet": entry.ownerWallet,
                         "img_url": entry.img_url,
+                        "date_listed": entry.date_listed,
                         "traits": {"total_buff_score": entry.traits.total_buff_score,
                             "background_feature": entry.traits.background_feature, "background_feature_rarity": entry.traits.background_feature_rarity, "background_specific": entry.traits.background_specific, "background_buff_score": entry.traits.background_buff_score,
                             "fur_feature": entry.traits.fur_feature, "fur_feature_rarity": entry.traits.fur_feature_rarity, "fur_specific": entry.traits.fur_specific, "fur_buff_score": entry.traits.fur_buff_score,
@@ -84,7 +85,8 @@ class BuffPlainSerializer(object):
                         "uniqueId": entry.uniqueId,
                         "tradeId": entry.tradeId,
                         "ownerWallet": entry.ownerWallet,
-                        "img_url": entry.img_url
+                        "img_url": entry.img_url,
+                        "date_listed": entry.date_listed
                     }
 
         #d["total_count"] = queryset["total_count"]

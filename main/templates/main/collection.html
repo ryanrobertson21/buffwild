@@ -1495,6 +1495,8 @@ span.multiselect-native-select select {
                   <option value='forSale_descending'>Price: High to Low</option>
                   <option value='buffScore_ascending'>Buff Score: Low to High</option>
                   <option value='buffScore_descending'>Buff Score: High to Low</option>
+                  <option value='date_listed_ascending'>Date Listed: New to Old</option>
+                  <option value='date_listed_descending'>Date Listed: Old to New</option>
               </select>
 
 
@@ -5588,6 +5590,18 @@ function putTableData(result, b=false) {
             return b.traits.total_buff_score - a.traits.total_buff_score
             })
           }
+          else if (byKey == 'date_listed_ascending') {
+            console.log('ascending');
+            console.log(data);
+            sortedData = data.sort(function(a,b) {
+              return new Date(b.date_listed) - new Date(a.date_listed)
+            })
+          }
+          else if (byKey == 'date_listed_descending') {
+            sortedData = data.sort(function(a,b) {
+              return new Date(a.date_listed) - new Date(b.date_listed)
+            })
+          }
 
           console.log("check here first");
           console.log(sortedData);
@@ -5609,6 +5623,13 @@ function putTableData(result, b=false) {
         }
         else if (send_data['sort_by'] == 'buffScore_descending') {
           sortable = sortDataBy(sortable, 'buffScore_descending')
+        }
+        else if (send_data['sort_by'] == 'date_listed_ascending') {
+          sortable = sortDataBy(sortable, 'date_listed_ascending')
+
+        }
+        else if (send_data['sort_by'] == 'date_listed_descending') {
+          sortable = sortDataBy(sortable, 'date_listed_descending')
         }
         //console.log(sortable)
 
