@@ -106,6 +106,20 @@ class PostJsonListView(View):
         queryList1 = Image.objects.select_related('traits').filter(~Q(ownerWallet='Locked'))
         queryList2 = ImageTwo.objects.filter(~Q(ownerWallet='Locked'))
         queryList = list(chain(queryList1, queryList2))
+
+        owners = []
+        for buff in queryList:
+            if buff.ownerWallet not in owners:
+                owners.append(buff.ownerWallet)
+        num_owners = len(owners)
+
+        asking_prices = list(filter(lambda x: x.forSale != "No", queryList))
+        print('asking prices here')
+        print(asking_prices)
+        print('is this the floor?')
+        asking_prices.sort(key=lambda x: float(x.forSale))
+        floor = asking_prices[0].forSale
+
         print('HERE 1')
 
         if self.request.GET.get('search_bar', None):
@@ -532,13 +546,31 @@ class PostJsonListView(View):
         print(upper)
         queryList=list(queryList[lower:upper])
         data = self.plain_serializer_class.serialize_data(queryList)
+        print('here is total genesis items')
+        print(10000)
+        genesis_items = 10000
+        print('here is total genesis reserved')
+        print(len(queryList1))
+        genesis_reserved = len(queryList1)
+        print('here is trade floor')
+
+
+        print('here is items')
+
+        trade_stats = TradeStats.objects.all()
+        print(trade_stats[0])
+        volume = trade_stats[0].manual_volume + trade_stats[0].automated_volume
+        num_trades = trade_stats[0].manual_number_trades + trade_stats[0].automated_number_trades
+        highest_trade = trade_stats[0].highest_trade
+
 
         #print(type(data))
         #print('HERE 7')
         #print(data)
         #queryList = {'results': queryList, 'total_count': total_count}
         #results = {'data':queryList, 'total_data':total_count}
-        return JsonResponse({'data': data, 'max': max_size, 'total_count': buffs_size}, safe=False)
+
+        return JsonResponse({'data': data, 'max': max_size, 'total_count': buffs_size, 'genesis_items': genesis_items, 'genesis_reserved': genesis_reserved, 'floor': floor, 'volume': volume, 'num_trades': num_trades, 'highest_trade': highest_trade, 'num_owners': num_owners}, safe=False)
 
     # def list(self, request, *args, **kwargs):
     #     queryset = self.get_queryset()
