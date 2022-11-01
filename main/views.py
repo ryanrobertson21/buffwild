@@ -23,7 +23,7 @@ def home(request):
 
     context = {}
 
-    left = len(read_pickle_file(local_avail_buffs_path))
+    left = len(read_pickle_file(production_avail_buffs_path))
     context['left'] = left
     print(left)
     sold = 10000 - left
