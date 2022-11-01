@@ -697,7 +697,7 @@ def instructions(request):
     cc_one_hundred = 0
     print('hi')
     available_wild = read_pickle_file(production_wild_path)
-    print(available_wild)
+    #print(available_wild)
 
     for wild in available_wild:
         if wild <= 25:  # 25 regular buffs from collection
