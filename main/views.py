@@ -7,7 +7,8 @@ import pickle
 from django.http import JsonResponse
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
-from .serializers import SummarySerializer, BuffPlainSerializer
+from rest_framework.decorators import api_view
+from .serializers import SummarySerializer, BuffPlainSerializer, BuffSerializer, BuffSerializerTwo
 from .pagination import StandardResultsSetPagination
 from itertools import chain
 
@@ -34,47 +35,33 @@ def home(request):
     #context['sold'] = sold
     return render(request, 'main/home.html', context)
 
-def chest(request):
-    images = ImageTwo.objects.all()
-    images= sorted(images, key= lambda image:int(image.uniqueId))
 
-    context = {}
-
-    context['images'] = images
-    return render(request, 'main/chest.html', context)
 
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
+@api_view(['GET'])
+def buff_list(request):
+    # queryList1 = Image.objects.all()
+    # queryList2 = ImageTwo.objects.all()
+    # serializer1 = BuffSerializer(queryList1, many=True)
+    # serializer2 = BuffSerializerTwo(queryList2, many=True)
+    # print('hi, in the views here')
+    # print(type(serializer1))
+    # print(serializer1)
+    # return JsonResponse({'buff': serializer1.data, 'buff1': serializer2.data})
 
-def trading(request):
-    print('a')
-    images = Image.objects.filter(~Q(forSale='No'))
-    print(type(images))
-    for i in images:
-        print(i)
-        print(type(i))
-        break
-    print('b')
-    images = sorted(images, key= lambda image:int(image.uniqueId))
-    print(type(images))
-    for i in images:
-        print(i)
-        print(type(i))
-        break
-    images2 = ImageTwo.objects.filter(~Q(forSale='No'))
-    images2 = sorted(images2, key= lambda image:int(image.uniqueId))
-    images = images + images2
-    images = sorted(images, key= lambda image:int(image.uniqueId))
-    traits = Trait.objects.all()
-    context = {}
+    #SEE IF MAKING WALLETS_SET A DICT INSTEAD OF LIST IMPROVES LOOKUP ON THE OTHER SIDE. KEYS=WALLETS, VALUES IRRELEVANT SO CAN MAKE W/E
+    queryList1 = Image.objects.filter(~Q(ownerWallet='Locked'))
+    queryList2 = ImageTwo.objects.filter(~Q(ownerWallet='Locked'))
+    queryList = list(chain(queryList1, queryList2))
+    wallets_set = set()
+    for i in queryList:
+        wallets_set.add(i.ownerWallet)
+    print(len(wallets_set))
+    return JsonResponse({'owners': list(wallets_set)})
 
-    context['images'] = images
 
-    return render(request, 'main/trading.html', context)
-
-def buffmassivedongs(request):
-    return render(request, 'main/buffmassivedongs.html', {})
 
 
 class MainView(TemplateView):
@@ -589,71 +576,6 @@ def load_more(request):
     return Response(data)
 
 
-# def getMatching(request):
-#     print('get matching')
-#     if request.method == "GET" and is_ajax(request):
-#         # get all the varities from the database excluding
-#         # null and blank values
-#
-#         matching = Image.objects.exclude(traits__matching="No").exclude(traits__matching_color__isnull=True).\
-#         	exclude(traits__matching__exact='').exclude(traits__matching_color__icontains=',').\
-#             order_by('traits__matching_color').values_list('traits__matching_color').distinct()
-#         matching = [i[0] for i in list(matching)]
-#         data = {
-#             "matching": matching,
-#         }
-#         return JsonResponse(data, status = 200)
-#
-# def getCollections(request):
-#     print('get collections')
-#     if request.method == "GET" and is_ajax(request):
-#         # get all the varities from the database excluding
-#         # null and blank values
-#
-#         collections = Image.objects.exclude(traits__collections="No").exclude(traits__collections__isnull=True).\
-#         	exclude(traits__collections='').exclude(traits__collections_name__icontains=',').\
-#             order_by('traits__collections_name').values_list('traits__collections_name').distinct()
-#         collections = [i[0] for i in list(collections)]
-#         data = {
-#             "collections": collections,
-#         }
-#         return JsonResponse(data, status = 200)
-
-def collection(request):
-    images = Image.objects.all()
-    images= sorted(images, key= lambda image:int(image.uniqueId))
-
-    if request.GET.get('unlocked'):
-        print('here 1')
-        images = Image.objects.filter(~Q(ownerWallet='Locked'))
-        images= sorted(images, key=lambda image:int(image.uniqueId))
-
-    if request.GET.get('1of1'):
-        print('here 2')
-        images = Image.objects.filter(uniqueId__gte=9910)
-        images= sorted(images, key=lambda image:int(image.uniqueId))
-
-    if request.GET.get('1of1') and request.GET.get('unlocked'):
-        print('here 3')
-        images = Image.objects.filter(~Q(ownerWallet='Locked'), uniqueId__gte=9910)
-        images= sorted(images, key=lambda image:int(image.uniqueId))
-
-    page = request.GET.get('page', 1)
-    paginator = Paginator(images, 200)
-
-    try:
-        images = paginator.page(page)
-    except PageNotAnInteger:
-        images = paginator.page(1)
-    except EmptyPage:
-        images = paginator.page(paginator.num_pages)
-
-
-    context = {}
-
-    context['images'] = images
-    return render(request, 'main/collection.html', context)
-
 def cover(request):
     return render(request, 'main/cover.html')
 
@@ -757,36 +679,141 @@ def test(request):
 def test4(request):
     return render(request, 'main/test4.html')
 
-def walletLookup(request):
-    images=None
-    if request.GET.get('searchWal'):
-        search = request.GET.get('searchWal')
-        images = Image.objects.filter(ownerWallet=search)
-        images= sorted(images, key=lambda image:int(image.uniqueId))
-        images2 = ImageTwo.objects.filter(ownerWallet=search)
-        images2= sorted(images2, key=lambda image:int(image.uniqueId))
-        images = images + images2
-    try:
-        if request.GET.get('searchNum'):
-            search = request.GET.get('searchNum')
-            if int(search) > 10000:
-                images = ImageTwo.objects.filter(uniqueId=search.lstrip('0'))
-                images= sorted(images, key= lambda image:int(image.uniqueId))
-            else:
-                images = Image.objects.filter(uniqueId=search.lstrip('0'))
-                images= sorted(images, key= lambda image:int(image.uniqueId))
-
-    except ValueError: ## This prevents someone who searches for anything but a number from breaking the page
-            print("Invalid Search. Numbers only")
-
-
-    return render(request, 'main/walletLookup.html',{
-        'images': images,
-    })
-
-
 def error_404_view(request, exception):
     return render(request, 'main/404.html')
 
 def error_500_view(request):
     return render(request, 'main/500.html')
+
+
+
+# def getMatching(request):
+#     print('get matching')
+#     if request.method == "GET" and is_ajax(request):
+#         # get all the varities from the database excluding
+#         # null and blank values
+#
+#         matching = Image.objects.exclude(traits__matching="No").exclude(traits__matching_color__isnull=True).\
+#         	exclude(traits__matching__exact='').exclude(traits__matching_color__icontains=',').\
+#             order_by('traits__matching_color').values_list('traits__matching_color').distinct()
+#         matching = [i[0] for i in list(matching)]
+#         data = {
+#             "matching": matching,
+#         }
+#         return JsonResponse(data, status = 200)
+#
+# def getCollections(request):
+#     print('get collections')
+#     if request.method == "GET" and is_ajax(request):
+#         # get all the varities from the database excluding
+#         # null and blank values
+#
+#         collections = Image.objects.exclude(traits__collections="No").exclude(traits__collections__isnull=True).\
+#         	exclude(traits__collections='').exclude(traits__collections_name__icontains=',').\
+#             order_by('traits__collections_name').values_list('traits__collections_name').distinct()
+#         collections = [i[0] for i in list(collections)]
+#         data = {
+#             "collections": collections,
+#         }
+#         return JsonResponse(data, status = 200)
+#
+# def chest(request):
+#     images = ImageTwo.objects.all()
+#     images= sorted(images, key= lambda image:int(image.uniqueId))
+#
+#     context = {}
+#
+#     context['images'] = images
+#     return render(request, 'main/chest.html', context)
+#
+#
+# def trading(request):
+#     print('a')
+#     images = Image.objects.filter(~Q(forSale='No'))
+#     print(type(images))
+#     for i in images:
+#         print(i)
+#         print(type(i))
+#         break
+#     print('b')
+#     images = sorted(images, key= lambda image:int(image.uniqueId))
+#     print(type(images))
+#     for i in images:
+#         print(i)
+#         print(type(i))
+#         break
+#     images2 = ImageTwo.objects.filter(~Q(forSale='No'))
+#     images2 = sorted(images2, key= lambda image:int(image.uniqueId))
+#     images = images + images2
+#     images = sorted(images, key= lambda image:int(image.uniqueId))
+#     traits = Trait.objects.all()
+#     context = {}
+#
+#     context['images'] = images
+#
+#     return render(request, 'main/trading.html', context)
+#
+# def buffmassivedongs(request):
+#     return render(request, 'main/buffmassivedongs.html', {})
+#
+# def collection(request):
+#     images = Image.objects.all()
+#     images= sorted(images, key= lambda image:int(image.uniqueId))
+#
+#     if request.GET.get('unlocked'):
+#         print('here 1')
+#         images = Image.objects.filter(~Q(ownerWallet='Locked'))
+#         images= sorted(images, key=lambda image:int(image.uniqueId))
+#
+#     if request.GET.get('1of1'):
+#         print('here 2')
+#         images = Image.objects.filter(uniqueId__gte=9910)
+#         images= sorted(images, key=lambda image:int(image.uniqueId))
+#
+#     if request.GET.get('1of1') and request.GET.get('unlocked'):
+#         print('here 3')
+#         images = Image.objects.filter(~Q(ownerWallet='Locked'), uniqueId__gte=9910)
+#         images= sorted(images, key=lambda image:int(image.uniqueId))
+#
+#     page = request.GET.get('page', 1)
+#     paginator = Paginator(images, 200)
+#
+#     try:
+#         images = paginator.page(page)
+#     except PageNotAnInteger:
+#         images = paginator.page(1)
+#     except EmptyPage:
+#         images = paginator.page(paginator.num_pages)
+#
+#
+#     context = {}
+#
+#     context['images'] = images
+#     return render(request, 'main/collection.html', context)
+#
+# def walletLookup(request):
+#     images=None
+#     if request.GET.get('searchWal'):
+#         search = request.GET.get('searchWal')
+#         images = Image.objects.filter(ownerWallet=search)
+#         images= sorted(images, key=lambda image:int(image.uniqueId))
+#         images2 = ImageTwo.objects.filter(ownerWallet=search)
+#         images2= sorted(images2, key=lambda image:int(image.uniqueId))
+#         images = images + images2
+#     try:
+#         if request.GET.get('searchNum'):
+#             search = request.GET.get('searchNum')
+#             if int(search) > 10000:
+#                 images = ImageTwo.objects.filter(uniqueId=search.lstrip('0'))
+#                 images= sorted(images, key= lambda image:int(image.uniqueId))
+#             else:
+#                 images = Image.objects.filter(uniqueId=search.lstrip('0'))
+#                 images= sorted(images, key= lambda image:int(image.uniqueId))
+#
+#     except ValueError: ## This prevents someone who searches for anything but a number from breaking the page
+#             print("Invalid Search. Numbers only")
+#
+#
+#     return render(request, 'main/walletLookup.html',{
+#         'images': images,
+#     })
