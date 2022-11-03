@@ -19,7 +19,7 @@ class TraitSerializer(serializers.ModelSerializer):
 ]
 
 class BuffSerializer(serializers.ModelSerializer):
-    traits = TraitSerializer(read_only=True)
+    #traits = TraitSerializer(read_only=True)
 
     class Meta:
 	    model = Image
@@ -30,8 +30,8 @@ class BuffSerializer(serializers.ModelSerializer):
 class BuffSerializerTwo(serializers.ModelSerializer):
     class Meta:
 	    model = ImageTwo
-	    fields = ('title', 'ownerWallet', 'forSale', 'uniqueId', 'tradeId', 'date_created',
-	    		'last_updated', 'img_photo', 'img_url', 'date_listed')
+	    fields = ("title", "ownerWallet", "forSale", "uniqueId", "tradeId", "date_created",
+	    		"last_updated", "img_photo", "img_url", "date_listed")
 
 class SummarySerializer(serializers.Serializer):
 
@@ -47,7 +47,6 @@ class SummarySerializer(serializers.Serializer):
         return serializer(instance, context=self.context).data
 
 class BuffPlainSerializer(object):
-
 
     @staticmethod
     def serialize_data(queryset):
@@ -88,6 +87,4 @@ class BuffPlainSerializer(object):
                         "img_url": entry.img_url,
                         "date_listed": entry.date_listed
                     }
-
-        #d["total_count"] = queryset["total_count"]
         return d
