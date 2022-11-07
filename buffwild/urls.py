@@ -34,6 +34,7 @@ urlpatterns = [
     path('terms/', views.terms, name='terms'),
     path('posts-json/<int:num_posts>', PostJsonListView.as_view(), name='posts-json-view'),
     path('buff_list/', views.buff_list),
+    path('trade_stats/', views.trade_stats),
     path('test/', views.test, name='test'),
     path('test4/', views.test4, name='test4'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
