@@ -41,6 +41,32 @@ def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 @api_view(['GET'])
+def trade_stats(request):
+    queryList1 = Image.objects.select_related('traits').filter(~Q(ownerWallet='Locked'))
+    queryList2 = ImageTwo.objects.filter(~Q(ownerWallet='Locked'))
+    queryList = list(chain(queryList1, queryList2))
+    owners = []
+    for buff in queryList:
+        if buff.ownerWallet not in owners:
+            owners.append(buff.ownerWallet)
+    num_owners = len(owners)
+    genesis_items = 10000
+    genesis_reserved = len(queryList1)
+    trade_stats = TradeStats.objects.all()
+    print(trade_stats[0])
+    volume = trade_stats[0].manual_volume + trade_stats[0].automated_volume
+    num_trades = trade_stats[0].manual_number_trades + trade_stats[0].automated_number_trades
+    highest_trade = trade_stats[0].highest_trade
+    asking_prices = list(filter(lambda x: x.forSale != "No", queryList))
+    print('asking prices here')
+    print(asking_prices)
+    print('is this the floor?')
+    asking_prices.sort(key=lambda x: float(x.forSale))
+    floor = float(asking_prices[0].forSale)
+
+    return JsonResponse({'genesis_items': genesis_items, 'genesis_reserved': genesis_reserved, 'floor': floor, 'volume': volume, 'num_trades': num_trades, 'highest_trade': highest_trade, 'num_owners': num_owners})
+
+@api_view(['GET'])
 def buff_list(request):
     # queryList1 = Image.objects.all()
     # queryList2 = ImageTwo.objects.all()
