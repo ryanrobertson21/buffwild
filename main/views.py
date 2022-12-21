@@ -236,7 +236,7 @@ class PostJsonListView(View):
 
         # faction buffs
         if 'Faction_Buffs' in series and series_specific_faction_buffs == []:
-            series_specific_faction_buffs = ['Cyclops', 'Football', 'Ghost', 'Mummy', 'Pharaoh', 'Pirate', 'Buff Riders', 'La Bagarre Buff', 'Gnome Buff', 'German Buff', 'Community Buffs', 'Faction Buffs', 'British Buff']
+            series_specific_faction_buffs = ['Cyclops', 'Football', 'Ghost', 'Mummy', 'Pharaoh', 'Pirate', 'Buff Riders', 'La Bagarre Buff', 'Gnome Buff', 'German Buff', 'Community Buffs', 'Faction Buffs', 'British Buff', 'Buffalo Soldier Lieutenants', 'Into the Darkness Lieutenants', 'Unholy Buffalos Lieutenants', 'Storm Born Lieutenants', 'Space Buff', 'Game Screenshots', 'Radorable Buff', 'Santa Buff', 'World Cup Buff']
 
         if 'Genesis_Collection_Buffs' in series:
             buff_numbers.extend(range(1,9911))
@@ -270,7 +270,24 @@ class PostJsonListView(View):
             buff_numbers.extend(range(10282, 10286))
         if 'British Buff' in series_specific_faction_buffs:
             buff_numbers.append(10286)
-
+        if 'Buffalo Soldier Lieutenants' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10287, 10292))
+        if 'Into the Darkness Lieutenants' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10292, 10297))
+        if 'Unholy Buffalos Lieutenants' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10297, 10302))
+        if 'Storm Born Lieutenants' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10302, 10307))
+        if 'Space Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10307)
+        if 'Game Screenshots' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10308, 10363))
+        if 'Radorable Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10363)
+        if 'Santa Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10364)
+        if 'World Cup Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10365)
         # 1 of 1 buffs
         if '1_of_1s' in series and series_specific_one_of_ones == []:
             series_specific_one_of_ones = ['Angel Buff', 'Battle Buff', 'Buff God', 'Buff Ball Z', 'Bunny Buff', 'Cowboy', 'Demon Buff', 'Extinct Buff',
