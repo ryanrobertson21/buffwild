@@ -138,7 +138,7 @@ class PostJsonListView(View):
         if self.request.GET.get('search_bar', None):
             search = self.request.GET.get('search_bar')
             try:
-                if int(search) <= 10286:
+                if int(search) <= 10365:
                     queryList = filter(lambda x: x.uniqueId == int(search), queryList)
             except ValueError: ## This prevents someone who searches for anything but a number from breaking the page
                 queryList = filter(lambda x: x.ownerWallet == search, queryList)
