@@ -93,6 +93,11 @@ def buff_list(request):
 class MainView(TemplateView):
     template_name = 'main/collection.html'
 
+def format_floats(value):
+    float_string = str(format (value, ',f'))
+    new_string = float_string.rstrip('0').rstrip('.') if '.' in float_string else float_string
+    return new_string
+
 class PostJsonListView(View):
     serializer_class = SummarySerializer
     plain_serializer_class = BuffPlainSerializer
@@ -124,14 +129,14 @@ class PostJsonListView(View):
         for buff in queryList:
             if buff.ownerWallet not in owners:
                 owners.append(buff.ownerWallet)
-        num_owners = len(owners)
+        num_owners = (format (len(owners), ',d'))
 
         asking_prices = list(filter(lambda x: x.forSale != "No", queryList))
         print('asking prices here')
         print(asking_prices)
         print('is this the floor?')
         asking_prices.sort(key=lambda x: float(x.forSale))
-        floor = asking_prices[0].forSale
+        floor = format_floats(float(asking_prices[0].forSale))
 
         print('HERE 1')
 
@@ -578,10 +583,10 @@ class PostJsonListView(View):
         data = self.plain_serializer_class.serialize_data(queryList)
         print('here is total genesis items')
         print(10000)
-        genesis_items = 10000
+        genesis_items = (format (10000, ',d'))
         print('here is total genesis reserved')
         print(len(queryList1))
-        genesis_reserved = len(queryList1)
+        genesis_reserved = (format (len(queryList1), ',d'))
         print('here is trade floor')
 
 
@@ -589,9 +594,9 @@ class PostJsonListView(View):
 
         trade_stats = TradeStats.objects.all()
         print(trade_stats[0])
-        volume = trade_stats[0].manual_volume + trade_stats[0].automated_volume
-        num_trades = trade_stats[0].manual_number_trades + trade_stats[0].automated_number_trades
-        highest_trade = trade_stats[0].highest_trade
+        volume = format_floats(trade_stats[0].manual_volume + trade_stats[0].automated_volume)
+        num_trades = (format (trade_stats[0].manual_number_trades + trade_stats[0].automated_number_trades, ',d'))
+        highest_trade = format_floats(trade_stats[0].highest_trade)
 
 
         #print(type(data))
