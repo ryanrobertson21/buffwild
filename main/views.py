@@ -136,7 +136,7 @@ class PostJsonListView(View):
         print('HERE 1')
 
         if self.request.GET.get('search_bar', None):
-            search = self.request.GET.get('search_bar')
+            search = self.request.GET.get('search_bar').strip()
             try:
                 if int(search) <= 10365:
                     queryList = filter(lambda x: x.uniqueId == int(search), queryList)
