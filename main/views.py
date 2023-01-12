@@ -143,7 +143,7 @@ class PostJsonListView(View):
         if self.request.GET.get('search_bar', None):
             search = self.request.GET.get('search_bar').strip()
             try:
-                if int(search) <= 10365:
+                if int(search) <= 10390:
                     queryList = filter(lambda x: x.uniqueId == int(search), queryList)
             except ValueError: ## This prevents someone who searches for anything but a number from breaking the page
                 queryList = filter(lambda x: x.ownerWallet == search, queryList)
@@ -241,7 +241,10 @@ class PostJsonListView(View):
 
         # faction buffs
         if 'Faction_Buffs' in series and series_specific_faction_buffs == []:
-            series_specific_faction_buffs = ['Cyclops', 'Football', 'Ghost', 'Mummy', 'Pharaoh', 'Pirate', 'Buff Riders', 'La Bagarre Buff', 'Gnome Buff', 'German Buff', 'Community Buffs', 'Faction Buffs', 'British Buff', 'Buffalo Soldier Lieutenants', 'Into the Darkness Lieutenants', 'Unholy Buffalos Lieutenants', 'Storm Born Lieutenants', 'Space Buff', 'Game Screenshots', 'Radorable Buff', 'Santa Buff', 'World Cup Buff']
+            series_specific_faction_buffs = ['Cyclops', 'Football', 'Ghost', 'Mummy', 'Pharaoh', 'Pirate', 'Buff Riders', 'La Bagarre Buff', 'Gnome Buff',
+             'German Buff', 'Community Buffs', 'British Buff', 'Faction Buffs', 'Buffalo Soldier Lieutenants', 'Soldier Buffs', 'Into the Darkness Lieutenants',
+             'Darkness Buffs', 'Unholy Buffalos Lieutenants', 'Unholy Buffs', 'Storm Born Lieutenants', 'Storm Born Buffs', 'Space Buff', 'Game Screenshots',
+             'Radorable Buff', 'Santa Buff', 'World Cup Buff', 'Gamer Buffs', 'Workout Buffs']
 
         if 'Genesis_Collection_Buffs' in series:
             buff_numbers.extend(range(1,9911))
@@ -293,6 +296,19 @@ class PostJsonListView(View):
             buff_numbers.append(10364)
         if 'World Cup Buff' in series_specific_faction_buffs:
             buff_numbers.append(10365)
+        if 'Gamer Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10366, 10370))
+        if 'Darkness Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10370, 10374))
+        if 'Soldier Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10374, 10378))
+        if 'Storm Born Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10378, 10382))
+        if 'Unholy Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10382, 10386))
+        if 'Workout Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10386, 10391))
+
         # 1 of 1 buffs
         if '1_of_1s' in series and series_specific_one_of_ones == []:
             series_specific_one_of_ones = ['Angel Buff', 'Battle Buff', 'Buff God', 'Buff Ball Z', 'Bunny Buff', 'Cowboy', 'Demon Buff', 'Extinct Buff',
