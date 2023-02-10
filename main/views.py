@@ -791,7 +791,7 @@ def instructions(request):
         elif wild <= 151:
             war_maiden_buff += 1
         elif wild <= 155:
-            tiki_warrior_buff += 1
+            wizard_buff += 1
         elif wild <= 165:
             one_million_cc += 1
         elif wild <= 190:
@@ -872,7 +872,7 @@ def instructions(request):
     context['trade_maiden_buff']= trade_maiden_buff
     context['voorhees_buff']= voorhees_buff
     context['war_maiden_buff']= war_maiden_buff
-    context['tiki_warrior_buff']= tiki_warrior_buff
+    context['wizard_buff']= wizard_buff
     context['one_million_cc']= one_million_cc
     context['five_hundred_thousand_cc']= five_hundred_thousand_cc
     context['thirty_thousand_cc']= thirty_thousand_cc
