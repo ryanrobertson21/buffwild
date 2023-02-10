@@ -698,7 +698,7 @@ def instructions(request):
     trade_maiden_buff = 0
     voorhees_buff = 0
     war_maiden_buff = 0
-    tiki_warrior_buff = 0
+    wizard_buff = 0
     one_million_cc = 0
     five_hundred_thousand_cc = 0
     thirty_thousand_cc = 0
