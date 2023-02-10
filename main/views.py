@@ -658,11 +658,11 @@ def instructions(request):
     context = {}
     left = len(read_pickle_file(production_wild_path))
     context['left'] = left
-    redeemed = 40000 - left
+    redeemed = 75000 - left
     print('l')
     print(left)
     print(redeemed)
-    redeemed = round(redeemed / 400, 2)
+    redeemed = round(redeemed / 750, 2)
     print('here wild redeemed')
     print(redeemed)
     context['redeemed'] = redeemed
