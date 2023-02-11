@@ -243,7 +243,7 @@ class PostJsonListView(View):
         if 'Faction_Buffs' in series and series_specific_faction_buffs == []:
             series_specific_faction_buffs = ['Cyclops', 'Football', 'Ghost', 'Mummy', 'Pharaoh', 'Pirate', 'Buff Riders', 'La Bagarre Buff', 'Gnome Buff',
              'German Buff', 'Community Buffs', 'British Buff', 'Faction Buffs', 'Buffalo Soldier Lieutenants', 'Buffalo Soldier Gamer Buffs',  'Into the Darkness Lieutenants',
-             'Darkness Gamer Buffs', 'Unholy Buffalos Lieutenants', 'Unholy Buffalos Gamer Buffs', 'Storm Born Lieutenants', 'Storm Born Gamer Buffs', 'Gamer Buffs', 'Space Buff', 'Game Screenshots',
+             'Into the Darkness Gamer Buffs', 'Unholy Buffalos Lieutenants', 'Unholy Buffalos Gamer Buffs', 'Storm Born Lieutenants', 'Storm Born Gamer Buffs', 'Gamer Buffs', 'Space Buff', 'Game Screenshots',
              'Radorable Buff', 'Santa Buff', 'World Cup Buff', 'Workout Buffs', 'Art Buffs', 'Buff Maidens', 'Buff Racers', 'Clown Buff', 'Cow Buffs', 'Dino Buffs', 'Dracula Buffs', 'Fire God Buffs', 'Judge Buff',
              'Legionnaire Buffs', 'Lightsuit Buffs', 'Military Buffs', 'Radish Buff', 'Robinhood Buffs', 'Roman Buffs', 'Rumble Man Buffs', 'Sinatra Buff', 'Skull Fighter Buffs', 'Thanos Buff', 'Thunder God Buffs',
               'Tiki Warrior Buffs', 'Trade Maiden Buffs', 'Voorhees Buffs', 'War Maiden Buffs', 'Wizard Buffs']
@@ -300,7 +300,7 @@ class PostJsonListView(View):
             buff_numbers.append(10365)
         if 'Gamer Buffs' in series_specific_faction_buffs:
             buff_numbers.extend(range(10366, 10370))
-        if 'Into the Darkness Ganer Buffs' in series_specific_faction_buffs:
+        if 'Into the Darkness Gamer Buffs' in series_specific_faction_buffs:
             buff_numbers.extend(range(10370, 10374))
         if 'Buffalo Soldier Gamer Buffs' in series_specific_faction_buffs:
             buff_numbers.extend(range(10374, 10378))
