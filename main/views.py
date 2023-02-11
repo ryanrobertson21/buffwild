@@ -143,7 +143,7 @@ class PostJsonListView(View):
         if self.request.GET.get('search_bar', None):
             search = self.request.GET.get('search_bar').strip()
             try:
-                if int(search) <= 10390:
+                if int(search) <= 10500:
                     queryList = filter(lambda x: x.uniqueId == int(search), queryList)
             except ValueError: ## This prevents someone who searches for anything but a number from breaking the page
                 queryList = filter(lambda x: x.ownerWallet == search, queryList)
@@ -242,9 +242,11 @@ class PostJsonListView(View):
         # faction buffs
         if 'Faction_Buffs' in series and series_specific_faction_buffs == []:
             series_specific_faction_buffs = ['Cyclops', 'Football', 'Ghost', 'Mummy', 'Pharaoh', 'Pirate', 'Buff Riders', 'La Bagarre Buff', 'Gnome Buff',
-             'German Buff', 'Community Buffs', 'British Buff', 'Faction Buffs', 'Buffalo Soldier Lieutenants', 'Soldier Buffs', 'Into the Darkness Lieutenants',
-             'Darkness Buffs', 'Unholy Buffalos Lieutenants', 'Unholy Buffs', 'Storm Born Lieutenants', 'Storm Born Buffs', 'Space Buff', 'Game Screenshots',
-             'Radorable Buff', 'Santa Buff', 'World Cup Buff', 'Gamer Buffs', 'Workout Buffs']
+             'German Buff', 'Community Buffs', 'British Buff', 'Faction Buffs', 'Buffalo Soldier Lieutenants', 'Buffalo Soldier Gamer Buffs',  'Into the Darkness Lieutenants',
+             'Darkness Gamer Buffs', 'Unholy Buffalos Lieutenants', 'Unholy Buffalos Gamer Buffs', 'Storm Born Lieutenants', 'Storm Born Gamer Buffs', 'Gamer Buffs', 'Space Buff', 'Game Screenshots',
+             'Radorable Buff', 'Santa Buff', 'World Cup Buff', 'Workout Buffs', 'Art Buffs', 'Buff Maidens', 'Buff Racers', 'Clown Buff', 'Cow Buffs', 'Dino Buffs', 'Dracula Buffs', 'Fire God Buffs', 'Judge Buff',
+             'Legionnaire Buffs', 'Lightsuit Buffs', 'Military Buffs', 'Radish Buff', 'Robinhood Buffs', 'Roman Buffs', 'Rumble Man Buffs', 'Sinatra Buff', 'Skull Fighter Buffs', 'Thanos Buff', 'Thunder God Buffs',
+              'Tiki Warrior Buffs', 'Trade Maiden Buffs', 'Voorhees Buffs', 'War Maiden Buffs', 'Wizard Buffs']
 
         if 'Genesis_Collection_Buffs' in series:
             buff_numbers.extend(range(1,9911))
@@ -298,16 +300,67 @@ class PostJsonListView(View):
             buff_numbers.append(10365)
         if 'Gamer Buffs' in series_specific_faction_buffs:
             buff_numbers.extend(range(10366, 10370))
-        if 'Darkness Buffs' in series_specific_faction_buffs:
+        if 'Into the Darkness Ganer Buffs' in series_specific_faction_buffs:
             buff_numbers.extend(range(10370, 10374))
-        if 'Soldier Buffs' in series_specific_faction_buffs:
+        if 'Buffalo Soldier Gamer Buffs' in series_specific_faction_buffs:
             buff_numbers.extend(range(10374, 10378))
-        if 'Storm Born Buffs' in series_specific_faction_buffs:
+        if 'Storm Born Gamer Buffs' in series_specific_faction_buffs:
             buff_numbers.extend(range(10378, 10382))
-        if 'Unholy Buffs' in series_specific_faction_buffs:
+        if 'Unholy Buffalos Gamer Buffs' in series_specific_faction_buffs:
             buff_numbers.extend(range(10382, 10386))
         if 'Workout Buffs' in series_specific_faction_buffs:
             buff_numbers.extend(range(10386, 10391))
+        if 'Art Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10391, 10396))
+        if 'Buff Maidens' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10396, 10401))
+        if 'Buff Racers' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10401, 10408))
+        if 'Clown Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10408)
+        if 'Cow Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10409, 10415))
+        if 'Dino Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10415, 10419))
+        if 'Dracula Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10419, 10422))
+        if 'Dragon God Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10422)
+        if 'Fire God Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10423, 10428))
+        if 'Judge Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10428)
+        if 'Legionnaire Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10429, 10432))
+        if 'Lightsuit Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10432, 10439))
+        if 'Military Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10439, 10443))
+        if 'Radish Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10443)
+        if 'Robinhood Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10444, 10449))
+        if 'Roman Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10449, 10452))
+        if 'Rumble Man Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10452, 10457))
+        if 'Sinatra Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10457)
+        if 'Skull Fighter Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10458, 10467))
+        if 'Thanos Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10467)
+        if 'Thunder God Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10458, 10473))
+        if 'Tiki Warrior Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10473, 10482))
+        if 'Trade Maiden Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10473, 10487))
+        if 'Voorhees Buff' in series_specific_faction_buffs:
+            buff_numbers.append(10487)
+        if 'War Maiden Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10488, 10501))
+
 
         # 1 of 1 buffs
         if '1_of_1s' in series and series_specific_one_of_ones == []:
@@ -792,40 +845,41 @@ def instructions(request):
             war_maiden_buff += 1
         elif wild <= 155:
             wizard_buff += 1
+
         elif wild <= 165:
-            one_million_cc += 1
-        elif wild <= 190:
-            five_hundred_thousand_cc += 1
-        elif wild <= 225:
-            thirty_thousand_cc += 1
-        elif wild <= 300:
-            fifteen_thousand_cc += 1
-        elif wild <= 400:
-            six_thousand_cc += 1
-        elif wild <= 550:
-            three_thousand_cc += 1
-        elif wild <= 800:
-            one_thousand_five_hundred_cc += 1
-        elif wild <= 815:
-            seven_hundred_fifty_cc += 1
-        elif wild <= 845:
-            five_hundred_cc += 1
-        elif wild <= 1345:
-            one_cc += 1
-        elif wild <= 2345:
             ten_thousand_rds += 1
-        elif wild <= 4845:
+        elif wild <= 190:
             five_thousand_rds += 1
-        elif wild <= 9845:
+        elif wild <= 225:
             two_thousand_five_hundred_rds += 1
-        elif wild <= 19845:
+        elif wild <= 300:
             one_thousand_rds += 1
-        elif wild <= 42095:
+        elif wild <= 400:
             five_hundred_rds += 1
-        elif wild <= 67595:
+        elif wild <= 550:
             two_hundred_fifty_rds += 1
-        elif wild <= 71000:
+        elif wild <= 800:
             one_hundred_rds += 1
+        elif wild <= 815:
+            one_million_cc += 1
+        elif wild <= 845:
+            five_hundred_thousand_cc += 1
+        elif wild <= 1345:
+            thirty_thousand_cc += 1
+        elif wild <= 2345:
+            fifteen_thousand_cc += 1
+        elif wild <= 4845:
+            six_thousand_cc += 1
+        elif wild <= 9845:
+            three_thousand_cc += 1
+        elif wild <= 19845:
+            one_thousand_five_hundred_cc += 1
+        elif wild <= 42095:
+            seven_hundred_fifty_cc += 1
+        elif wild <= 67595:
+            five_hundred_cc += 1
+        elif wild <= 71000:
+            one_cc += 1
         elif wild <= 71020:
             one_hundred_fifty_xrd += 1
         elif wild <= 71050:
