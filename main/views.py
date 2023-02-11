@@ -351,15 +351,17 @@ class PostJsonListView(View):
         if 'Thanos Buff' in series_specific_faction_buffs:
             buff_numbers.append(10467)
         if 'Thunder God Buffs' in series_specific_faction_buffs:
-            buff_numbers.extend(range(10458, 10473))
+            buff_numbers.extend(range(10468, 10473))
         if 'Tiki Warrior Buffs' in series_specific_faction_buffs:
             buff_numbers.extend(range(10473, 10482))
         if 'Trade Maiden Buffs' in series_specific_faction_buffs:
-            buff_numbers.extend(range(10473, 10487))
+            buff_numbers.extend(range(10482, 10487))
         if 'Voorhees Buff' in series_specific_faction_buffs:
             buff_numbers.append(10487)
         if 'War Maiden Buffs' in series_specific_faction_buffs:
-            buff_numbers.extend(range(10488, 10501))
+            buff_numbers.extend(range(10488, 10497))
+        if 'Wizard Buffs' in series_specific_faction_buffs:
+            buff_numbers.extend(range(10497, 10501))
 
 
         # 1 of 1 buffs
