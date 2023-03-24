@@ -8,7 +8,6 @@
   <head>
     <style>
 
-
       button.multiselect-option.dropdown-item {
         pointer-events:none;
         }
@@ -252,6 +251,14 @@
 
     .buff-info {
       width: 250px !important;
+    }
+    .special-back {
+      color: #000000 !important;
+      font-size: .55rem !important;
+      line-height: 1.25;
+    }
+    .special-last {
+      border: 0px !important;
     }
 
     @media (min-width: 832px) {
@@ -5910,6 +5917,36 @@ function putTableData(result, b=false) {
                             </div> \
                             </div> \
                             <p-score class='card-title'>Buff Score: " + b.traits.total_buff_score + "</p-score> \
+                          </div> \
+                        </div> \
+                      </div> \
+                      <div class='container buff-info'> \
+                      <a style='text-align:center; color:#FFFFFF; background-color:#000000;'> \
+                        <p style='text-align:center; color:#FFFFFF; background-color:#000000;'> \
+                          #" + b.uniqueId + title +
+                          price +
+                    "</a> \
+                    </div> \
+                  </div> \
+                </div>"
+            }
+            else if (b.uniqueId <= 10000) {
+              row = "<div class='col text-center buff-cols'> \
+                  <div class='card-full shadow-sm'> \
+                    <div class='card'> \
+                      <div class='face front card-img'> \
+                        <img loading='lazy' class='card-img' src=" + b.img_url + " alt='Buff Wild Crew NFT Card Front'> \
+                      </div> \
+                      <div class='face back card-img'> \
+                        <img loading='lazy' class='card-img' src='https://buffwild.b-cdn.net/SiteImages/Buff_Wild_Card_Back.png' alt='Buff Wild Crew NFT Card Back'> \
+                        <div class='card-img-overlay'> \
+                          <p-num class='card-title'>#" + addLeadingZeros(b.uniqueId, 4) + "</p-num> \
+                            <div class='table table-bordered table-hover table-sm'> \
+                              <p class='special-back'>" + b.name + "</p>\
+                              <p class='special-back'>" + b.traits_description + "</p>\
+                              <p class='special-back special-last'>" + b.traits_description_two + "</p>\
+                            </div> \
+                            <p-score class='card-title'>Buff Score: " + b.total_buff_score + "</p-score> \
                           </div> \
                         </div> \
                       </div> \
