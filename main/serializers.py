@@ -24,7 +24,7 @@ class BuffSerializer(serializers.ModelSerializer):
     class Meta:
 	    model = Image
 	    fields = ('title', 'ownerWallet', 'forSale', 'uniqueId', 'tradeId', 'date_created',
-	    		'last_updated', 'img_photo', 'img_url', 'traits', 'date_listed')
+	    		'last_updated', 'img_photo', 'img_url', 'traits', 'date_listed', 'total_buff_score', 'name', 'traits_description', 'traits_description_two')
 
 
 class BuffSerializerTwo(serializers.ModelSerializer):
@@ -76,6 +76,21 @@ class BuffPlainSerializer(object):
                             "matching": entry.traits.matching, "matching_color": entry.traits.matching_color, "matching_rarity": entry.traits.matching_rarity, "matching_buff_score": entry.traits.matching_buff_score, "matching_dictionary": entry.traits.matching_dictionary,
                             "collections": entry.traits.collections, "collections_name": entry.traits.collections_name, "collections_rarity": entry.traits.collections_rarity, "collections_buff_score": entry.traits.collections_buff_score, "collections_dictionary": entry.traits.collections_dictionary}
                     }
+            elif type(entry) == Image:
+
+                d[entry.uniqueId] = {
+                        "title": entry.title,
+                        "forSale": entry.forSale,
+                        "uniqueId": entry.uniqueId,
+                        "tradeId": entry.tradeId,
+                        "ownerWallet": entry.ownerWallet,
+                        "img_url": entry.img_url,
+                        "date_listed": entry.date_listed,
+                        "total_buff_score": entry.total_buff_score,
+                        "name": entry.name,
+                        "traits_description": entry.traits_description,
+                        "traits_description_two": entry.traits_description_two
+                    }
             else:
 
                 d[entry.uniqueId] = {
@@ -85,6 +100,6 @@ class BuffPlainSerializer(object):
                         "tradeId": entry.tradeId,
                         "ownerWallet": entry.ownerWallet,
                         "img_url": entry.img_url,
-                        "date_listed": entry.date_listed
+                        "date_listed": entry.date_listed,
                     }
         return d
