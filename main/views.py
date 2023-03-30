@@ -437,10 +437,10 @@ class PostJsonListView(View):
             queryList = filter(lambda x: float(x.forSale) <= float(price_max), queryList)
 
         if score_min:
-            queryList = filter(lambda x: x.uniqueId <= 9910 and float(x.traits.total_buff_score) >= float(score_min), queryList)
+            queryList = filter(lambda x: x.uniqueId <= 10000 and float(x.traits.total_buff_score) >= float(score_min), queryList)
 
         if score_max:
-            queryList = filter(lambda x: x.uniqueId <= 9910 and float(x.traits.total_buff_score) <= float(score_max), queryList)
+            queryList = filter(lambda x: x.uniqueId <= 10000 and float(x.traits.total_buff_score) <= float(score_max), queryList)
 
 
 
@@ -621,10 +621,10 @@ class PostJsonListView(View):
             queryList = list(filter(lambda x: x.forSale != "No", queryList))
             queryList.sort(key=lambda x: float(x.forSale), reverse=True)
         elif sort_by == "buffScore_ascending":
-            queryList = list(filter(lambda x: x.uniqueId <= 9910, queryList))
+            queryList = list(filter(lambda x: x.uniqueId <= 10000, queryList))
             queryList.sort(key=lambda x: x.traits.total_buff_score)
         elif sort_by == "buffScore_descending":
-            queryList = list(filter(lambda x: x.uniqueId <= 9910, queryList))
+            queryList = list(filter(lambda x: x.uniqueId <= 10000, queryList))
             queryList.sort(key=lambda x: x.traits.total_buff_score, reverse=True)
         elif sort_by == "date_listed_ascending":
             queryList = list(filter(lambda x: x.forSale != "No", queryList))
