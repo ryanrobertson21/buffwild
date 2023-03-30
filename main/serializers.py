@@ -89,8 +89,10 @@ class BuffPlainSerializer(object):
                         "total_buff_score": entry.total_buff_score,
                         "name": entry.name,
                         "traits_description": entry.traits_description,
-                        "traits_description_two": entry.traits_description_two
+                        "traits_description_two": entry.traits_description_two,
+                        "traits": {"total_buff_score": entry.traits.total_buff_score}
                     }
+
             else:
 
                 d[entry.uniqueId] = {
