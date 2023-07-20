@@ -131,7 +131,7 @@ class PostJsonListView(View):
                 owners.append(buff.ownerWallet)
         num_owners = (format (len(owners), ',d'))
 
-        asking_prices = list(filter(lambda x: x.forSale != "No", queryList))
+        asking_prices = list(filter(lambda x: x.forSale != "No" and x.forSale != "On Auction", queryList))
         print('asking prices here')
         print(asking_prices)
         print('is this the floor?')
