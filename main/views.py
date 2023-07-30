@@ -57,7 +57,7 @@ def trade_stats(request):
     volume = trade_stats[0].manual_volume + trade_stats[0].automated_volume
     num_trades = trade_stats[0].manual_number_trades + trade_stats[0].automated_number_trades
     highest_trade = trade_stats[0].highest_trade
-    asking_prices = list(filter(lambda x: x.forSale != "No" and x.forSale != "On Auction", queryList))
+    asking_prices = list(filter(lambda x: x.forSale != "No", queryList))
     print('asking prices here')
     print(asking_prices)
     print('is this the floor?')
@@ -131,7 +131,7 @@ class PostJsonListView(View):
                 owners.append(buff.ownerWallet)
         num_owners = (format (len(owners), ',d'))
 
-        asking_prices = list(filter(lambda x: x.forSale != "No" and x.forSale != "On Auction", queryList))
+        asking_prices = list(filter(lambda x: x.forSale != "No", queryList))
         print('asking prices here')
         print(asking_prices)
         print('is this the floor?')
