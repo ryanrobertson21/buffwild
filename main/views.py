@@ -58,6 +58,7 @@ def trade_stats(request):
     num_trades = trade_stats[0].manual_number_trades + trade_stats[0].automated_number_trades
     highest_trade = trade_stats[0].highest_trade
     asking_prices = list(filter(lambda x: x.forSale != "No", queryList))
+    asking_prices = list(filter(lambda x: x.forSale != "On Auction", asking_prices))
     print('asking prices here')
     print(asking_prices)
     print('is this the floor?')
@@ -132,9 +133,8 @@ class PostJsonListView(View):
         num_owners = (format (len(owners), ',d'))
 
         asking_prices = list(filter(lambda x: x.forSale != "No", queryList))
-        print('asking prices here')
-        print(asking_prices)
-        print('is this the floor?')
+        asking_prices = list(filter(lambda x: x.forSale != "On Auction", asking_prices))
+
         asking_prices.sort(key=lambda x: float(x.forSale))
         floor = format_floats(float(asking_prices[0].forSale))
 
